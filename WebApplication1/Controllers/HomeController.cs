@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication1.Models;
+using MotoCross.Models;
 
-namespace WebApplication1.Controllers
+namespace MotoCross.Controllers
 {
     public class HomeController : Controller
     {
@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public IActionResult Index()
         {
             return View();

@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebApplication1.Data;
+using MotoCross.Data;
 
-[assembly: HostingStartup(typeof(WebApplication1.Areas.Identity.IdentityHostingStartup))]
-namespace WebApplication1.Areas.Identity
+[assembly: HostingStartup(typeof(MotoCross.Areas.Identity.IdentityHostingStartup))]
+namespace MotoCross.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {
