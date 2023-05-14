@@ -7,6 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MotoCross.Data;
 using MotoCross.Models;
+using MotoCross.Services.UserService;
+using AutoMapper;
+using MotoCross.Mapping;
+using NSwag.AspNetCore;
+using MotoCross.Services.MotoService;
 
 namespace MotoCross
 {
@@ -31,6 +36,19 @@ namespace MotoCross
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IMotoService, MotoService>();
+
+
+            services.AddSingleton(new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            }).CreateMapper());
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MotoCross", Version = "v1" });
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +58,8 @@ namespace MotoCross
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MotoCross v1"));
             }
             else
             {

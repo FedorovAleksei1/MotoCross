@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MotoCross.Models;
 using System.Collections.Generic;
 
-namespace MotoCross.Models
+namespace MotoCross.Dto
 {
-    public class User : IdentityUser
+    public class UserDto
     {
+        public string Id { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public List<Moto> Motos { get; set; }
-        //public List<Order> Orders { get; set; }
+        public List<MotoDto> Motos { get; set; }
+        //public List<OrderDto> Orders { get; set; }
     }
 }

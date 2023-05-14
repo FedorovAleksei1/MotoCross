@@ -1,0 +1,45 @@
+﻿@using MotoCross.Models.VIewModel;
+@model UserViewModel;
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+<form method="post">
+    @Html.HiddenFor(x => x.User.Id)
+    <div>
+        <label>
+            Имя
+            @Html.TextBoxFor(x => Model.User.FirstName, new { @class = "form-control"})
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Отчество
+            @Html.TextBoxFor(x => Model.User.MiddleName,new { @class = "form-control"})
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Фамилия
+            @Html.TextBoxFor(x => Model.User.LastName, new { @class = "form-control"})
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Возраст
+            @Html.TextBoxFor(x => Model.User.Email, new { @class = "form-control"})
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Телефон
+            @Html.TextBoxFor(x => Model.User.Phone,  new { @class = "form-control"} )
+        </label>
+    </div>
+
+    <input type="submit" value="Сохранить" />
+
+</form>
