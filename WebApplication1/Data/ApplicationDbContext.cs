@@ -11,7 +11,7 @@ namespace MotoCross.Data
         {
         }
 
-        public DbSet<Moto> Motoes { get; set; }
+        public DbSet<Moto> Motos { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<СustomerServiceDto> CustomerServices { get; set; }
     }

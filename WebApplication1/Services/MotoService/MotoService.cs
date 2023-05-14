@@ -21,8 +21,8 @@ namespace MotoCross.Services.MotoService
             if (motosDto == null || motosDto.Count == 0)
                 return;
             
-                var moto = _mapper.Map<Moto>(motosDto);
-                _context.Add(moto);
+                var motoes = _mapper.Map<Moto>(motosDto);
+                _context.Motos.AddRange(motoes);
                 _context.SaveChanges();
             
         }

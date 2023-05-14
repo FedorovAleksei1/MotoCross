@@ -2,6 +2,7 @@
 {
     public class СustomerServiceDto
     {
+        //Таблица Услуги для таблицы Заказы (Какие услуги проводились для мотоцикла )
         public int Id { get; set; }
         public string Name { get; set; }
         public string Price { get; set; }

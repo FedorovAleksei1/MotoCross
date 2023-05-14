@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using MotoCross.Data;
 using MotoCross.Dto;
 using MotoCross.Models;
+using MotoCross.Services.MotoService;
 using System;
 using System.Linq;
 using System.Numerics;
@@ -15,11 +16,13 @@ namespace MotoCross.Services.UserService
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        public UserService(ApplicationDbContext context, IMapper mapper, UserManager<User> userManager)
+        private readonly IMotoService _motoService;
+        public UserService(ApplicationDbContext context, IMapper mapper, UserManager<User> userManager, IMotoService motoService)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
+            _motoService = motoService;
         }
 
         public async Task<UserDto> GetUserById(string id)
@@ -57,8 +60,10 @@ namespace MotoCross.Services.UserService
             //user.UserName = $"{user.LastName} {user.FirstName} {user.MiddleName}";
             user.UserName = user.Email;
 
-            IdentityResult result = await _userManager.UpdateAsync(user); 
-            
+            IdentityResult result = await _userManager.UpdateAsync(user);
+
+            userdto.MotosDto.ForEach(p => p.UserId = user.Id);
+            _motoService.Create(userdto.MotosDto);
         }     
     }
 }

@@ -11,7 +11,7 @@ namespace MotoCross.Dto
         public string MiddleName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public List<MotoDto> Motos { get; set; }
+        public List<MotoDto> MotosDto { get; set; }
         //public List<OrderDto> Orders { get; set; }
     }
 }
