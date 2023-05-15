@@ -12,6 +12,7 @@ using AutoMapper;
 using MotoCross.Mapping;
 using NSwag.AspNetCore;
 using MotoCross.Services.MotoService;
+using Microsoft.OpenApi.Models;
 
 namespace MotoCross
 {
@@ -45,10 +46,10 @@ namespace MotoCross
             {
                 mc.AddProfile(new MappingProfile());
             }).CreateMapper());
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MotoCross", Version = "v1" });
-            //});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MotoCross", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,13 +59,12 @@ namespace MotoCross
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MotoCross v1"));
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MotoCross v1"));
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

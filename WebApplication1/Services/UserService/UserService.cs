@@ -40,6 +40,21 @@ namespace MotoCross.Services.UserService
          
             return userdto;
         }
+        public async Task<UserDto> GetUserByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new Exception("name должен быть больше 0");
+
+            var user = await _userManager.FindByNameAsync(name);
+
+
+            if (user == null)
+                throw new Exception("Объект не найден");
+
+            var userdto = _mapper.Map<UserDto>(user);
+         
+            return userdto;
+        }
 
         public async Task Edit(UserDto userdto)
         {
@@ -55,15 +70,23 @@ namespace MotoCross.Services.UserService
             if (string.IsNullOrEmpty(userdto.LastName))
                 throw new Exception("Наименование не может быть пустым");
 
-            var user = _mapper.Map<User>(userdto);
+            var user = await _userManager.FindByIdAsync(userdto.Id);
+
+            //var user = _mapper.Map<User>(userdto);
 
             //user.UserName = $"{user.LastName} {user.FirstName} {user.MiddleName}";
-            user.UserName = user.Email;
+            user.UserName = userdto.Email;
+            user.Email = userdto.Email;
+            user.FirstName = userdto.FirstName;
+            user.MiddleName = userdto.MiddleName;
+            user.LastName = userdto.LastName;
+            user.Phone = userdto.Phone;
+
 
             IdentityResult result = await _userManager.UpdateAsync(user);
 
-            userdto.MotosDto.ForEach(p => p.UserId = user.Id);
-            _motoService.Create(userdto.MotosDto);
+            //userdto.MotosDto.ForEach(p => p.UserId = user.Id);
+            //_motoService.Create(userdto.MotosDto);
         }     
     }
 }
