@@ -8,13 +8,12 @@ namespace MotoCross.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>().ReverseMap();
 
-            CreateMap<UserDto, User>();
+            CreateMap<Moto, MotoDto>().ReverseMap();
 
-            CreateMap<Moto, MotoDto>();
-
-            CreateMap<MotoDto, Moto>();
+            CreateMap<Order, OrderDto>()
+                .ForMember(x => x.Name, opt => opt.MapFrom(r => r.СustomerService.Name)).ReverseMap();
         }
     }
 }

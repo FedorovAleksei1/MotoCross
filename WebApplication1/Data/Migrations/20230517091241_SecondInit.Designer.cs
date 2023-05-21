@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotoCross.Data;
 
 namespace MotoCross.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230517091241_SecondInit")]
+    partial class SecondInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -184,28 +186,27 @@ namespace MotoCross.Data.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("bit");
-
                     b.Property<int>("MotoId")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Price")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("СustomerServiceId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MotoId");
+                    b.HasIndex("MotoId")
+                        .IsUnique();
 
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("СustomerServiceId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Orders");
                 });
@@ -297,10 +298,15 @@ namespace MotoCross.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Price")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("CustomerServices");
                 });
@@ -368,42 +374,45 @@ namespace MotoCross.Data.Migrations
             modelBuilder.Entity("MotoCross.Models.Order", b =>
                 {
                     b.HasOne("MotoCross.Models.Moto", "Moto")
-                        .WithMany("Orders")
-                        .HasForeignKey("MotoId")
+                        .WithOne("Order")
+                        .HasForeignKey("MotoCross.Models.Order", "MotoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MotoCross.Models.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("MotoCross.Models.СustomerService", "СustomerService")
-                        .WithMany("Orders")
-                        .HasForeignKey("СustomerServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("СustomerService");
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Moto");
 
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MotoCross.Models.СustomerService", b =>
+                {
+                    b.HasOne("MotoCross.Models.Order", "Order")
+                        .WithMany("СustomerServices")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("MotoCross.Models.Moto", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("MotoCross.Models.Order", b =>
+                {
+                    b.Navigation("СustomerServices");
                 });
 
             modelBuilder.Entity("MotoCross.Models.User", b =>
                 {
                     b.Navigation("Motos");
 
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("MotoCross.Models.СustomerService", b =>
-                {
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618

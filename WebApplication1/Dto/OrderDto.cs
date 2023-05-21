@@ -1,6 +1,4 @@
-﻿using MotoCross.Models;
-using System.Collections.Generic;
-using System;
+﻿using System;
 
 namespace MotoCross.Dto
 {
@@ -8,12 +6,8 @@ namespace MotoCross.Dto
     {
         public int Id { get; set; }
         public DateTime Data { get; set; }
-        public string Price { get; set; }
-        public string Status { get; set; }
-        public int UserId { get; set; }
-        public UserDto User { get; set; }
-        public int MotoId { get; set; }
-        public MotoDto Moto { get; set; }
-        public List<СustomerServiceDto> СustomerServices { get; set; }
+        public decimal Price { get; set; }
+        public bool IsConfirmed { get; set; }
+        public string Name { get; set; }
     }
 }

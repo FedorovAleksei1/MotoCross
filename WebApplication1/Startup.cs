@@ -13,6 +13,8 @@ using MotoCross.Mapping;
 using NSwag.AspNetCore;
 using MotoCross.Services.MotoService;
 using Microsoft.OpenApi.Models;
+using MotoCross.Services.CustomerServiceService;
+using MotoCross.Services.OrderService;
 
 namespace MotoCross
 {
@@ -40,6 +42,8 @@ namespace MotoCross
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IMotoService, MotoService>();
+            services.AddTransient<ICustomerServiceService, CustomerServiceService>();
+            services.AddTransient<IOrderService, OrderService>();
 
 
             services.AddSingleton(new MapperConfiguration(mc =>

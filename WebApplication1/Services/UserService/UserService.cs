@@ -28,7 +28,7 @@ namespace MotoCross.Services.UserService
         public async Task<UserDto> GetUserById(string id)
         {
             if (string.IsNullOrEmpty(id))
-                throw new Exception("Id должен быть больше 0");
+                throw new Exception("Id не должен быть пустым");
 
             var user = await _userManager.FindByIdAsync(id);
 
@@ -85,8 +85,8 @@ namespace MotoCross.Services.UserService
 
             IdentityResult result = await _userManager.UpdateAsync(user);
 
-            //userdto.MotosDto.ForEach(p => p.UserId = user.Id);
-            //_motoService.Create(userdto.MotosDto);
+            userdto.MotosDto.ForEach(p => p.UserId = user.Id);
+            _motoService.Create(userdto.MotosDto);
         }     
     }
 }

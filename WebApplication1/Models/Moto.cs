@@ -1,4 +1,6 @@
-﻿namespace MotoCross.Models
+﻿using System.Collections.Generic;
+
+namespace MotoCross.Models
 {
     public class Moto
     {
@@ -6,6 +8,6 @@
         public string Name { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
-        public Order Order { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

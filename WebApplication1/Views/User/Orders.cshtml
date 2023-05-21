@@ -1,0 +1,49 @@
+﻿@using MotoCross.Json;
+@using MotoCross.Models.VIewModel;
+@model OrderViewModel;
+
+
+@User.Identity.Name
+<h1>Заказы</h1>
+@foreach (var order in Model.Orders)
+{
+    <p>@order.Data</p>
+    <p>@order.Price</p>
+    <p>@order.Name</p>
+    <p>@order.IsConfirmed</p>
+    <button onclick="myFunction('@order.Id')">Click me</button>
+}
+<script>
+    function myFunction(orderid) {
+        if (orderid === null) {       
+            alert('id заказа null');
+            return;
+        }
+        var url = "@Url.Action("ConfirmationOrder", "User")" + "?orderId=" + orderid;
+        console.log(url);
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: "post",
+            async: false,
+            success: function (response) {
+                console.log(response);
+                switch (response.status) {
+                    case parseInt('@((int)JsonResponseStatuses.Ok)'): {
+                        alert(response.message);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 500);
+                    }
+
+                    case parseInt('@((int)JsonResponseStatuses.NotFound)'): {
+                       alert(response.message);
+                    }
+                     case parseInt('@((int)JsonResponseStatuses.Error)'): {
+                       alert("Ошибка подверждения заказа!");
+                    }
+                }
+            }
+        });
+    }
+</script>

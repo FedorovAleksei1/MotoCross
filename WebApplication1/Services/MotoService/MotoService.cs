@@ -22,7 +22,7 @@ namespace MotoCross.Services.MotoService
                 return;
             
                 var motoes = _mapper.Map<Moto>(motosDto);
-                _context.Motos.AddRange(motoes);
+                _context.Motoes.AddRange(motoes);
                 _context.SaveChanges();
             
         }
