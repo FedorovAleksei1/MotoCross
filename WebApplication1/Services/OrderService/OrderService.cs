@@ -47,19 +47,21 @@ namespace MotoCross.Services.OrderService
         public OrderDto GetById(int id)
         {
             var orderDto = new OrderDto();
-           
-                var order = _context.Orders.Include(o => o.СustomerService).FirstOrDefault(x => x.Id == id);
+
+            var order = _context.Orders.Include(o => o.СustomerService).AsNoTracking().FirstOrDefault(x => x.Id == id);
             if (order != null)
-                {
-                    orderDto.Id = order.Id;
-                    orderDto.Data = order.Data;
-                    orderDto.IsConfirmed = order.IsConfirmed;
-                    orderDto.Name = order.СustomerService.Name;
-                    orderDto.Price = (decimal)order.Price;
-                }
-                
-            
+            {
+                orderDto.Id = order.Id;
+                orderDto.Data = order.Data;
+                orderDto.IsConfirmed = order.IsConfirmed;
+                orderDto.Name = order.СustomerService.Name;
+                orderDto.Price = (decimal)order.Price;
+                orderDto.MotoId = order.MotoId;
+                orderDto.UserId = order.UserId;
+            }
+
+
             return orderDto;
-        }    
+        }
     }
 }

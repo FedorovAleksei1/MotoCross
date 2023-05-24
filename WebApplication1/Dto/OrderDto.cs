@@ -9,5 +9,7 @@ namespace MotoCross.Dto
         public decimal Price { get; set; }
         public bool IsConfirmed { get; set; }
         public string Name { get; set; }
+        public int MotoId { get; set; }
+        public string UserId { get; set; }
     }
 }

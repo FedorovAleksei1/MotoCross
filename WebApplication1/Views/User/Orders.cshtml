@@ -34,13 +34,16 @@
                         setTimeout(function () {
                             window.location.reload();
                         }, 500);
+                        break;
                     }
 
                     case parseInt('@((int)JsonResponseStatuses.NotFound)'): {
                        alert(response.message);
+                        break;
                     }
                      case parseInt('@((int)JsonResponseStatuses.Error)'): {
                        alert("Ошибка подверждения заказа!");
+                        break;
                     }
                 }
             }
