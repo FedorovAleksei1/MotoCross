@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MotoCross.Dto
+namespace Domain.Dto
 {
     public class OrderDto
     {

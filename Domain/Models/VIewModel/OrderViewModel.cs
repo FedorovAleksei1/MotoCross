@@ -1,7 +1,7 @@
-﻿using MotoCross.Dto;
+﻿using Domain.Dto;
 using System.Collections.Generic;
 
-namespace MotoCross.Models.VIewModel
+namespace Domain.Models.VIewModel
 {
     public class OrderViewModel
     {

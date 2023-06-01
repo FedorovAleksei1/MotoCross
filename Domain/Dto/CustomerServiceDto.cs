@@ -1,6 +1,6 @@
 ﻿using MotoCross.Models;
 
-namespace MotoCross.Dto
+namespace Domain.Dto
 {
     public class CustomerServiceDto
     {

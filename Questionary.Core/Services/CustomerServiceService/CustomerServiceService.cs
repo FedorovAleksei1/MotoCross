@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using Domain.Dto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MotoCross.Data;
-using MotoCross.Dto;
 using System;
 using System.Linq;
 

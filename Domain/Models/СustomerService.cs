@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using MotoCross.Models;
+using System.Collections.Generic;
 
-namespace MotoCross.Models
+namespace Domain.Models
 {
     /// <summary>
     /// Таблица Услуги для таблицы Заказы (Какие услуги проводились для мотоцикла )

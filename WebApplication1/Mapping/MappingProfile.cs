@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using MotoCross.Dto;
+using Domain.Dto;
+using Domain.Models;
 using MotoCross.Models;
 
 namespace MotoCross.Mapping

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Domain.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MotoCross.Models;
 
 namespace MotoCross.Data
 {
@@ -14,5 +14,6 @@ namespace MotoCross.Data
         public DbSet<Moto> Motoes { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<СustomerService> CustomerServices { get; set; }
+        public DbSet<InfoUser> Infoes { get; set; }
     }
 }

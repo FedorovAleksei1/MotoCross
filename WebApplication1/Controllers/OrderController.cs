@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MotoCross.Models.VIewModel;
 using MotoCross.Services.OrderService;
-using MotoCross.Services.UserService;
 
 namespace MotoCross.Controllers
 {

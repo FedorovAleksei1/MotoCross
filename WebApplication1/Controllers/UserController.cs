@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.Dto;
+using Domain.Models;
+using Domain.Models.VIewModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MotoCross.Dto;
 using MotoCross.Json;
 using MotoCross.Models;
-using MotoCross.Models.VIewModel;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
 using System;

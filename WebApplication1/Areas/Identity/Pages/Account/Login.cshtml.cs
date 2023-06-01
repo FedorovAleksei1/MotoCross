@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Domain.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using MotoCross.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -72,12 +72,73 @@ namespace MotoCross.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
+        //public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        //{
+        //    returnUrl ??= Url.Content("~/");
+
+        //    ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        // This doesn't count login failures towards account lockout
+        //        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+        //        var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        //        if (result.Succeeded)
+        //        {
+        //            _logger.LogInformation("User logged in.");
+        //            //var user = await _userManager.FindByEmailAsync(Input.Email);
+        //            //var user = await _signInManager.;
+        //            //var res2 = await _userManager.RemoveFromRoleAsync(user, "admin");
+        //            //var res1 = await _roleManager.CreateAsync(new IdentityRole {
+        //            //    Name = "admin"
+        //            //});
+
+        //            //if(res1.Succeeded) {
+        //            //    var user = await _userManager.FindByEmailAsync(Input.Email);
+        //            //    var res2 = await _userManager.AddToRoleAsync(user, "admin");
+
+        //            //    if (res2.Succeeded)
+        //            //    {
+        //            //        if (await _userManager.IsInRoleAsync(user, "admin"))
+        //            //        {
+        //            //            _logger.LogInformation("Роль есть");
+        //            //        }
+        //            //        else
+        //            //        {
+        //            //            _logger.LogInformation("Роли нет");
+        //            //        }
+        //            //    }
+        //            //}
+
+        //            return LocalRedirect(returnUrl);
+        //        }
+        //        if (result.RequiresTwoFactor)
+        //        {
+        //            return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+        //        }
+        //        if (result.IsLockedOut)
+        //        {
+        //            _logger.LogWarning("User account locked out.");
+        //            return RedirectToPage("./Lockout");
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+        //            return Page();
+        //            return LocalRedirect(returnUrl);
+        //        }
+        //    }
+
+        //    // If we got this far, something failed, redisplay form
+        //    return Page();
+        //}
+
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        
+
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -86,30 +147,6 @@ namespace MotoCross.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    //var user = await _userManager.FindByEmailAsync(Input.Email);
-                    //var user = await _signInManager.;
-                    //var res2 = await _userManager.RemoveFromRoleAsync(user, "admin");
-                    //var res1 = await _roleManager.CreateAsync(new IdentityRole {
-                    //    Name = "admin"
-                    //});
-
-                    //if(res1.Succeeded) {
-                    //    var user = await _userManager.FindByEmailAsync(Input.Email);
-                    //    var res2 = await _userManager.AddToRoleAsync(user, "admin");
-
-                    //    if (res2.Succeeded)
-                    //    {
-                    //        if (await _userManager.IsInRoleAsync(user, "admin"))
-                    //        {
-                    //            _logger.LogInformation("Роль есть");
-                    //        }
-                    //        else
-                    //        {
-                    //            _logger.LogInformation("Роли нет");
-                    //        }
-                    //    }
-                    //}
-
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -123,7 +160,7 @@ namespace MotoCross.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Неверная попытка входа.");
                     return Page();
                 }
             }
@@ -132,4 +169,5 @@ namespace MotoCross.Areas.Identity.Pages.Account
             return Page();
         }
     }
+
 }

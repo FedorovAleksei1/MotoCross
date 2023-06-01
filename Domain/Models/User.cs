@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.Models;
+using Microsoft.AspNetCore.Identity;
+using MotoCross.Models;
 using System.Collections.Generic;
 
-namespace MotoCross.Models
+namespace Domain.Models
 {
     public class User : IdentityUser
     {
@@ -12,6 +14,7 @@ namespace MotoCross.Models
         public string Phone { get; set; }
         public string Email { get; set; }
 
+        public InfoUser Info { get; set; }
         //Связь С таблицей Moto так как для заполнения ЛК необходимо внести названия мотоциклов
         public List<Moto> Motos { get; set; }
         public List<Order> Orders { get; set; }

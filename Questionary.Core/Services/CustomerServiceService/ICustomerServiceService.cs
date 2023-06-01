@@ -1,4 +1,4 @@
-﻿using MotoCross.Dto;
+﻿using Domain.Dto;
 
 namespace MotoCross.Services.CustomerServiceService
 {

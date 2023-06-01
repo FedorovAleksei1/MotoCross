@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MotoCross.Models
+namespace Domain.Models
 {
     public class Moto
     {

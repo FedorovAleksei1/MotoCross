@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MotoCross.Data;
-using MotoCross.Dto;
 using System.Linq;
 using System;
 using MotoCross.Models;
@@ -8,6 +7,8 @@ using System.Collections.Generic;
 using System.Numerics;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Domain.Dto;
+using Domain.Models;
 
 namespace MotoCross.Services.OrderService
 {

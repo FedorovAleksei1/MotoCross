@@ -1,7 +1,7 @@
 ﻿using MotoCross.Models;
 using System.Collections.Generic;
 
-namespace MotoCross.Dto
+namespace Domain.Dto
 {
     public class UserDto
     {

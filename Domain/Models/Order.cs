@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MotoCross.Models
+namespace Domain.Models
 {
     /// <summary>
     /// Таблица Заказы для страницы ЛК вкалдки мои заказы

@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MotoCross.Data;
-using MotoCross.Models;
 using MotoCross.Services.UserService;
 using AutoMapper;
 using MotoCross.Mapping;
@@ -15,6 +14,8 @@ using MotoCross.Services.MotoService;
 using Microsoft.OpenApi.Models;
 using MotoCross.Services.CustomerServiceService;
 using MotoCross.Services.OrderService;
+using Domain.Models;
+using System;
 
 namespace MotoCross
 {
@@ -45,6 +46,24 @@ namespace MotoCross
             services.AddTransient<ICustomerServiceService, CustomerServiceService>();
             services.AddTransient<IOrderService, OrderService>();
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+                options.SignIn.RequireConfirmedAccount = false;
+
+                options.User.RequireUniqueEmail = false;
+
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(24);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.AllowedForNewUsers = true;
+            });
 
             services.AddSingleton(new MapperConfiguration(mc =>
             {

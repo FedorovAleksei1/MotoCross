@@ -1,6 +1,7 @@
-﻿using MotoCross.Dto;
+﻿using Domain.Dto;
 
-namespace MotoCross.Models.VIewModel
+
+namespace Domain.Models.VIewModel
 {
     public class UserViewModel
     {

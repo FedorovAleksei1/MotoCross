@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Domain.Dto;
+using Domain.Models;
 using MotoCross.Data;
-using MotoCross.Dto;
-using MotoCross.Models;
 using System.Collections.Generic;
 
 namespace MotoCross.Services.MotoService
