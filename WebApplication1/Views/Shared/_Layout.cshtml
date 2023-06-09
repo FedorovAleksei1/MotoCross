@@ -1,49 +1,147 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+
+
+<!DOCTYPE html>
+<html lang="ru">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MotoCross</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />   
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/adaptive.css" />
+    <link rel="stylesheet" href="~/css/animate.css" />
+    <link rel="stylesheet" href="~/css/ezmark.css" />
+    <link rel="stylesheet" href="~/css/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="~/css/select2.css" />
+    <link rel="stylesheet" href="~/css/slick.css" />
+    <link rel="stylesheet" href="~/css/slick-theme.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/calendar.css">
+    <link rel="stylesheet" href="~/css/calculatortest.css">
+    
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MotoCross</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+    <div class="test">
+        <header class="header">
+            <div class="inner-section inner-header">
+
+                <div class="logo">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="/img/logo.png" alt="" />
+                    </a>
+                </div>
+
+                <nav class="header-menu">
+                    <ul>
+                        <li>
+                            <a asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+                        <li>
+                            <a href="#team-section">Команда</a>
+                        </li>
+
+                        <li>
+                            <a href="#services-section">Услуги</a>
+                        </li>
+
+                        <li>
+                            <a href="#persons-section">Лёд</a>
+                        </li>
+
+                        <li>
+                            <a href="#main-store-section">Магазин</a>
+                        </li>
+
+                        <li>
+                            <a href="#contacts-section">Контакты</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+                </nav>
+
+                <div class="header-right">
+                    <div class="header-lk">
+                        <a asp-area="" asp-controller="User" asp-action="Edit">
+                            <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="15.5" cy="15.5" r="15" stroke="white" />
+                                <path d="M16 7.5C16.9283 7.5 17.8185 7.86875 18.4749 8.52513C19.1313 9.1815 19.5 10.0717 19.5 11C19.5 11.9283 19.1313 12.8185 18.4749 13.4749C17.8185 14.1313 16.9283 14.5 16 14.5C15.0717 14.5 14.1815 14.1313 13.5251 13.4749C12.8687 12.8185 12.5 11.9283 12.5 11C12.5 10.0717 12.8687 9.1815 13.5251 8.52513C14.1815 7.86875 15.0717 7.5 16 7.5ZM16 17.5C18.1493 17.5 20.0695 17.9363 21.4339 18.6185C22.8281 19.3155 23.5 20.1863 23.5 21V22.5H8.5V21C8.5 20.1863 9.17194 19.3155 10.5661 18.6185C11.9305 17.9363 13.8507 17.5 16 17.5Z" stroke="white" />
+                            </svg>
+                            <span>Личный кабинет</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        @*<header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MotoCross</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+        <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Orders">Home</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </li>
+        </ul>
+        <partial name="_LoginPartial" />
+        </div>
+        </div>
+        </nav>
+        </header>*@
+
+        <div class="test-2">
+            <main role="main" >
+        @RenderBody()
+            </main>
+        </div>
+
+        <footer class="footer">
+            <div class="inner-section inner-footer">
+                <div class="copyright">©️ Все права защищены</div>
+
+                <div class="logo">
+                    <a href="index.html" class="logo-a">
+                        <img src="/img/logo.png" alt="" />
+                    </a>
+
+                    <a href="#" class="policy">
+                        Политика конфиденциальности
+                    </a>
+                </div>
+
+                <div class="made-by">
+                    Дизайн сайта
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </footer>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - MotoCross - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/html5.js" asp-append-version="true"></script>
+    <script src="~/js/jguery.ezmark.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.fancybox.js" asp-append-version="true"></script>
+    <script src="~/js/jquery-3.4.1.min.js" asp-append-version="true"></script>
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="~/js/maskedinput.js" asp-append-version="true"></script>
+    <script src="~/js/select2.full.min.js" asp-append-version="true"></script>
+    <script src="~/js/slick.min.js" asp-append-version="true"></script>
+    <script src="~/js/calendar.js" asp-append-version="true"></script>
+    <script src="~/js/cal.js" asp-append-version="true"></script>
+    <script src="~/js/calculatortest.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

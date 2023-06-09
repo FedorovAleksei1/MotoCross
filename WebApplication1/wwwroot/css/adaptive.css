@@ -1,0 +1,442 @@
+
+@media screen and (max-width:1380px) {
+    
+    .top-banner-title {
+        font-size: 90px;
+        margin-left: 0;
+        margin-bottom: 125px;
+    }
+
+}
+
+@media screen and (max-width:1240px) {
+    
+    .inner-section {
+        padding-left:20px;
+        padding-right: 20px;
+    }
+
+    .mobile-menu-toggler {
+        display: block;
+        position: absolute;
+        top:20px;
+        right:20px;
+        width:35px;
+        height: 35px;
+        z-index: 99;
+        background:url(../img/menu-icon.svg) no-repeat center center;
+    }
+
+    .mobile-menu-toggler.active {
+        background-image: url(../img/menu-close.svg);
+    }
+
+    .mobile-menu {
+        display: block;
+        position: absolute;
+        top:0;
+        left:0;
+        z-index: 100;
+        transform: translateX(-100%);
+        width:100vw;
+        height:100vh;
+        padding:57px 0 0 51px;
+        background: #000;
+    }
+
+    .mobile-menu.active {
+        transform: translateX(0%);
+    }
+
+    .header .header-menu {display: none;}
+    .header .header-right {display: none;}
+
+    .top-banner-section .inner-section {
+        padding-top: 115px;
+        padding-bottom: 50px;
+    }
+
+    .top-banner-calendar {
+        margin-bottom: 40px;
+    }
+
+    .top-banner-slogan {
+        width:330px;
+        max-width: 100%;
+        top: 330px;
+        margin-right: 65px;
+    }
+
+    .top-banner-title {
+        margin-bottom: 55px;
+    }
+
+    .advantages-block {
+        justify-content: center;
+    }
+
+    .advantages-item {
+        margin-right: 80px;
+    }
+
+    .advantages-item .title {
+        font-size: 30px;
+    }
+
+    .advantages-item .text {
+        margin-left: 40px;
+    }
+
+    .services-block {
+        justify-content: flex-start;
+    }
+
+    .services-item {
+        margin:0 20px 45px 0;
+    }
+
+    .section-title {
+        font-size: 100px;
+    }
+
+    .persons-slider {
+        width:614px;
+        margin:0 auto;
+    }
+
+    .person-popup-right {
+        width: 100%;
+        text-align: left;
+    }
+
+    .person-popup .number {
+        margin-bottom: 20px;
+    }
+
+    .top-banner-section {
+        background-size:100%;
+    }
+
+    .team-section .two-images {
+        margin-top:-78px;
+    }
+
+    .team-section .two-images .img:nth-child(odd) {
+        max-width: 50%;
+    }
+
+    .team-section .two-images .img:nth-child(even) {
+        max-width: 40%;
+    }
+    
+    .persons-section .text-columns {
+        padding-bottom: 35px;
+    }
+
+    .persons-section {
+        padding: 45px 0 100px 0;
+    }
+
+    .services-section {
+        padding: 10px 0 70px 0;
+    }
+
+    .main-store-section {
+        padding: 60px 0 85px 0;
+    }
+
+    .main-store-item:nth-child(1) {
+        width:270px;
+    }
+
+    .main-store-item:nth-child(2) {
+        width:200px;
+        margin-left:auto;
+    }
+
+    .main-store-item:nth-child(3) {
+        width:240px;
+        margin-top: 150px;
+    }
+
+    .main-store-section .title-img {
+        width:272px;
+    }
+
+    .main-store-section .title-img img {
+        max-width: 100%;
+    }
+
+    .main-store-block {margin-top:20px;}
+
+    .text-columns .text {
+        width: 100%;
+    }
+
+    .team-section .text-and-image .img {
+        max-width: 40%;
+    }
+
+    .team-section .text-and-image .img img {
+        display: block;
+        max-width: 100%;
+    }
+
+}
+ 
+
+
+@media screen and (max-width:1080px) {
+
+    .persons-section .text-columns .text:nth-child(even) {
+        max-width:100%;
+        padding-right: 20px;
+        margin-left: auto;
+    }
+
+    .calendar-page-content {
+        display: block;
+        padding-bottom: 20px;
+    }
+
+}
+
+
+
+@media screen and (max-width:1024px) {     
+   
+    .advantages-item:nth-child(2), .advantages-item:nth-child(3) {margin-right:0;}
+
+
+}
+
+@media screen and (max-width:990px) {
+   
+    .services-item:nth-child(3) {
+        margin-left: auto;
+    }
+
+}
+
+@media screen and (max-width:767px) {
+   
+    .team-section .text-and-image .img {
+        max-width: 100%;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+
+    .calendar-list-item .img .icon {
+        position: static;
+        margin-bottom: 18px;
+    }
+
+    .calendar-list-item .img {
+        width: 104px;
+        min-height: 168px;
+        padding: 28px 0 0 14px;
+    }
+
+    .persons-slider {
+        width:292px;
+    }
+
+    .top-banner-section {
+        background: #000 url(../img/top-bg-mobile.jpg) no-repeat center 0;
+        background-size: 100%;
+    }
+
+    .top-banner-section .inner-section {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: flex-start;
+        padding-top: 75px;
+        padding-bottom: 50px;
+    }
+
+    .top-banner-slogan {
+        order:1;
+        position: static;
+        margin:130px 0 27px 0;
+    }
+
+    .top-banner-title {
+        order:2;
+        margin:0 0 72px 0;
+        font-size: 60px;
+    }
+
+    .top-banner-calendar {
+        order:3;
+        margin:0 0 75px 0;
+    }
+
+    .advantages-block {
+        order:4;
+        display: block;
+    }
+
+    .advantages-item {
+        display: block;
+        margin:0 0 40px 0 !important;
+    }
+
+    .top-banner-title i {display: block;}
+
+    .top-banner-title span {
+        display: block;
+        margin-left: 100px;
+    }
+    
+    .section-title {
+        font-size: 60px;
+    }
+
+    .team-section .two-images .img:nth-child(odd) {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .team-section .two-images .img:nth-child(even) {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .team-section .two-images {
+        margin-top: -53px;
+        margin-bottom: 30px;
+    }
+
+    .team-section .text-and-image .text p:last-child {
+        padding-bottom: 30px;
+    }
+
+    .team-section .text-and-image .img {
+
+    }
+
+    .team-section .text-and-image .img img {
+        display: block;
+        max-width: 100%;
+    }
+
+    .team-section {
+        padding-top: 34px;
+        padding-bottom: 30px;
+    }
+
+    .services-section {
+        background:url(../img/services-bg-mobile.png) no-repeat center 0;
+        background-size: cover;
+    }
+
+    .services-section .section-title {
+        text-align: center;
+    }
+
+    .services-item {
+        margin: 0 auto 20px auto;
+    }
+
+    .main-store-item:nth-child(2) {
+        margin-left: auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .main-store-item:nth-child(3) {
+        margin:0 auto 50px;
+    }
+
+    .main-store-section .to-store-button {
+        margin: 0px auto 0 auto;
+    }
+
+    .main-store-section .title-img {
+        margin:0 auto 0px;
+    }
+
+    .main-store-block {
+        margin-top: -30px;
+    }
+
+    .contacts-section .contacts-block {
+        width: 280px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        margin: 0 auto;
+    }
+
+    .contacts-section .map-container {
+        width:100%;
+    }
+
+    .contacts-section .map {
+        width: 100vw;
+        margin-left: -20px;
+    }
+
+    .footer .logo {
+        order:1;
+        width:100%;
+        text-align: center;
+    }
+
+    .footer .copyright {
+        order:2;
+        width:100%;
+        text-align: center;
+        padding: 16px 0 45px 0;
+    }
+
+    .footer .made-by {
+        order:3;
+        width:100%;
+        text-align: center;
+    }
+
+    .calendar-page-content .top-banner-calendar {
+        margin-bottom: 40px;
+    }
+
+    .banner-section .inner-section {
+        justify-content: flex-start;
+        padding-top:80px;
+    }
+
+    .banner-section ~ .content-section {
+        padding-top: 30px;
+    }
+
+    .content-section .text-columns .text img {
+        display: block;
+        margin: 0 0px 20px -20px;
+        max-width: 100vw;
+        width: 100vw;
+    }
+
+    .calendar-event-content-section .text-columns .text p {
+        padding-bottom: 20px;
+    }
+
+    .banner-section {
+        min-height: 600px;
+    }
+
+}
+
+@media screen and (max-width:500px) {
+
+    .top-banner-calendar {
+        margin:0 auto 75px auto;
+    }
+
+}
+
+@media screen and (max-width:370px) {
+
+    .top-banner-title {font-size: 50px;}
+
+}

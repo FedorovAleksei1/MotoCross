@@ -5,6 +5,8 @@ namespace MotoCross.Services.MotoService
 {
     public interface IMotoService
     {
-        void Create(List<MotoDto> motosDto);
+        IEnumerable<MotoDto> GetAllByUserId(string userId);
+
+		void Create(IEnumerable<MotoDto> motosDto);
     }
 }

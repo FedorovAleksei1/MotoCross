@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Questionary.Core\Questionary.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

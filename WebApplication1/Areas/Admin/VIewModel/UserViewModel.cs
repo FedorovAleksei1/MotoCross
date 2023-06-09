@@ -1,7 +1,7 @@
 ﻿using Domain.Dto;
 
 
-namespace Domain.Models.VIewModel
+namespace Questionary.Web.Areas.Admin.VIewModel
 {
     public class UserViewModel
     {

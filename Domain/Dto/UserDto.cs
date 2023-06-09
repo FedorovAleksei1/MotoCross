@@ -1,4 +1,5 @@
-﻿using MotoCross.Models;
+﻿using Domain.Models;
+using MotoCross.Models;
 using System.Collections.Generic;
 
 namespace Domain.Dto
@@ -11,7 +12,9 @@ namespace Domain.Dto
         public string MiddleName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public List<MotoDto> MotosDto { get; set; }
+        public string MotoName { get; set; }
+		public InfoUserDto InfoDto { get; set; }
+		public IEnumerable<MotoDto> MotosDto { get; set; }
         public List<OrderDto> OrdersDto { get; set; }
     }
 }

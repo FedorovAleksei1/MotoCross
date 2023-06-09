@@ -19,6 +19,50 @@ namespace MotoCross.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Domain.Models.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DateAnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ImportantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImportantId");
+
+                    b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("Domain.Models.Important", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Importants");
+                });
+
             modelBuilder.Entity("Domain.Models.InfoUser", b =>
                 {
                     b.Property<int>("Id")
@@ -342,6 +386,17 @@ namespace MotoCross.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Domain.Models.Event", b =>
+                {
+                    b.HasOne("Domain.Models.Important", "Important")
+                        .WithMany("Events")
+                        .HasForeignKey("ImportantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Important");
+                });
+
             modelBuilder.Entity("Domain.Models.InfoUser", b =>
                 {
                     b.HasOne("Domain.Models.User", "User")
@@ -434,6 +489,11 @@ namespace MotoCross.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Models.Important", b =>
+                {
+                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("Domain.Models.Moto", b =>

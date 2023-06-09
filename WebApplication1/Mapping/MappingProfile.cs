@@ -12,6 +12,9 @@ namespace MotoCross.Mapping
             CreateMap<User, UserDto>().ReverseMap();
 
             CreateMap<Moto, MotoDto>().ReverseMap();
+            CreateMap<Event, EventDto>().ReverseMap();
+            CreateMap<Important, ImportantDto>().ReverseMap();
+            CreateMap<InfoUser, InfoUserDto>().ReverseMap();
 
             CreateMap<Order, OrderDto>()
                 .ForMember(x => x.Name, opt => opt.MapFrom(r => r.СustomerService.Name)).ReverseMap();

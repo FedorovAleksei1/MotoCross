@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Dto
 {
-    internal class InfoUserDto
+    public class InfoUserDto
     {
         public int Id { get; set; }
         public DateTime Year { get; set; }

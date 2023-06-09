@@ -15,5 +15,7 @@ namespace MotoCross.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<СustomerService> CustomerServices { get; set; }
         public DbSet<InfoUser> Infoes { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Important> Importants { get; set; }
     }
 }

@@ -1,0 +1,136 @@
+﻿@using Questionary.Web.Areas.Admin.VIewModel;
+@model EventListViewModel;
+@{
+    ViewData["Title"] = "Важность";
+}
+
+<div class="main">
+    <meta charset="utf-8" />
+    <section class="content-section">
+        <div class="inner-section">
+
+            <h2>Полный календарь команды “Anarchy Racing”</h2>
+
+            <div class="calendar-page-content">
+                <div class="top-banner-calendar">
+
+                    <div class="top-banner-calendar-content">
+                        <body class="light">
+                            <div class="calendar">
+                                <!-- Calendar Header -->
+                                <div class="calendar-header">
+                                    <span class="month-picker" id="month-picker">
+                                        February
+                                    </span>
+                                    <div class="year-picker">
+                                        <span class="year-change mt-3" id="prev-year">
+                                            <pre> < </pre>
+                                        </span>
+                                        <span id="year">2023</span>
+                                        <span class="year-change mt-3" id="next-year">
+                                            <pre> > </pre>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Calendar Body -->
+                                <div class="calendar-body">
+                                    <div class="calendar-week-day">
+                                        <div>ПН</div>
+                                        <div>Вт</div>
+                                        <div>Ср</div>
+                                        <div>ЧТ</div>
+                                        <div>ПТ</div>
+                                        <div>СБ</div>
+                                        <div>ВС</div>
+                                    </div>
+                                    <div class="calendar-day">
+                                        <div>
+                                            1
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                        <div>2</div>
+                                        <div>3</div>
+                                        <div>4</div>
+                                        <div>5</div>
+                                        <div>6</div>
+                                        <div>7</div>
+                                        <div>1</div>
+                                        <div>2</div>
+                                        <div>3</div>
+                                        <div>4</div>
+                                        <div>5</div>
+                                        <div>6</div>
+                                        <div>7</div>
+                                    </div>
+                                </div>
+                                <!-- Calendar Footer -->
+                                <div class="calendar-footer">
+                                    <div class="toggle">
+                                        <span>Dark Mode</span>
+                                        <div class="dark-mode-switch">
+                                            <div class="dark-mode-switch-ident"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="month-list"></div>
+                                <div>
+                                    <button type="button" class="btn btn-dark" id="searchEvents" style="text-align:center;">Найти</button>
+                                </div>
+                            </div>
+                        </body>
+                        <div class="top-banner-calendar-item"></div>
+                        <input type="hidden" id="datepicker_value" value="01.06.2023">
+                    </div>
+                </div>
+
+                <div class="calendar-page-right-column">
+                    <div class="calendar-list" id="eventList">
+                        @if (Model.Items != null && Model.Items.Any())
+                        {
+                            foreach (var item in Model.Items.OrderBy(g => g.ImportantId))
+                            {
+                                <div class="calendar-list-item">
+                                    <div class="img @item.Important.Color">
+                                        <div class="title">
+                                            @item.DateRange <br />
+                                            @Model.MonthName
+                                        </div>
+                                        <p>сб-вс</p>
+
+                                        <div class="icon">
+                                            <img src="img/c-icon1.svg" alt="">
+                                        </div>
+                                        <a class="ref" href="calendar-event.html"></a>
+                                    </div>
+                                    <div>@item.Name</div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        //var arr = [];
+        //$(document).ready(function () {
+        //    $(".calendar-day div").click(function () {
+        //        var val = $(this).prop("innerText");
+        //        arr.push(val);
+        //    });
+
+        //    $("#searchEvents").click(function() {
+        //        var url = '@Html.Raw(Url.Action("GetEventsWithDays", "Event"))?days=' + arr;
+
+        //        $.get(url, function (response) {
+        //            $('#eventList').html(response);
+        //        });
+        //    });
+        //});
+    </script>

@@ -7,6 +7,7 @@ using MotoCross.Json;
 using MotoCross.Models;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
+using Questionary.Web.Areas.Admin.VIewModel;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -77,5 +78,14 @@ namespace MotoCross.Controllers
 
             return Json(response);          
         }
-    }
+
+		[HttpGet]
+		public async Task<PartialViewResult> GetPersonById(string id)
+		{
+			var user = await _userService.GetUserById(id);
+			var model = new UserViewModel();
+			model.User = user;
+			return PartialView(model);
+		}
+	}
 }

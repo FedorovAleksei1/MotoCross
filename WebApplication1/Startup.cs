@@ -16,6 +16,9 @@ using MotoCross.Services.CustomerServiceService;
 using MotoCross.Services.OrderService;
 using Domain.Models;
 using System;
+using Questionary.Core.Services.EventService;
+using Questionary.Core.Services.ImportantService;
+using MotoCross.Services.InfoUserService;
 
 namespace MotoCross
 {
@@ -45,6 +48,9 @@ namespace MotoCross
             services.AddTransient<IMotoService, MotoService>();
             services.AddTransient<ICustomerServiceService, CustomerServiceService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IEventService, EventService>();
+            services.AddTransient<IImportantService, ImportantService>();
+            services.AddTransient<IUserInfoService, UserInfoService>();
 
             services.Configure<IdentityOptions>(options =>
             {

@@ -1,65 +1,68 @@
-﻿@using Domain.Models.VIewModel;
+﻿
+@using Questionary.Web.Areas.Admin.VIewModel;
 @model UserViewModel;
 @{
     ViewData["Title"] = "Личный кабинет";
 }
-<form method="post">
-    @User.Identity.Name
-    @Html.HiddenFor(x => x.User.Id)
-    <div>
-        <label>
-            Имя
-            @Html.TextBoxFor(x => Model.User.FirstName, new { @class = "form-control"})
-        </label>
-    </div>
+<div class="container">
+    <form method="post">
+        @User.Identity.Name
+        @Html.HiddenFor(x => x.User.Id)
+        <div>
+            <label>
+                Имя
+                @Html.TextBoxFor(x => Model.User.FirstName, new { @class = "form-control"})
+            </label>
+        </div>
 
-    <div>
-        <label>
-            Отчество
-            @Html.TextBoxFor(x => Model.User.MiddleName,new { @class = "form-control"})
-        </label>
-    </div>
+        <div>
+            <label>
+                Отчество
+                @Html.TextBoxFor(x => Model.User.MiddleName,new { @class = "form-control"})
+            </label>
+        </div>
 
-    <div>
-        <label>
-            Фамилия
-            @Html.TextBoxFor(x => Model.User.LastName, new { @class = "form-control"})
-        </label>
-    </div>
+        <div>
+            <label>
+                Фамилия
+                @Html.TextBoxFor(x => Model.User.LastName, new { @class = "form-control"})
+            </label>
+        </div>
 
-    <div>
-        <label>
-            Возраст
-            @Html.TextBoxFor(x => Model.User.Email, new { @class = "form-control"})
-        </label>
-    </div>
+        <div>
+            <label>
+                Возраст
+                @Html.TextBoxFor(x => Model.User.Email, new { @class = "form-control"})
+            </label>
+        </div>
 
-    <div>
-        <label>
-            Телефон
-            @Html.TextBoxFor(x => Model.User.Phone,  new { @class = "form-control"} )
-        </label>
-    </div>
-    <div>
-        <label>
-            Мотоциклы
-            @Html.TextBoxFor(x => Model.User.MotosDto,  new { @class = "form-control"} )
-        </label>
-    </div>
+        <div>
+            <label>
+                Телефон
+                @Html.TextBoxFor(x => Model.User.Phone,  new { @class = "form-control"} )
+            </label>
+        </div>
+        <div>
+            <label>
+                Мотоциклы
+                @Html.TextBoxFor(x => Model.User.MotoName,  new { @class = "form-control"} )
+            </label>
+        </div>
 
-    @if (Model.User.MotosDto != null && Model.User.MotosDto.Count > 0)
-    {
-    <div>
-        <label>
-            Мотоциклы
-           @for (int i = 0; i < Model.User.MotosDto.Count; i++)
-             {
-            @Html.TextBoxFor(x => Model.User.MotosDto[i] , new { @class = "form-control"})
-              }
-        </label>
-    </div>
-    }
+        @if (Model.User.MotosDto != null && Model.User.MotosDto.Any())
+        {
+            <div>
+                <label>
+                    Мотоциклы
+                    @for (int i = 0; i < Model.User.MotosDto.Count(); i++)
+                    {
+                        @Html.TextBoxFor(x => Model.User.MotosDto.ElementAt(i), new { @class = "form-control"})
+                    }
+                </label>
+            </div>
+        }
 
-    <input type="submit" value="Сохранить" />
+        <input type="submit" value="Сохранить" />
 
-</form>
+    </form>
+</div>
