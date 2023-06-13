@@ -88,9 +88,9 @@
 
                 <div class="calendar-page-right-column">
                     <div class="calendar-list" id="eventList">
-                        @if (Model.Items != null && Model.Items.Any())
+                        @*@if (Model.Item != null && Model.Item.Elements.Any())
                         {
-                            foreach (var item in Model.Items.OrderBy(g => g.ImportantId))
+                            foreach (var item in Model.Item.Elements)
                             {
                                 <div class="calendar-list-item">
                                     <div class="img @item.Important.Color">
@@ -108,16 +108,40 @@
                                     <div>@item.Name</div>
                                 </div>
                             }
-                        }
+                        }*@
                     </div>
+                    
                 </div>
             </div>
         </div>
     </section>
+    
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+
+        $(document).ready(function () {
+            $('.month-list').on('click', 'div[data-month]', function () {
+                var monthValue = $(this).attr('data-month');
+                console.log('Значение атрибута data-month:', monthValue);
+
+                var url = '@Html.Raw(Url.Action("EventListWithMonth", "Event"))?month=' + monthValue;
+
+                $.get(url, function (response) {
+                    $('#eventList').html(response);
+                });
+            });
+        });
+
+        $(function(){
+            var url = '@Html.Raw(Url.Action("EventListWithMonth", "Event"))?month=' + '@Model.Month';
+
+            $.get(url, function (response) {
+                $('#eventList').html(response);
+            });
+        });
+
         //var arr = [];
         //$(document).ready(function () {
         //    $(".calendar-day div").click(function () {
@@ -134,3 +158,4 @@
         //    });
         //});
     </script>
+    

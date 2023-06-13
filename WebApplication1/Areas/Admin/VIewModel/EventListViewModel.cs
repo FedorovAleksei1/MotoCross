@@ -5,7 +5,8 @@ namespace Questionary.Web.Areas.Admin.VIewModel
 {
     public class EventListViewModel
     {
+        public int Month { get; set; }
         public string MonthName { get; set; }
-        public IEnumerable<EventDto> Items { get; set; }
+        public PaginationDto<EventDto> Item { get; set; }
     }
 }

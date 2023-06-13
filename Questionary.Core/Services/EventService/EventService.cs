@@ -54,15 +54,22 @@ namespace Questionary.Core.Services.EventService
             return dataList;
         }
 
-		public IEnumerable<EventDto> EventsWithMonth(int month)
+		public PaginationDto<EventDto> EventsWithMonth(int month, int page, int take)
 		{
 			var events = _context.Events.Include(e => e.Important)
-                .Where(x => x.DateStart.Month == month)
-                .AsEnumerable();
+                .Where(x => x.DateStart.Month == month).OrderBy(d => d.Id)
+				.Skip((page - 1) * take)
+				.Take(take)
+				.AsEnumerable();
 
-			var eventsDto = _mapper.Map<IEnumerable<EventDto>>(events);
-            GetDateRange(eventsDto);
-			return eventsDto;
+			var paginationDto = new PaginationDto<EventDto>();
+			paginationDto.Elements = _mapper.Map<List<EventDto>>(events);
+			//paginationDto.TotalCount = _context.Events
+			//	.Where(x => x.DateStart.Month == month)
+			//	.Count();
+			
+            GetDateRange(paginationDto.Elements);
+			return paginationDto;
 		}
 
 		private static void GetDateRange(IEnumerable<EventDto> eventsDto)

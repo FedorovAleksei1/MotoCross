@@ -12,6 +12,6 @@ namespace Questionary.Core.Services.EventService
 
         IEnumerable<DateTime> GetDateByImportantId(int id);
 
-        IEnumerable<EventDto> EventsWithMonth(int month);
+        PaginationDto<EventDto> EventsWithMonth(int month, int page, int take);
 	}
 }

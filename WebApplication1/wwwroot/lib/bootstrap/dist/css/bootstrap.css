@@ -4538,7 +4538,7 @@ textarea.form-control-lg {
 }
 
 .pagination {
-  display: flex;
+  /*display: flex;*/
   padding-left: 0;
   list-style: none;
 }

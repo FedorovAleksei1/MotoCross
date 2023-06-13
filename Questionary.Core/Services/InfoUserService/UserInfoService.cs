@@ -28,8 +28,8 @@ namespace MotoCross.Services.InfoUserService
 		public IEnumerable<InfoUserDto> GetAll()
         {
             var info = _context.Infoes.Include(i => i.User).AsEnumerable();
-            var infoesDto = _mapper.Map<IEnumerable<InfoUserDto>>(info);
-            return infoesDto;
+            //var infoesDto = _mapper.Map<IEnumerable<InfoUserDto>>(info);
+            return null;//infoesDto;
         }
     }
 }

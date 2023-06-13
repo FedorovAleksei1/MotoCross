@@ -799,7 +799,7 @@ section {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    align-items:flex-start;
+    /*align-items:flex-start;*/
 }
 
 .calendar-page-content .top-banner-calendar {
@@ -813,8 +813,18 @@ section {
     flex:1 0;
 }
 
+.pagination2 {
+    /* display: flex; */
+    padding-left: 0;
+    list-style: none;
+}
+
 .calendar-list {
-    padding:0 0 10px 0;
+    padding: 0 0 10px 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
 }
 
 .calendar-list-item {

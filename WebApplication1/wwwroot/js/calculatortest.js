@@ -76,6 +76,7 @@ const generateCalendar = (month, year) => {
 const monthList = calendar.querySelector('.month-list');
 monthNames.forEach((month, index) => {
     const monthOption = document.createElement('div');
+    monthOption.setAttribute('data-month', index + 1);
     monthOption.innerHTML = month;
     monthOption.onclick = () => {
         monthList.classList.remove('show');

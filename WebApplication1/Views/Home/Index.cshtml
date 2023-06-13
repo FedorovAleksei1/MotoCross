@@ -356,7 +356,6 @@
 		$('#person').on('click', function (event) {
 			event.preventDefault();
 			var personId = $(this).data('person-id');
-			console.log(personId);
 
 			var url = '@Html.Raw(Url.Action("GetPersonById", "User"))?id=' + personId;
 
@@ -370,7 +369,6 @@
 
 		$('#fullCalendar').click(function(){
 			var month = document.querySelector('#month-picker').getAttribute('data-month');
-			console.log(month);
 			var url = '@Html.Raw(Url.Action("Index", "Event"))?month=' + month;
 			window.location.href = url;
 		});
