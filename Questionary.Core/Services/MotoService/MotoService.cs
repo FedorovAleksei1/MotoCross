@@ -20,8 +20,8 @@ namespace MotoCross.Services.MotoService
         public IEnumerable<MotoDto> GetAllByUserId(string userId)
         {
             var motos = _context.Motoes.Where(x => x.UserId == userId);
-            var motos1 = _mapper.Map<IEnumerable<MotoDto>>(motos);
-            return motos1;
+            var motosDto = _mapper.Map<IEnumerable<MotoDto>>(motos);
+            return motosDto;
         }
 
         public void Create(IEnumerable<MotoDto> motosDto)

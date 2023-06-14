@@ -21,8 +21,8 @@ namespace MotoCross.Services.InfoUserService
         public InfoUserDto GetByUserId(string userId)
         {
             var info = _context.Infoes.FirstOrDefault(x => x.UserId == userId);
-            var info1 = _mapper.Map<InfoUserDto>(info);
-            return info1;
+            var infoDto = _mapper.Map<InfoUserDto>(info);
+            return infoDto;
         }
 
 		public IEnumerable<InfoUserDto> GetAll()

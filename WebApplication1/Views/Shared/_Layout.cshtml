@@ -1,3 +1,8 @@
+@using Microsoft.AspNetCore.Identity
+@if (!User.Identity.IsAuthenticated)
+{
+    
+}
 
 
 <!DOCTYPE html>
@@ -34,43 +39,59 @@
                     </a>
                 </div>
 
-                <nav class="header-menu">
-                    <ul>
-                        <li>
-                            <a asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
-                        </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <nav class="header-menu">
+                        <ul>
+                            <li>
+                                <a asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                            </li>
 
-                        <li>
-                            <a href="#team-section">Команда</a>
-                        </li>
+                            <li>
+                                <a href="#team-section">Команда</a>
+                            </li>
 
-                        <li>
-                            <a href="#services-section">Услуги</a>
-                        </li>
+                            <li>
+                                <a href="#services-section">Услуги</a>
+                            </li>
 
-                        <li>
-                            <a href="#persons-section">Лёд</a>
-                        </li>
+                            <li>
+                                <a href="#persons-section">Лёд</a>
+                            </li>
 
-                        <li>
-                            <a href="#main-store-section">Магазин</a>
-                        </li>
+                            <li>
+                                <a href="#main-store-section">Магазин</a>
+                            </li>
 
-                        <li>
-                            <a href="#contacts-section">Контакты</a>
-                        </li>
-                    </ul>
-                </nav>
+                            <li>
+                                <a href="#contacts-section">Контакты</a>
+                            </li>
+                        </ul>
+                    </nav>
+                }
 
                 <div class="header-right">
                     <div class="header-lk">
-                        <a asp-area="" asp-controller="User" asp-action="Edit">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-area="" asp-controller="User" asp-action="Edit">
+                                <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="15.5" cy="15.5" r="15" stroke="white" />
+                                    <path d="M16 7.5C16.9283 7.5 17.8185 7.86875 18.4749 8.52513C19.1313 9.1815 19.5 10.0717 19.5 11C19.5 11.9283 19.1313 12.8185 18.4749 13.4749C17.8185 14.1313 16.9283 14.5 16 14.5C15.0717 14.5 14.1815 14.1313 13.5251 13.4749C12.8687 12.8185 12.5 11.9283 12.5 11C12.5 10.0717 12.8687 9.1815 13.5251 8.52513C14.1815 7.86875 15.0717 7.5 16 7.5ZM16 17.5C18.1493 17.5 20.0695 17.9363 21.4339 18.6185C22.8281 19.3155 23.5 20.1863 23.5 21V22.5H8.5V21C8.5 20.1863 9.17194 19.3155 10.5661 18.6185C11.9305 17.9363 13.8507 17.5 16 17.5Z" stroke="white" />
+                                </svg>
+                                <span>Личный кабинет</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="~/Identity/Account/Login">
                             <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="15.5" cy="15.5" r="15" stroke="white" />
                                 <path d="M16 7.5C16.9283 7.5 17.8185 7.86875 18.4749 8.52513C19.1313 9.1815 19.5 10.0717 19.5 11C19.5 11.9283 19.1313 12.8185 18.4749 13.4749C17.8185 14.1313 16.9283 14.5 16 14.5C15.0717 14.5 14.1815 14.1313 13.5251 13.4749C12.8687 12.8185 12.5 11.9283 12.5 11C12.5 10.0717 12.8687 9.1815 13.5251 8.52513C14.1815 7.86875 15.0717 7.5 16 7.5ZM16 17.5C18.1493 17.5 20.0695 17.9363 21.4339 18.6185C22.8281 19.3155 23.5 20.1863 23.5 21V22.5H8.5V21C8.5 20.1863 9.17194 19.3155 10.5661 18.6185C11.9305 17.9363 13.8507 17.5 16 17.5Z" stroke="white" />
                             </svg>
-                            <span>Личный кабинет</span>
-                        </a>
+                            <span>Вход</span>
+                            </a>
+                        }
                     </div>
                 </div>
 
@@ -145,3 +166,24 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+@*<script>
+    ; (function () {
+        let isAuth = '@User.Identity?.IsAuthenticated' !== 'False'
+        if (!location.href.includes("/Identity/Account/Login") && !isAuth) {
+            location.href = "/Identity/Account/Login"
+        } else {
+            $.ajax({
+                url: '/Home/GetUserShortName',
+                type: 'GET',
+                success: function (response) {
+                    $(".user-link .user-pic").text(response.split(".").join(""))
+                },
+                error: function () {
+                    console.log(error)
+                }
+            });
+        }
+    })()
+</script>*@

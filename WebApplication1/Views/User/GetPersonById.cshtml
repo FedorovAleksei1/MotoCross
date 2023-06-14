@@ -11,7 +11,7 @@
 
         <div class="stats-block">
             <p>
-                <b>Дата рождения</b> -
+                <b>Дата рождения</b> - @Model.User.InfoDto.Year.ToString("dd.MM.yyyy") 
             </p>
 
             <p>
@@ -23,7 +23,7 @@
             </p>
 
             <p>
-                <b>@Model.User.InfoDto.Experience</b><br><br>
+                <b>Какие победы были? В скольких гонках участвовал?</b>  - @Model.User.InfoDto.Experience<br><br>
 
             </p>
 
@@ -40,11 +40,11 @@
 
     <div class="person-popup-right">
         <div class="number">
-            <b>Стартовый номер - </b><span class="grand-red">113</span>
+            <b>Стартовый номер - </b><span class="grand-red">@Model.User.InfoDto.StartNumber</span>
         </div>
 
         <p>
-            <span class="grand-red">2 года</span><br>
+            <span class="grand-red">@Model.User.InfoDto.YearAnarch</span><br>
             стаж в мотокроссе
         </p>
 
