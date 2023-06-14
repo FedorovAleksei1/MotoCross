@@ -92,7 +92,19 @@
                             <span>Вход</span>
                             </a>
                         }
+                        
                     </div>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                    @*<a href="~/Identity/Account/Logout"><span>Выход</span></a>*@
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Account/Login", new { area = "Identity" })" method="post">
+                            <button type="submit" class="nav-link btn btn-link text-dark">Выход</button>
+                    </form>
+                    }
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                        <partial name="_LoginPartial" />
+                    </div>
+                   
                 </div>
 
             </div>
@@ -171,8 +183,8 @@
 @*<script>
     ; (function () {
         let isAuth = '@User.Identity?.IsAuthenticated' !== 'False'
-        if (!location.href.includes("/Identity/Account/Login") && !isAuth) {
-            location.href = "/Identity/Account/Login"
+        if (!location.href.includes("/Home/Index") && !isAuth) {
+            location.href = "/Home/Index"
         } else {
             $.ajax({
                 url: '/Home/GetUserShortName',
