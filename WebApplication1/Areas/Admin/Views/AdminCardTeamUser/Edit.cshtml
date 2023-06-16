@@ -9,7 +9,51 @@
     @Html.HiddenFor(x => x.CardPerson.Id)
     <div>
         <label>
-            Название мероприятия
+            Фамилия
+            @Html.TextBoxFor(x => Model.CardPerson.LastName, new { @class = "form-control"})
+        </label>
+    </div>
+    <div>
+        <label>
+            Имя
+            @Html.TextBoxFor(x => Model.CardPerson.FirstName, new { @class = "form-control"})
+        </label>
+    </div>
+    <div>
+        <label>
+            Город
+            @Html.TextBoxFor(x => Model.CardPerson.City, new { @class = "form-control"})
+        </label>
+    </div>
+    <div>
+        <label>
+            Год
+            @Html.TextBoxFor(x => Model.CardPerson.Year, new { @class = "form-control"})
+            @* <input type="date" asp-for="@Model.CardPerson.Year.ToString(" dd.MM.yyyy")" class="form-control" />*@
+
+        </label>
+    </div>
+    <div>
+        <label>
+            Стартовый номер
+            @Html.TextBoxFor(x => Model.CardPerson.StartNumber, new { @class = "form-control"})
+        </label>
+    </div>
+    <div>
+        <label>
+            Победы
+            @Html.TextBoxFor(x => Model.CardPerson.Experience, new { @class = "form-control"})
+        </label>
+    </div>
+    <div>
+        <label>
+            Лет в анрагии
+            @Html.TextBoxFor(x => Model.CardPerson.YearAnarch, new { @class = "form-control"})
+        </label>
+    </div>
+    <div>
+        <label>
+            Хобби
             @Html.TextBoxFor(x => Model.CardPerson.Hobby, new { @class = "form-control"})
         </label>
     </div>
