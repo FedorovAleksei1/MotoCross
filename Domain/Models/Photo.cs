@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Photo
+    public class Photo : BaseEntity
     {
         public int Id { get; set; }
 
         public string NameFile { get; set; }
 
-        [Column(TypeName = "nvarchar(MAX)")]
-        public string Base64 { get; set; }
+        //[Column(TypeName = "nvarchar(MAX)")]
+        public byte[] Base64 { get; set; }
     }
 }

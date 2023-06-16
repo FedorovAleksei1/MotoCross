@@ -17,5 +17,7 @@ namespace MotoCross.Data
         public DbSet<InfoUser> Infoes { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Important> Importants { get; set; }
+        public DbSet<CardTeamUser> CardTeamUsers { get; set; }
+        public DbSet<Photo> Photos { get; set; }
     }
 }

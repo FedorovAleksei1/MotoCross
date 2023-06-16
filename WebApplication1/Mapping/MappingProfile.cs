@@ -15,9 +15,12 @@ namespace MotoCross.Mapping
             CreateMap<Event, EventDto>().ReverseMap();
             CreateMap<Important, ImportantDto>().ReverseMap();
             CreateMap<InfoUser, InfoUserDto>().ReverseMap();
+            CreateMap<CardTeamUser, CardTeamUserDto>().ReverseMap()
+                /*.ForMember(x => x.UploadPhoto, (option) => option.Ignore())*//*.ForMember(t => t.PhotoBase64, rep => rep.MapFrom(ped => ped.PhotoId != null ? ped.Photo.Base64 : ""))*/;
 
             CreateMap<Order, OrderDto>()
                 .ForMember(x => x.Name, opt => opt.MapFrom(r => r.СustomerService.Name)).ReverseMap();
+            CreateMap<Photo, PhotoDto>().ReverseMap();
         }
     }
 }

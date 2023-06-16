@@ -2,7 +2,7 @@
 
 namespace Domain.Models
 {
-    public class Moto
+    public class Moto : BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

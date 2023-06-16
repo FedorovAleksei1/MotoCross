@@ -211,19 +211,20 @@
 			</div>
 
 			<div class="persons-block persons-slider">
-				@if (Model.PersonsTeam != null && Model.PersonsTeam.Any())
+				@if (Model.CardTeamUserDtos != null && Model.CardTeamUserDtos.Any())
 				{
-					foreach (var person in Model.PersonsTeam)
+					foreach (var person in Model.CardTeamUserDtos)
 					{
 						<div class="persons-item">
 							<div class="img">
-								<img src="/img/pictures/person1.jpg" alt="">
-								<a class="ref" href="#"></a>
+
+								<img src="@person.BasePhoto64" alt="">
+								<a class="ref" onclick="test('@person.Id')" style="cursor:pointer;"></a>
 							</div>
 
-							<div class="title">@($"{person.User.LastName} {person.User.FirstName} {person.User.MiddleName}")</div>
+							<div class="title">@($"{person.LastName} {person.FirstName}")</div>
 
-							<a href="" class="fancy more" id="person" data-person-id="@person.UserId">Подробнее</a>
+							<a class="fancy more" onclick="test('@person.Id')" style="cursor:pointer;">Подробнее</a>
 						</div>
 					}
 				}
@@ -356,9 +357,9 @@
 		$('#person').on('click', function (event) {
 			event.preventDefault();
 			var personId = $(this).data('person-id');
-
-			var url = '@Html.Raw(Url.Action("GetPersonById", "User"))?id=' + personId;
-
+			console.log(personId);
+			var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + personId;
+			console.log(url);
 			$.get(url, function (response) {
 				$('#infoPersonTeamBody').html(response);
 			});
@@ -373,4 +374,14 @@
 			window.location.href = url;
 		});
 	});
+
+	function test(id) {
+		var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + id;
+
+		$.get(url, function (response) {
+			$('#infoPersonTeamBody').html(response);
+		});
+
+		$('#infoPersonTeam').modal('show');
+	}
 </script>

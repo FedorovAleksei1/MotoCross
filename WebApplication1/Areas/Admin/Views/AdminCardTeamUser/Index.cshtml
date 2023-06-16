@@ -1,0 +1,41 @@
+﻿@using Questionary.Web.Areas.Admin.VIewModel.AdminViewModel
+@model AdminCardTeamUserViewModel;
+@{
+    ViewData["Title"] = "Список мероприятий";
+}
+
+<div class="container my-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Наименование мероприятия</th>
+                <th>Дата начала мероприятия</th>
+                <th>Дата конца мероприятия</th>
+                <th>Категория мероприятия</th>
+
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CardPersonsTeam)
+            {
+                <tr>
+                    <td>@item.Hobby</td>
+                    <td><img src="@item.BasePhoto64" alt=""></td>
+
+
+
+                    <td><a type="button" class="btn btn-primary" href="~/Admin/AdminCardTeamUser/Edit/@item.Id">Редактировать</a></td>
+                    <td><a type="button" class="btn btn-danger" href="~/Admin/AdminCardTeamUser/Delete/@item.Id">Удалить</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <a type="button" class="btn btn-primary" href='/Admin/AdminCardTeamUser/Create'>Добавить</a>
+    </div>
+</div>
+
+@*<img class="img_doc" src="data:image/png;base64, {{doc?.photoBase64}}" />*@

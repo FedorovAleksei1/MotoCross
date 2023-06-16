@@ -1,0 +1,27 @@
+﻿@using Questionary.Web.Areas.Admin.VIewModel.AdminViewModel
+@model AdminCardTeamUserViewModel;
+
+@{
+    ViewData["Title"] = "Добавление  окна тимы";
+}
+<h2>Добавление  окна тимы</h2>
+<form method="post" enctype="multipart/form-data">
+    @Html.HiddenFor(x => x.CardPerson.Id)
+    <div>
+        <label>
+            Название мероприятия
+            @Html.TextBoxFor(x => Model.CardPerson.Hobby, new { @class = "form-control"})
+        </label>
+    </div>
+
+    <div>
+        <label>
+            <input type="file" asp-for="UploadPhoto" class="form-control" />
+        </label>
+    </div>
+
+
+    <input type="submit" value="Сохранить" />
+
+</form>
+

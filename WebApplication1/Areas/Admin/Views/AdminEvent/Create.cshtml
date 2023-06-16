@@ -1,0 +1,43 @@
+﻿@using Questionary.Web.Areas.Admin.VIewModel.AdminViewModel
+@model AdminEventViewModel;
+
+@{
+    ViewData["Title"] = "Добавление студента";
+}
+<h2>Добавление студента</h2>
+<form method="post">
+
+    <div>
+        <label>
+            Название мероприятия
+            @Html.TextBoxFor(x => Model.Event.Name, new { @class = "form-control"})
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Начало мероприятия
+           @* @Html.TextBoxFor(x => Model.Event.DateStart, new { @class = "form-control datepicker"})*@
+            <input type="date" asp-for="Event.DateStart" class="form-control" />
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Конец мероприятия
+            <input type="date" asp-for="Event.DateAnd" class="form-control" />
+        </label>
+    </div>
+
+    <div>
+        <label>
+            
+            @Html.DropDownListFor(x => Model.Event.ImportantId, Model.ImportantsList,  new { @class = "form-control"} )
+        </label>
+    </div>
+ 
+
+    <input type="submit" value="Сохранить" />
+
+</form>
+

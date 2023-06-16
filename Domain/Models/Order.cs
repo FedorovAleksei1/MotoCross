@@ -6,7 +6,7 @@ namespace Domain.Models
     /// <summary>
     /// Таблица Заказы для страницы ЛК вкалдки мои заказы
     /// </summary>
-    public class Order
+    public class Order : BaseEntity
     {
         public int Id { get; set; }
         public DateTime Data { get; set; }

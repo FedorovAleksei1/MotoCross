@@ -47,7 +47,7 @@
 
 <script>
     $(document).ready(function () {
-        var itemsPerPage = 2; // Количество элементов на одной странице
+        var itemsPerPage = 3; // Количество элементов на одной странице
         var currentPage = 1; // Текущая страница
         var totalItems = @Model.Item.Elements.Count(); // Общее количество элементов
         var totalPages = Math.ceil(totalItems / itemsPerPage); // Общее число страниц

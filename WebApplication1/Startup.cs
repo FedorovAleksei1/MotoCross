@@ -19,6 +19,10 @@ using System;
 using Questionary.Core.Services.EventService;
 using Questionary.Core.Services.ImportantService;
 using MotoCross.Services.InfoUserService;
+using Questionary.Core.Services.AdminService.AdminEventService;
+using Questionary.Core.Services.AdminService.AdminImportantService;
+using Questionary.Core.Services.AdminService.AdminUserInfoService;
+using Questionary.Core.Services.AdminService.AdminCardTeamUser;
 
 namespace MotoCross
 {
@@ -51,8 +55,12 @@ namespace MotoCross
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<IImportantService, ImportantService>();
             services.AddTransient<IUserInfoService, UserInfoService>();
+            services.AddTransient<IAdminEventService, AdminEventService>();
+            services.AddTransient<IAdminImportantService, AdminImportantService>();
+            services.AddTransient<IAdminUserInfoService, AdminUserInfoService>();
+            services.AddTransient<ICardTeamUserService, CardTeamUserService>();
 
-
+            
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequiredLength = 5;

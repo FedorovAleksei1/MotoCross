@@ -6,7 +6,7 @@ namespace Domain.Models
     /// <summary>
     /// Таблица Услуги для таблицы Заказы (Какие услуги проводились для мотоцикла )
     /// </summary>
-    public class СustomerService
+    public class СustomerService : BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

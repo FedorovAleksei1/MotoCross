@@ -2,7 +2,7 @@
 
 namespace Domain.Models
 {
-    public class InfoUser
+    public class InfoUser : BaseEntity
     {
         public int Id { get; set; }
 

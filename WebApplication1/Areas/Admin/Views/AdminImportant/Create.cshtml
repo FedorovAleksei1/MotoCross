@@ -1,0 +1,24 @@
+﻿@using Questionary.Web.Areas.Admin.VIewModel.AdminViewModel
+@model AdminImportantViewModel;
+
+@{
+    ViewData["Title"] = "Добавление Важности";
+}
+<h2>Добавление важности</h2>
+<form method="post">
+    <div>
+        <label>
+            Название
+            @Html.TextBoxFor(x => Model.Important.Name, new { @class = "form-control"})
+        </label>
+    </div>
+    <div>
+        <label>
+            Куратор
+            @Html.DropDownListFor(x => Model.Important.Color, Model.ImportantsList,  new { @class = "form-control"} )
+        </label>
+    </div>
+
+    <input type="submit" value="Сохранить" />
+
+</form>

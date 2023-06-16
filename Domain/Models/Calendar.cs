@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Calendar
+    public class Calendar : BaseEntity
     {
         public int Id { get; set; }
         public DateTime DateTime { get; set; }

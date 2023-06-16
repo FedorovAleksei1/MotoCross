@@ -22,13 +22,17 @@
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" class="btn users-btn" asp-controller="Questionary" asp-action="Index">Анкеты</a>
+                            <a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminImportant" asp-action="Index">Важности</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" class="btn users-btn" asp-controller="Log" asp-action="Index" type="button">Логи</a>
+                            <a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminEvent" asp-action="Index" type="button">Мероприятия</a>
                         </li>
+                       @* <li class="nav-item">
+                            <a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminUserInfo" asp-action="Index" type="button">Дополнительная инфа пользователей</a>
+                        </li>*@
+                        
                         <li class="nav-item">
-                            <a class="nav-link text-dark" class="btn users-btn" asp-controller="Users" asp-action="Index" type="button">Пользователи</a>
+                            <a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminCardTeamUser" asp-action="Index" type="button">Карточки команды мотокросс</a>
                         </li>
                         <li class="nav-item">
                             <form class="form-inline " asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
@@ -53,6 +57,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/datepicker.min.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", false)
 </body>

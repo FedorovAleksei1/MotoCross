@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Size
+    public class Size : BaseEntity
     {
         public int Id {  get; set; }
         public string Name { get; set; }

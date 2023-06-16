@@ -5,6 +5,7 @@ namespace Questionary.Web.Areas.Admin.VIewModel
 {
     public class MainViewModel
     {
+        public IEnumerable<CardTeamUserDto> CardTeamUserDtos { get; set; }
         public IEnumerable<InfoUserDto> PersonsTeam { get; set; }
     }
 }
