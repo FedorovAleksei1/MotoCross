@@ -7,9 +7,11 @@ using System.Linq;
 using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Domain.Models;
+using Questionary.Web.Areas.Admin.ViewModels;
+using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
 
 namespace Questionary.Web.Areas.Admin.Controllers
-{ 
+{
     public class AdminUserController : Controller
     {
         
@@ -95,7 +97,20 @@ namespace Questionary.Web.Areas.Admin.Controllers
 
         [Area("Admin")]
         [Authorize]
+        public async Task<IActionResult> ChangePassword(string id)
+        {
+            if (!User.IsInRole("admin"))
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
 
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null) return NotFound();
+
+            var model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
+            return View(model);
+        }
+
+        [Area("Admin")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -132,6 +147,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+
         [Area("Admin")]
         [Authorize]
         public IActionResult Search(string searchBy, string searchTerm)

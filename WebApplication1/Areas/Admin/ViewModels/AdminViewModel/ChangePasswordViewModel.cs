@@ -1,4 +1,4 @@
-﻿namespace Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
+﻿namespace Questionary.Web.Areas.Admin.ViewModels.AdminViewModel
 {
     public class ChangePasswordViewModel
     {

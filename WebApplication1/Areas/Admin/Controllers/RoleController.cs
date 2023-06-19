@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel;
+using Questionary.Web.Areas.Admin.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,22 +12,26 @@ namespace Questionary.Web.Areas.Admin.Controllers
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
         }
 
+        [Area("Admin")]
+        [Authorize]
         public IActionResult Index()
         {
             if (!User.IsInRole("admin"))
                 RedirectToAction("Index", "Home", new { area = "Admin" });
 
-            return View(_roleManager.Roles.ToList());
+            return View(_roleManager.Roles.AsEnumerable());
         }
 
+        [Area("Admin")]
+        [Authorize]
         public IActionResult Create()
         {
             if (!User.IsInRole("admin"))
@@ -34,6 +40,8 @@ namespace Questionary.Web.Areas.Admin.Controllers
             return View();
         }
 
+        [Area("Admin")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(string name)
         {
@@ -50,6 +58,8 @@ namespace Questionary.Web.Areas.Admin.Controllers
             return View(name);
         }
 
+        [Area("Admin")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
@@ -65,6 +75,8 @@ namespace Questionary.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [Area("Admin")]
+        [Authorize]
         public IActionResult UserList()
         {
             if (!User.IsInRole("admin"))
@@ -73,6 +85,8 @@ namespace Questionary.Web.Areas.Admin.Controllers
             return View(_userManager.Users.ToList());
         }
 
+        [Area("Admin")]
+        [Authorize]
         public async Task<IActionResult> Edit(string userId)
         {
             if (!User.IsInRole("admin"))
@@ -95,6 +109,8 @@ namespace Questionary.Web.Areas.Admin.Controllers
 
         }
 
+        [Area("Admin")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {

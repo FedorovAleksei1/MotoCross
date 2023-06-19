@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
-namespace Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
+namespace Questionary.Web.Areas.Admin.ViewModels
 {
     public class ChangeRoleViewModel
     {

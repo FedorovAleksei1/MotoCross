@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Questionary.Core.Services.AdminService.AdminEventService;
 using Questionary.Core.Services.AdminService.AdminImportantService;
 using Questionary.Core.Services.AdminService.AdminUserInfoService;
-using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel;
+using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {

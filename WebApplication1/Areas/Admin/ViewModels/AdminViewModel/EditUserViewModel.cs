@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
+namespace Questionary.Web.Areas.Admin.ViewModels
 {
     public class EditUserViewModel
     {
