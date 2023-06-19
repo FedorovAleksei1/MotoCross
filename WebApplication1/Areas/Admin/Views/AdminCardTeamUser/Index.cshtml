@@ -1,4 +1,4 @@
-﻿@using Questionary.Web.Areas.Admin.VIewModel.AdminViewModel
+﻿@using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
 @model AdminCardTeamUserViewModel;
 @{
     ViewData["Title"] = "Список мероприятий";
@@ -8,21 +8,33 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Наименование мероприятия</th>
-                <th>Дата начала мероприятия</th>
-                <th>Дата конца мероприятия</th>
-                <th>Категория мероприятия</th>
-
-                <th> </th>
-                <th> </th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Город</th>
+                <th>Год</th>        
+                <th>факты</th>
+                <th>Стартовый номер</th>
+                <th>Победы</th>
+                <th>Лет в анрагии</th>
+                <th>Хобби</th>
+                <th>Фото</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.CardPersonsTeam)
             {
                 <tr>
+                    <td>@item.LastName</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.City</td>
+                    <td>
+                        @item.Year.ToString("dd.MM.yyyy")</td>
+                    <td>@item.Facts</td>
+                    <td>@item.StartNumber</td>
+                    <td>@item.Experience</td>
+                    <td>@item.YearAnarch</td>
                     <td>@item.Hobby</td>
-                    <td><img src="@item.BasePhoto64" alt=""></td>
+                    <td><img class="img_admin_photo" src="@item.BasePhoto64" alt=""></td>
 
 
 

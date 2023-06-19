@@ -80,3 +80,22 @@ body {
 .test-2 {
     flex: 1 0 auto;
 }
+.loginitemcenter {
+    justify-content: center;
+    display: flex;
+    padding-top: 100px;
+}
+.loginitemcenter1 {
+    justify-content: center;
+    display: flex;
+    
+}
+.form_on_button {
+    
+    display: flex;
+    justify-content:space-between;
+}
+.img_admin_photo {
+    height: 50%;
+    width: 50%;
+}

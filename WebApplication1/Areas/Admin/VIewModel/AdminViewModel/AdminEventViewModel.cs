@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
-namespace Questionary.Web.Areas.Admin.VIewModel.AdminViewModel
+namespace Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
 {
     public class AdminEventViewModel
     {

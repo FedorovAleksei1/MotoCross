@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using MotoCross.Models;
 using MotoCross.Services.InfoUserService;
 using Questionary.Core.Services.AdminService.AdminCardTeamUser;
-using Questionary.Web.Areas.Admin.VIewModel;
+using Questionary.Web.Areas.Admin.ViewModel;
 using System.Diagnostics;
 
 namespace MotoCross.Controllers

@@ -1,7 +1,7 @@
 ﻿using Domain.Dto;
 using System.Collections.Generic;
 
-namespace Domain.Models.VIewModel
+namespace Domain.Models.ViewModel
 {
     public class OrderViewModel
     {

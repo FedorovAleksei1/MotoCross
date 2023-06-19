@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Questionary.Core.Services.AdminService.AdminCardTeamUser;
 using Questionary.Core.Services.AdminService.AdminImportantService;
 using Questionary.Core.Services.AdminService.AdminUserInfoService;
-using Questionary.Web.Areas.Admin.VIewModel.AdminViewModel;
+using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {

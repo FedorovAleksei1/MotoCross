@@ -1,12 +1,12 @@
 ﻿using Domain.Dto;
 using Domain.Models;
-using Domain.Models.VIewModel;
+using Domain.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MotoCross.Json;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
-using Questionary.Web.Areas.Admin.VIewModel;
+using Questionary.Web.Areas.Admin.ViewModel;
 using System.Threading.Tasks;
 
 namespace MotoCross.Controllers

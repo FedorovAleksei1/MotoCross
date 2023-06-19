@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Questionary.Core.Services.EventService;
 using Questionary.Core.Services.ImportantService;
-using Questionary.Web.Areas.Admin.VIewModel;
+using Questionary.Web.Areas.Admin.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

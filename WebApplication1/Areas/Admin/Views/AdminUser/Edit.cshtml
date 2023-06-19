@@ -1,0 +1,26 @@
+﻿@model Questionary.Web.Areas.Admin.ViewModels.EditUserViewModel
+@{
+    ViewBag.Title = "Редактирование пользователя";
+}
+
+<div class="form">
+    <form asp-action="Edit" asp-controller="Users">
+        <div asp-validation-summary="ModelOnly" class="text-danger error-messages"></div>
+
+        <div class="form-item">
+            <input type="hidden" asp-for="Id" />
+        </div>
+        <div class="form-item">
+            <label asp-for="Email">Email</label>
+            <input type="text" asp-for="Email" />
+        </div>
+        <div class="form-item">
+            <label asp-for="PhoneNumber">Номер телефона</label>
+            <input type="text" asp-for="PhoneNumber" />
+        </div>
+        <div class="form-item form-item-submit bottom-form-buttons">
+            <a class="button red-button" asp-action="Index">Вернуться назад</a>
+            <input type="submit" value="Сохранить" class="button" />
+        </div>
+    </form>
+</div>

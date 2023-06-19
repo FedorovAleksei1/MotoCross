@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Questionary.Core.Services.AdminService.AdminCardTeamUser;
-using Questionary.Web.Areas.Admin.VIewModel.AdminViewModel;
+using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel;
 
 namespace Questionary.Web.Controllers
 {

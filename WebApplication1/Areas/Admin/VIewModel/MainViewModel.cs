@@ -1,7 +1,7 @@
 ﻿using Domain.Dto;
 using System.Collections.Generic;
 
-namespace Questionary.Web.Areas.Admin.VIewModel
+namespace Questionary.Web.Areas.Admin.ViewModel
 {
     public class MainViewModel
     {

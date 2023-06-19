@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Questionary.Core.Services.AdminService.AdminEventService;
 using Questionary.Core.Services.AdminService.AdminImportantService;
-using Questionary.Web.Areas.Admin.VIewModel.AdminViewModel;
+using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel;
 using System.Collections.Generic;
 using System.Linq;
 
