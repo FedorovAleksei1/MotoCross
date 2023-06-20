@@ -1,8 +1,20 @@
 ﻿@using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
 @model AdminCardTeamUserViewModel;
 @{
+   
     ViewData["Title"] = "Список мероприятий";
 }
+
+<style>
+    .columnTextOverflow
+    {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+</style>
+
 
 <div class="container my-5">
     <table class="table">
@@ -12,7 +24,7 @@
                 <th>Имя</th>
                 <th>Город</th>
                 <th>Год</th>        
-                <th>факты</th>
+                <th>Факты</th>
                 <th>Стартовый номер</th>
                 <th>Победы</th>
                 <th>Лет в анрагии</th>
@@ -27,16 +39,13 @@
                     <td>@item.LastName</td>
                     <td>@item.FirstName</td>
                     <td>@item.City</td>
-                    <td>
-                        @item.Year.ToString("dd.MM.yyyy")</td>
-                    <td>@item.Facts</td>
+                    <td>@item.Year.ToString("dd.MM.yyyy")</td>
+                    <td class="columnTextOverflow">@item?.Facts</td>
                     <td>@item.StartNumber</td>
                     <td>@item.Experience</td>
                     <td>@item.YearAnarch</td>
                     <td>@item.Hobby</td>
                     <td><img class="img_admin_photo" src="@item.BasePhoto64" alt=""></td>
-
-
 
                     <td><a type="button" class="btn btn-primary" href="~/Admin/AdminCardTeamUser/Edit/@item.Id">Редактировать</a></td>
                     <td><a type="button" class="btn btn-danger" href="~/Admin/AdminCardTeamUser/Delete/@item.Id">Удалить</a></td>
@@ -49,5 +58,3 @@
         <a type="button" class="btn btn-primary" href='/Admin/AdminCardTeamUser/Create'>Добавить</a>
     </div>
 </div>
-
-@*<img class="img_doc" src="data:image/png;base64, {{doc?.photoBase64}}" />*@
