@@ -7,5 +7,6 @@ namespace Questionary.Web.Areas.Admin.ViewModel
     {
         public IEnumerable<CardTeamUserDto> CardTeamUserDtos { get; set; }
         public IEnumerable<InfoUserDto> PersonsTeam { get; set; }
-    }
+		public PaginationDto<CardTeamUserDto> ItemCards { get; set; }
+	}
 }

@@ -8,6 +8,6 @@ namespace Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
     {
         public IFormFile UploadPhoto { get; set; }
         public CardTeamUserDto CardPerson { get; set; }
-        public IEnumerable<CardTeamUserDto> CardPersonsTeam { get; set; }
+        public PaginationDto<CardTeamUserDto> CardPersonsTeam { get; set; }
     }
 }

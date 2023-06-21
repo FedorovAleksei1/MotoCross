@@ -11,7 +11,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>@ViewData["Title"] - MotoCross</title>
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />   
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/adaptive.css" />
@@ -24,7 +26,7 @@
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/calendar.css">
     <link rel="stylesheet" href="~/css/calculatortest.css">
-    
+    <link rel="stylesheet" href="~/css/itc-slider.css">
 
 </head>
 <body>
@@ -39,8 +41,8 @@
                     </a>
                 </div>
 
-                @if (User.Identity.IsAuthenticated)
-                {
+              @*  @if (User.Identity.IsAuthenticated)
+                {*@
                     <nav class="header-menu">
                         <ul>
                             <li>
@@ -68,7 +70,7 @@
                             </li>
                         </ul>
                     </nav>
-                }
+               @* }*@
 
                 <div class="header-right">
                     <div class="header-lk">
@@ -175,6 +177,7 @@
     <script src="~/js/calendar.js" asp-append-version="true"></script>
     <script src="~/js/cal.js" asp-append-version="true"></script>
     <script src="~/js/calculatortest.js" asp-append-version="true"></script>
+    <script src="~/js/itc-slider.js" asp-append-version="true" defer></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

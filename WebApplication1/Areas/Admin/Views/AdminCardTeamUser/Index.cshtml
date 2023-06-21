@@ -1,60 +1,49 @@
 ﻿@using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
 @model AdminCardTeamUserViewModel;
 @{
-   
+
     ViewData["Title"] = "Список мероприятий";
 }
 
 <style>
-    .columnTextOverflow
-    {
+    .columnTextOverflow {
         max-width: 150px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    
+
+    .button_pagination {
+        display: flex;
+        justify-content: space-around;
+    }
 </style>
 
 
 <div class="container my-5">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Фамилия</th>
-                <th>Имя</th>
-                <th>Город</th>
-                <th>Год</th>        
-                <th>Факты</th>
-                <th>Стартовый номер</th>
-                <th>Победы</th>
-                <th>Лет в анрагии</th>
-                <th>Хобби</th>
-                <th>Фото</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.CardPersonsTeam)
-            {
-                <tr>
-                    <td>@item.LastName</td>
-                    <td>@item.FirstName</td>
-                    <td>@item.City</td>
-                    <td>@item.Year.ToString("dd.MM.yyyy")</td>
-                    <td class="columnTextOverflow">@item?.Facts</td>
-                    <td>@item.StartNumber</td>
-                    <td>@item.Experience</td>
-                    <td>@item.YearAnarch</td>
-                    <td>@item.Hobby</td>
-                    <td><img class="img_admin_photo" src="@item.BasePhoto64" alt=""></td>
-
-                    <td><a type="button" class="btn btn-primary" href="~/Admin/AdminCardTeamUser/Edit/@item.Id">Редактировать</a></td>
-                    <td><a type="button" class="btn btn-danger" href="~/Admin/AdminCardTeamUser/Delete/@item.Id">Удалить</a></td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
+<table class="table">
+    
+    <tbody class="cardItemUser" id="adminCardItem">
+    </tbody>
+</table>
     <div>
         <a type="button" class="btn btn-primary" href='/Admin/AdminCardTeamUser/Create'>Добавить</a>
+
+    </div>
+
+<div class="button_pagination"> 
+<button type="button" class="btn btn-dark" id="prevPage">Назад</button>
+<button type="button" class="btn btn-dark" id="nextPage">Вперед</button>
     </div>
 </div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $ (function  () {
+        var url = '@Html.Raw(Url.Action("AdminCardIndexInTable", "AdminCardTeamUser"))';
+        $.get(url, function (response) {
+            $('#adminCardItem').html(response);
+        });
+    });
+
+
+</script>

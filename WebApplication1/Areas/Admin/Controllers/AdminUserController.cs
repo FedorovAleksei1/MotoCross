@@ -175,7 +175,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
         }
         [Area("Admin")]
         [Authorize]
-        [HttpPost]
+        
         public async Task<ActionResult> Delete(string id)
         {
             if (!User.IsInRole("admin"))

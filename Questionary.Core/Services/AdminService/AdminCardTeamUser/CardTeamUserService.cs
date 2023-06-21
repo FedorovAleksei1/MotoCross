@@ -3,6 +3,7 @@ using Domain.Dto;
 using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MotoCross.Data;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,15 @@ namespace Questionary.Core.Services.AdminService.AdminCardTeamUser
             _mapper = mapper;
         }
 
-        public IEnumerable<CardTeamUserDto> AllCardTeam()
+        public PaginationDto<CardTeamUserDto> AllCardTeam(int page, int take)
         {
-            var cardTeams = _context.CardTeamUsers.Include(x => x.Photo).Where(x => !x.IsDeleted).AsEnumerable();
-            var cardTeamDto = _mapper.Map<IEnumerable<CardTeamUserDto>>(cardTeams);
-            foreach (var card in cardTeamDto)
+            var cardTeams = _context.CardTeamUsers.Include(x => x.Photo).Where(x => !x.IsDeleted).Skip((page - 1) * take)
+				.Take(take)
+                .OrderBy(x => x.Photo != null)
+				.AsEnumerable();
+
+            var cardTeamDto = _mapper.Map<List<CardTeamUserDto>>(cardTeams);
+			foreach (var card in cardTeamDto)
             {
                 if (card.Photo != null && card.Photo.Base64 != null && card.Photo.Base64.Length > 0)
                 {
@@ -33,8 +38,11 @@ namespace Questionary.Core.Services.AdminService.AdminCardTeamUser
                     card.BasePhoto64 = $"data:image/png;base64,{basePhoto64}";
                 }
             }
-            return cardTeamDto;
 
+            var paginationDto = new PaginationDto<CardTeamUserDto>();
+            paginationDto.Elements = _mapper.Map<List<CardTeamUserDto>>(cardTeamDto);
+
+            return paginationDto;
         }
 
         public CardTeamUserDto GetByCardTeamId(int id)

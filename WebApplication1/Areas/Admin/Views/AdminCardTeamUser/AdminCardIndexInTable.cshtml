@@ -1,0 +1,86 @@
+﻿@using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
+@model AdminCardTeamUserViewModel;
+
+<style>
+    .columnTextOverflow {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<div >
+  
+<table class="table">
+    <thead>
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Город</th>
+            <th>Год</th>
+            <th>Факты</th>
+            <th>Стартовый номер</th>
+            <th>Победы</th>
+            <th>Лет в анрагии</th>
+            <th>Хобби</th>
+            <th>Фото</th>
+        </tr>
+    </thead>
+        @foreach (var item in Model.CardPersonsTeam.Elements)
+        {
+            <tr class ="admin_cards">
+                <td>@item.LastName</td>
+                <td>@item.FirstName</td>
+                <td>@item.City</td>
+                <td>@item.Year.ToString("dd.MM.yyyy")</td>
+                <td class="columnTextOverflow">@item?.Facts</td>
+                <td>@item.StartNumber</td>
+                <td>@item.Experience</td>
+                <td>@item.YearAnarch</td>
+                <td>@item.Hobby</td>
+                <td><img class="img_admin_photo" src="@item.BasePhoto64" alt=""></td>
+
+                <td><a type="button" class="btn btn-primary" href="~/Admin/AdminCardTeamUser/Edit/@item.Id">Редактировать</a></td>
+                <td><a type="button" class="btn btn-danger" href="~/Admin/AdminCardTeamUser/Delete/@item.Id">Удалить</a></td>
+            </tr>
+        }
+</table>
+</div>
+<script>
+    $(document).ready(function () {
+        var itemsPerPage = 4; // Количество элементов на одной странице
+        var currentPage = 1; // Текущая страница
+        var totalItems = @Model.CardPersonsTeam.Elements.Count(); // Общее количество элементов
+        var totalPages = Math.ceil(totalItems / itemsPerPage); // Общее число страниц
+
+        // Функция для отображения элементов текущей страницы
+        function showPage(page) {
+            var startIndex = (page - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
+            $("#adminCardItem .admin_cards").hide().slice(startIndex, endIndex).show();
+        }
+
+        // Инициализация страницы
+        showPage(currentPage);
+        $("#currentPage").text(currentPage);
+        $("#totalPages").text(totalPages);
+
+        // Обработчик нажатия кнопки "Назад"
+        $("#prevPage").click(function () {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+                $("#currentPage").text(currentPage);
+            }
+        });
+
+        // Обработчик нажатия кнопки "Вперед"
+        $("#nextPage").click(function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+                $("#currentPage").text(currentPage);
+            }
+        });
+    });
+</script>

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Questionary.Core.Services.AdminService.AdminCardTeamUser;
 using Questionary.Core.Services.AdminService.AdminImportantService;
 using Questionary.Core.Services.AdminService.AdminUserInfoService;
 using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel;
+using System.Linq;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {
@@ -22,10 +24,18 @@ namespace Questionary.Web.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var model = new AdminCardTeamUserViewModel();
-            var userinfoList = _adminCardTeamUserService.AllCardTeam();
+            return View(model);
+        }
+
+        [Area("Admin")]
+        [Authorize]
+        public PartialViewResult AdminCardIndexInTable(int page = 1, int take = 1000)
+        {
+            var model = new AdminCardTeamUserViewModel();
+            var userinfoList = _adminCardTeamUserService.AllCardTeam(page, take);
             model.CardPersonsTeam = userinfoList;
 
-            return View(model);
+            return PartialView(model);
         }
 
         [Area("Admin")]

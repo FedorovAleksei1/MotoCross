@@ -5,6 +5,7 @@ using MotoCross.Services.InfoUserService;
 using Questionary.Core.Services.AdminService.AdminCardTeamUser;
 using Questionary.Web.Areas.Admin.ViewModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace MotoCross.Controllers
 {
@@ -25,13 +26,22 @@ namespace MotoCross.Controllers
 		public IActionResult Index()
 		{
 			var model = new MainViewModel();
-			var cardTeamUserDtos = _cardTeamUserService.AllCardTeam();
-			model.CardTeamUserDtos = cardTeamUserDtos;
+			//var cardTeamUserDtos = _cardTeamUserService.AllCardTeam();
+			//model.ItemCards = cardTeamUserDtos;
 
 			return View(model);
 		}
 
-		public IActionResult Privacy()
+        public PartialViewResult CardPersonPartial( int page = 1, int take = 1000)
+        {
+            var model = new MainViewModel();
+            var evetnPagination = _cardTeamUserService.AllCardTeam(page , take );
+            model.ItemCards = evetnPagination;
+            //model.MonthName = GetMonthName(month);
+            return PartialView(model);
+        }
+
+        public IActionResult Privacy()
 		{
 			return View();
 		}

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Questionary.Core.Services.AdminService.AdminCardTeamUser;
 using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel;
+using System.Linq;
 
 namespace Questionary.Web.Controllers
 {
@@ -15,10 +17,10 @@ namespace Questionary.Web.Controllers
         }
 
        
-        public IActionResult Index()
+        public IActionResult Index(int page = 1, int take = 4)
         {
             var model = new AdminCardTeamUserViewModel();
-            var userinfoList = _adminCardTeamUserService.AllCardTeam();
+            var userinfoList = _adminCardTeamUserService.AllCardTeam(page, take);
             model.CardPersonsTeam = userinfoList;
 
             return View(model);
