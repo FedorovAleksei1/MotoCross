@@ -9,37 +9,67 @@ using Microsoft.AspNetCore.Authorization;
 using Domain.Models;
 using Questionary.Web.Areas.Admin.ViewModels;
 using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
+using AutoMapper;
+using Questionary.Core.Services.UserRoleService;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {
     public class AdminUserController : Controller
     {
-        
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<User> _userManager;
+        //private readonly IUserRoleStore<User> _userRoleStore;
         private IUserService _userService;
+        private readonly IMapper _mapper;
+        private readonly IRoleService _roleService;
 
 
-        public AdminUserController(UserManager<User> userManager,  IUserService userService )
+        public AdminUserController(UserManager<User> userManager,  IUserService userService, /*IUserRoleStore<User> userRoleStore,*/ IMapper mapper, RoleManager<IdentityRole> roleManager, IRoleService roleService)
         {
             _userManager = userManager;
-            
+            _mapper = mapper;
             _userService = userService;
-           
+            //_userRoleStore = userRoleStore;
+            _roleManager = roleManager;
+            _roleService = roleService;
         }
         [Area("Admin")]
         [Authorize]
-        public IActionResult Index(string searchString)
+        public IActionResult Index(string searchBy, string searchTerm)
         {
             if (!User.IsInRole("admin"))
                 return RedirectToAction("Index", "Home", new { area = "" });
 
-            var data = _userManager.Users.AsEnumerable();
+            List<UserRoleViewModel> userRoles = new();
+            var data = _userManager.Users.ToList();
 
-            if (!string.IsNullOrEmpty(searchString))
-                data = data.Where(_ => _.Email != null && _.Email.ToLower().Contains(searchString.ToLower())).AsEnumerable();
+            foreach (var item in data)
+            {
+                var role = _roleService.GetRoleByUserId(item.Id);
 
-            return View(data);
+                userRoles.Add(new() { User = item, Role = role });
+            }
+
+            if (!string.IsNullOrEmpty(searchBy) && !string.IsNullOrEmpty(searchTerm))
+            {
+                switch (searchBy)
+                {
+                    case "Email":
+                        userRoles = userRoles.Where(p => !string.IsNullOrEmpty(p.User.Email) && p.User.Email.StartsWith(searchTerm)).OrderBy(p => p.User.Email).ToList();
+                        break;
+                    case "PhoneNumber":
+                        userRoles = userRoles.Where(p => !string.IsNullOrEmpty(p.User.PhoneNumber) && p.User.PhoneNumber.Contains(searchTerm)).OrderBy(p => p.User.PhoneNumber).ToList();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return View(userRoles);
         }
+
         [Area("Admin")]
         [Authorize]
         public IActionResult Create()
@@ -85,6 +115,22 @@ namespace Questionary.Web.Areas.Admin.Controllers
             user.Email = model.Email;
             user.UserName = model.Email;
             user.PhoneNumber = model.PhoneNumber;
+
+            if (!string.IsNullOrEmpty(model.NewPassword))
+            {
+                var passwordValidator =
+                    HttpContext.RequestServices.GetService(typeof(IPasswordValidator<User>)) as
+                        IPasswordValidator<User>;
+                var passwordHasher =
+                    HttpContext.RequestServices.GetService(typeof(IPasswordHasher<User>)) as
+                        IPasswordHasher<User>;
+
+                var result1 = await passwordValidator?.ValidateAsync(_userManager, user, model.NewPassword);
+                if (result1.Succeeded)
+                {
+                    user.PasswordHash = passwordHasher?.HashPassword(user, model.NewPassword);
+                }
+            }
 
             var result = await _userManager.UpdateAsync(user);
            
@@ -148,34 +194,34 @@ namespace Questionary.Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        [Area("Admin")]
-        [Authorize]
-        public IActionResult Search(string searchBy, string searchTerm)
-        {
-            var list = _userManager.Users.ToList();
+        //[Area("Admin")]
+        //[Authorize]
+        //public IActionResult Search(string searchBy, string searchTerm)
+        //{
+        //    var list = _userManager.Users.ToList();
 
-            if (!string.IsNullOrEmpty(searchBy) && !string.IsNullOrEmpty(searchTerm))
-            {
-                switch (searchBy)
-                {
-                    case "Email":
-                        list = list.Where(p => p.Email.StartsWith(searchTerm)).OrderBy(p => p.Email).ToList();
-                        break;
-                    case "PhoneNumber":
-                        list = list.Where(p => p.PhoneNumber.Contains(searchTerm)).OrderBy(p => p.PhoneNumber).ToList();
-                        break;
-                    default:
-                        break;
-                }
+        //    if (!string.IsNullOrEmpty(searchBy) && !string.IsNullOrEmpty(searchTerm))
+        //    {
+        //        switch (searchBy)
+        //        {
+        //            case "Email":
+        //                list = list.Where(p => p.Email.StartsWith(searchTerm)).OrderBy(p => p.Email).ToList();
+        //                break;
+        //            case "PhoneNumber":
+        //                list = list.Where(p => p.PhoneNumber.Contains(searchTerm)).OrderBy(p => p.PhoneNumber).ToList();
+        //                break;
+        //            default:
+        //                break;
+        //        }
 
-                // Возвращаем результат поиска
-                return View("Index", list);
-            }
-            return RedirectToAction("Index");
-        }
+        //        // Возвращаем результат поиска
+        //        return View("Index", list);
+        //    }
+        //    return RedirectToAction("Index");
+        //}
+
         [Area("Admin")]
-        [Authorize]
-        
+        [Authorize]       
         public async Task<ActionResult> Delete(string id)
         {
             if (!User.IsInRole("admin"))

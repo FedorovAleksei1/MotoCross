@@ -23,6 +23,7 @@ using Questionary.Core.Services.AdminService.AdminEventService;
 using Questionary.Core.Services.AdminService.AdminImportantService;
 using Questionary.Core.Services.AdminService.AdminUserInfoService;
 using Questionary.Core.Services.AdminService.AdminCardTeamUser;
+using Questionary.Core.Services.UserRoleService;
 
 namespace MotoCross
 {
@@ -59,6 +60,7 @@ namespace MotoCross
             services.AddTransient<IAdminImportantService, AdminImportantService>();
             services.AddTransient<IAdminUserInfoService, AdminUserInfoService>();
             services.AddTransient<ICardTeamUserService, CardTeamUserService>();
+            services.AddTransient<IRoleService, RoleService>();
 
             
             services.Configure<IdentityOptions>(options =>
