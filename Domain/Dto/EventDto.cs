@@ -10,6 +10,9 @@ namespace Domain.Dto
         public DateTime? DateAnd { get; set; }
         public int ImportantId { get; set; }
         public string DateRange { get; set; }
+        public string BasePhoto64 { get; set; }
+        public int? PhotoId { get; set; }
+        public PhotoDto Photo { get; set; }
         public ImportantDto Important { get; set; }
     }
 }

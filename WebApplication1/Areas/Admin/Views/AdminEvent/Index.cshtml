@@ -11,9 +11,9 @@
             <tr>
                 <th>Наименование мероприятия</th>
                 <th>Дата начала мероприятия</th>
-                <th>Дата конца мероприятия</th>
+                <th>Дата конца мероприятия</th>               
+                <th>Фото</th>
                 <th>Категория мероприятия</th>
-                
                 <th> </th>
                 <th> </th>
             </tr>
@@ -33,6 +33,16 @@
                         <td></td>
                     }
 
+                    @if( item?.Photo != null)
+                    {
+                        <td><img class="img_admin_photo" src="@item.BasePhoto64" alt=""></td>
+                    }
+                    else
+                    {
+                    <td></td>
+                    }
+
+                    
                     <td>@item.ImportantId</td>
                     <td><a type="button" class="btn btn-primary" href="~/Admin/AdminEvent/Edit/@item.Id">Редактировать</a></td>
                     <td><a type="button" class="btn btn-danger" href="~/Admin/AdminEvent/Delete?id=@item.Id">Удалить</a></td>

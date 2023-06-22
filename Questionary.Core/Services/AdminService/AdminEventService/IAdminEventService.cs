@@ -1,9 +1,6 @@
 ﻿using Domain.Dto;
-using System;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Questionary.Core.Services.AdminService.AdminEventService
 {
@@ -13,7 +10,7 @@ namespace Questionary.Core.Services.AdminService.AdminEventService
 
         EventDto GetAdminEventById(int id);
         void CreateAdminEvent(EventDto eventDto);
-        void EditAdminEvent(EventDto eventDto);
+        void EditAdminEvent(EventDto eventDto, IFormFile photo);
         void DeleteAdminEvent(int id);
 
     }

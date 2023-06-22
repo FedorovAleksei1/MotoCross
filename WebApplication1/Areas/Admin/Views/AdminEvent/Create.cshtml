@@ -5,7 +5,7 @@
     ViewData["Title"] = "Добавление студента";
 }
 <h2>Добавление студента</h2>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 
     <div>
         <label>
@@ -33,6 +33,11 @@
         <label>
             
             @Html.DropDownListFor(x => Model.Event.ImportantId, Model.ImportantsList,  new { @class = "form-control"} )
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="file" asp-for="UploadPhoto" class="form-control" />
         </label>
     </div>
  

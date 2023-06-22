@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,7 @@ namespace Domain.Models
         public DateTime? DateAnd { get; set; }
         public int ImportantId { get; set; }
         public Important Important { get; set; }
+        public int? PhotoId { get; set; }
+        public Photo Photo { get; set; }
     }
 }

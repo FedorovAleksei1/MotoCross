@@ -5,6 +5,7 @@ using Questionary.Core.Services.AdminService.AdminEventService;
 using Questionary.Core.Services.AdminService.AdminImportantService;
 using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Questionary.Web.Areas.Admin.Controllers
@@ -58,7 +59,14 @@ namespace Questionary.Web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(AdminEventViewModel model)
         {
+            MemoryStream str = new();
+            model.UploadPhoto.CopyTo(str);
+            model.Event.Photo = new() { NameFile = model.UploadPhoto.FileName, Base64 = str.ToArray()};          
+            
+
             _adminEventService.CreateAdminEvent(model.Event);
+
+            str.Dispose();
 
             return RedirectToAction("Index");
         }
@@ -94,7 +102,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(AdminEventViewModel model)
         {
-            _adminEventService.EditAdminEvent(model.Event);
+            _adminEventService.EditAdminEvent(model.Event, model.UploadPhoto);
 
             return RedirectToAction("Index");
         }

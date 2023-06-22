@@ -27,10 +27,10 @@ namespace Questionary.Web.Controllers
 			return View(model);
 		}
 
-		public PartialViewResult EventListWithMonth(int month, int page = 1, int take = 5)
+		public PartialViewResult EventListWithMonth(int month /*int page = 1, int take = 5*/)
         {
 			var model = new EventViewModel();
-            var evetnPagination = _eventService.EventsWithMonth(month, page, take);
+            var evetnPagination = _eventService.EventsWithMonth(month/*, page, take*/);
 			model.Item = evetnPagination;
             model.MonthName = GetMonthName(month);
             return PartialView(model);

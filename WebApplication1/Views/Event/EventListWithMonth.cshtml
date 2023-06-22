@@ -9,8 +9,9 @@
     .test-21{
         margin-top: auto;
         margin-bottom: 1.1em;
-        text-align: center;
+        text-align: center;  
     }
+
 </style>
 
 @if (Model.Item != null && Model.Item.Elements.Any())
@@ -26,7 +27,7 @@
                 <p>сб-вс</p>
 
                 <div class="icon">
-                    <img src="img/c-icon1.svg" alt="">
+                    <img src="@item.BasePhoto64" alt="" @*src="img/c-icon1.svg" alt=""*@>
                 </div>
                 <a class="ref" href="calendar-event.html"></a>
             </div>
@@ -36,18 +37,18 @@
 }
 
 
-<div class="test-21">
+@*<div class="test-21">
     <div class="pagination2">
         <span id="currentPage"></span> / <span id="totalPages"></span>
     </div>
     <button type="button" class="btn btn-dark" id="prevPage">Назад</button>
     <button type="button" class="btn btn-dark" id="nextPage">Вперед</button>
-</div>
+</div>*@
 
 
-<script>
+@*<script>
     $(document).ready(function () {
-        var itemsPerPage = 3; // Количество элементов на одной странице
+        var itemsPerPage = 7; // Количество элементов на одной странице
         var currentPage = 1; // Текущая страница
         var totalItems = @Model.Item.Elements.Count(); // Общее количество элементов
         var totalPages = Math.ceil(totalItems / itemsPerPage); // Общее число страниц
@@ -82,4 +83,4 @@
             }
         });
     });
-</script>
+</script>*@

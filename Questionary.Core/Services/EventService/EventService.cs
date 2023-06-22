@@ -54,20 +54,27 @@ namespace Questionary.Core.Services.EventService
             return dataList;
         }
 
-		public PaginationDto<EventDto> EventsWithMonth(int month, int page, int take)
+		public PaginationDto<EventDto> EventsWithMonth(int month/*, int page, int take*/)
 		{
-			var events = _context.Events.Include(e => e.Important)
-                .Where(x => x.DateStart.Month == month).OrderBy(d => d.Id)
-				.Skip((page - 1) * take)
-				.Take(take)
+			var events = _context.Events.Include(e => e.Important).Include(x => x.Photo)
+                .Where(x => x.DateStart.Month == month).OrderBy(d => d.DateStart)
+				//.Skip((page - 1) * take)
+				//.Take(take)
 				.AsEnumerable();
-
-			var paginationDto = new PaginationDto<EventDto>();
+           
+            var paginationDto = new PaginationDto<EventDto>();
 			paginationDto.Elements = _mapper.Map<List<EventDto>>(events);
-			//paginationDto.TotalCount = _context.Events
-			//	.Where(x => x.DateStart.Month == month)
-			//	.Count();
-			
+            //paginationDto.TotalCount = _context.Events
+            //	.Where(x => x.DateStart.Month == month)
+            //	.Count();
+            foreach (var even in paginationDto.Elements)
+            {
+                if (even.Photo != null && even.Photo.Base64 != null && even.Photo.Base64.Length > 0)
+                {
+                    string basePhoto64 = Convert.ToBase64String(even.Photo.Base64);
+                    even.BasePhoto64 = $"data:image/png;base64,{basePhoto64}";
+                }
+            }
             GetDateRange(paginationDto.Elements);
 			return paginationDto;
 		}

@@ -29,7 +29,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
 
         [Area("Admin")]
         [Authorize]
-        public PartialViewResult AdminCardIndexInTable(int page = 1, int take = 1000)
+        public PartialViewResult AdminCardIndexInTable(int page = 1, int take = int.MaxValue)
         {
             var model = new AdminCardTeamUserViewModel();
             var userinfoList = _adminCardTeamUserService.AllCardTeam(page, take);
