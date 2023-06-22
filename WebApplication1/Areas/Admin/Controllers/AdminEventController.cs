@@ -1,12 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Questionary.Core.Services.AdminService.AdminEventService;
 using Questionary.Core.Services.AdminService.AdminImportantService;
 using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel;
+using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using static System.Net.Mime.MediaTypeNames;
+using System.Net.NetworkInformation;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {
@@ -90,9 +95,12 @@ namespace Questionary.Web.Areas.Admin.Controllers
                 Text = "--Не выбрано значение--",
                 Value = 0.ToString()
             });
-
             model.ImportantsList = importantselectlist;
             model.Event = item;
+            //byte[] bytes = Convert.FromBase64String(item.BasePhoto64.Replace("data:image/png;base64,", ""));
+            //MemoryStream stream = new MemoryStream(bytes);
+
+            //model.UploadPhoto = new FormFile(stream, 0, bytes.Length, item.Photo.NameFile, item.Photo.NameFile);
 
             return View(model);
         }

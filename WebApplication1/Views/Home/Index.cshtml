@@ -18,6 +18,28 @@
     .modal-dialog-centered {
         justify-content: space-around;
     }
+
+    .buttonnext {
+        position: absolute;
+        z-index: 99;
+        right: 0;
+        /*left: 0;*/
+        top: 50%;
+        transform: translate(100%, -50%);
+    }
+
+    .buttonprev {
+        position: absolute;
+        z-index: 99;
+       /* right: 0;*/
+        left: 0;
+        top: 50%;
+        transform: translate(-100%, -50%);
+    }
+
+    .blocperson{
+        position: relative;
+    }
 </style>
 
 <div class="modal" id="infoPersonTeam" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -210,149 +232,158 @@
                 </div>
             </div>
             @*<div class="pagination2">
-                <span id="currentPage"></span> / <span id="totalPages"></span>
+            <span id="currentPage"></span> / <span id="totalPages"></span>
             </div>*@
-            <button type="button" class="btn btn-dark" id="prevPage">Назад</button>
-            <div class="persons-block persons-slider" id="person-block">
-               @* <div class="calendar-list" id="person-block">*@
-                   @* @if (Model.ItemCards.Elements != null && Model.ItemCards.Elements.Any())
+            <div class="blocperson">
+                @*<div class="">*@
+                    <button type="button" class="btn btn-dark buttonprev" id="prevPage"><img src="/img//pictures/Vector40.png" alt=""></button>
+                @*</div>*@
+                <div class="persons-block persons-slider" id="person-block">
+                    @* <div class="calendar-list" id="person-block">*@
+                    @* @if (Model.ItemCards.Elements != null && Model.ItemCards.Elements.Any())
                     {
-                        foreach (var person in Model.ItemCards.Elements)
-                        {
-                            <div class="persons-item">
-                                <div class="img">
+                    foreach (var person in Model.ItemCards.Elements)
+                    {
+                    <div class="persons-item">
+                    <div class="img">
 
-                                    <img src="@person.BasePhoto64" alt="">
-                                    <a class="ref" onclick="test('@person.Id')" style="cursor:pointer;"></a>
-                                </div>
+                    <img src="@person.BasePhoto64" alt="">
+                    <a class="ref" onclick="test('@person.Id')" style="cursor:pointer;"></a>
+                    </div>
 
-                                <div class="title">@($"{person.LastName} {person.FirstName}")</div>
+                    <div class="title">@($"{person.LastName} {person.FirstName}")</div>
 
-                                <a class="fancy more" onclick="test('@person.Id')" style="cursor:pointer;">Подробнее</a>
-                            </div>
-                        }
+                    <a class="fancy more" onclick="test('@person.Id')" style="cursor:pointer;">Подробнее</a>
+                    </div>
+                    }
                     }*@
+                    @*</div>*@
+                </div>
+                @*<div class="">*@
+                    <button type="button" class="btn btn-dark buttonnext" id="nextPage"><img src="/img//pictures/Vector41.png" alt=""></button>
                 @*</div>*@
             </div>
-            <button type="button" class="btn btn-dark" id="nextPage">Вперед</button>
-        </div>
-    </section>
-
-    <section class="services-section" id="services-section">
-        <div class="inner-section">
-            <div class="section-title">Услуги</div>
-
-            <div class="services-block">
-                <div class="services-item">
-                    <div class="title">Стоянка мототехники</div>
-
-                    <div class="text">
-                        Место под мотоцикл + сумка, раздевалка, душ, хранение гсм
-                    </div>
-
-                    <a href="#" class="ref"></a>
-                </div>
-
-                <div class="services-item">
-                    <div class="title">Сервис</div>
-
-                    <div class="text">
-                        Полный спектр технического обслуживания мототехники
-                    </div>
-
-                    <a href="#" class="ref"></a>
-                </div>
-
-                <div class="services-item">
-                    <div class="title">Доставка мототехники</div>
-
-                    <div class="text">
-                    </div>
-
-                    <a href="#" class="ref"></a>
-                </div>
-
-                <div class="services-item">
-                    <div class="title">Тренировки</div>
-
-                    <div class="text">
-                        Тренировки на 
-                        домашней трассе (РРГ, Ледовая трасса)
-                        Выездные тренировки с 
-                        командой и 
-                        без
-                        Сборы
-                        Выезд на 
-                        соревнования.
-                    </div>
-
-                    <a href="#" class="ref"></a>
-                </div>
-            </div>
 
         </div>
+
+
     </section>
 
-    <section class="main-store-section" id="main-store-section">
-        <div class="inner-section">
+<section class="services-section" id="services-section">
+    <div class="inner-section">
+        <div class="section-title">Услуги</div>
 
-            <div class="title-img">
-                <img src="/img/title-img.png" alt="">
+        <div class="services-block">
+            <div class="services-item">
+                <div class="title">Стоянка мототехники</div>
+
+                <div class="text">
+                    Место под мотоцикл + сумка, раздевалка, душ, хранение гсм
+                </div>
+
+                <a href="#" class="ref"></a>
             </div>
 
-            <div class="main-store-block">
-                <div class="main-store-item">
-                    <img src="/img/pictures/main-store1.jpg" alt="">
+            <div class="services-item">
+                <div class="title">Сервис</div>
 
-                    <div class="title">Футболки</div>
+                <div class="text">
+                    Полный спектр технического обслуживания мототехники
                 </div>
 
-                <div class="main-store-item">
-                    <img src="/img/pictures/main-store2.jpg" alt="">
-
-                    <div class="title">Кепки</div>
-                </div>
-
-                <div class="main-store-item">
-                    <img src="/img/pictures/main-store3.jpg" alt="">
-
-                    <div class="title">Толстовки</div>
-                </div>
+                <a href="#" class="ref"></a>
             </div>
 
-            <a class="button to-store-button" href="#">В магазин</a>
+            <div class="services-item">
+                <div class="title">Доставка мототехники</div>
 
+                <div class="text">
+                </div>
+
+                <a href="#" class="ref"></a>
+            </div>
+
+            <div class="services-item">
+                <div class="title">Тренировки</div>
+
+                <div class="text">
+                    Тренировки на 
+                    домашней трассе (РРГ, Ледовая трасса)
+                    Выездные тренировки с 
+                    командой и 
+                    без
+                    Сборы
+                    Выезд на 
+                    соревнования.
+                </div>
+
+                <a href="#" class="ref"></a>
+            </div>
         </div>
-    </section>
 
-    <section class="contacts-section" id="contacts-section">
-        <div class="inner-section">
+    </div>
+</section>
 
-            <div class="contacts-block">
-                <div class="section-title">Контакты</div>
+<section class="main-store-section" id="main-store-section">
+    <div class="inner-section">
 
-                <p>
-                    <a class="contact-p" href="tel:+7 (925) 508-61-64">+7 (925) 508-61-64</a><br />
-
-                    <a class="contact-p" href="tel:+7 (926) 30-13-669">+7 (926) 30-13-669</a><br />
-                </p>
-
-                <p>
-                    Вопросы и предложения:<br />
-                    <a class="contact-p" href="mailto:polkanov@a4h.ru">polkanov@a4h.ru</a>
-                </p>
-
-                <p>
-                    ANARCHY RACING, Москва
-                </p>
-            </div>
-
-            <div class="map-container">
-                <div class="map" id="map"></div>
-            </div>
-
+        <div class="title-img">
+            <img src="/img/title-img.png" alt="">
         </div>
-    </section>
+
+        <div class="main-store-block">
+            <div class="main-store-item">
+                <img src="/img/pictures/main-store1.jpg" alt="">
+
+                <div class="title">Футболки</div>
+            </div>
+
+            <div class="main-store-item">
+                <img src="/img/pictures/main-store2.jpg" alt="">
+
+                <div class="title">Кепки</div>
+            </div>
+
+            <div class="main-store-item">
+                <img src="/img/pictures/main-store3.jpg" alt="">
+
+                <div class="title">Толстовки</div>
+            </div>
+        </div>
+
+        <a class="button to-store-button" href="#">В магазин</a>
+
+    </div>
+</section>
+
+<section class="contacts-section" id="contacts-section">
+    <div class="inner-section">
+
+        <div class="contacts-block">
+            <div class="section-title">Контакты</div>
+
+            <p>
+                <a class="contact-p" href="tel:+7 (925) 508-61-64">+7 (925) 508-61-64</a><br />
+
+                <a class="contact-p" href="tel:+7 (926) 30-13-669">+7 (926) 30-13-669</a><br />
+            </p>
+
+            <p>
+                Вопросы и предложения:<br />
+                <a class="contact-p" href="mailto:polkanov@a4h.ru">polkanov@a4h.ru</a>
+            </p>
+
+            <p>
+                ANARCHY RACING, Москва
+            </p>
+        </div>
+
+        <div class="map-container">
+            <div class="map" id="map"></div>
+        </div>
+
+    </div>
+</section>
 
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -391,12 +422,12 @@
     }
 </script>
 <script>
-$(function(){
+    $(function () {
         var url = '@Html.Raw(Url.Action("CardPersonPartial", "Home"))';
 
-            $.get(url, function (response) {
+        $.get(url, function (response) {
             $('#person-block').html(response);
-            });
         });
+    });
 
 </script>

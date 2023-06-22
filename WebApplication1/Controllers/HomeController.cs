@@ -32,7 +32,7 @@ namespace MotoCross.Controllers
 			return View(model);
 		}
 
-        public PartialViewResult CardPersonPartial( int page = 1, int take = 1000)
+        public PartialViewResult CardPersonPartial( int page = 1, int take = int.MaxValue)
         {
             var model = new MainViewModel();
             var evetnPagination = _cardTeamUserService.AllCardTeam(page , take );

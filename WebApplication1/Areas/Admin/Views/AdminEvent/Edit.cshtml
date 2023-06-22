@@ -7,6 +7,8 @@
 <h2>Добавление студента</h2>
 <form method="post" enctype="multipart/form-data">
     @Html.HiddenFor(x => x.Event.Id)
+    @Html.HiddenFor(x => x.Event.BasePhoto64)
+    @Html.HiddenFor(x => x.Event.PhotoId)
     <div>
         <label>
             Название мероприятия

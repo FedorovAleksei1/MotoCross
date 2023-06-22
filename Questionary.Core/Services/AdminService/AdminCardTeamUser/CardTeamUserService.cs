@@ -26,8 +26,8 @@ namespace Questionary.Core.Services.AdminService.AdminCardTeamUser
         {
             var cardTeams = _context.CardTeamUsers.Include(x => x.Photo).Where(x => !x.IsDeleted).Skip((page - 1) * take)
 				.Take(take)
-                .OrderBy(x => x.Photo != null)
-				.AsEnumerable();
+                .OrderBy(x => x.Photo != null).OrderBy(d => d.Id)
+                .AsEnumerable();
 
             var cardTeamDto = _mapper.Map<List<CardTeamUserDto>>(cardTeams);
 			foreach (var card in cardTeamDto)

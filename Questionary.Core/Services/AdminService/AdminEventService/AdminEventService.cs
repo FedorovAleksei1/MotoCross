@@ -32,7 +32,7 @@ namespace Questionary.Core.Services.AdminService.AdminEventService
 
         public IEnumerable<EventDto> ListAdminEventsDto()
         {
-            var events = _context.Events.Include(e => e.Important).Include(x => x.Photo).AsEnumerable();
+            var events = _context.Events.Include(e => e.Important).Include(x => x.Photo).OrderBy(d => d.Id).AsEnumerable();
             var eventsDto = _mapper.Map<IEnumerable<EventDto>>(events);
 
             foreach (var eventItem in eventsDto)
@@ -83,10 +83,10 @@ namespace Questionary.Core.Services.AdminService.AdminEventService
 
         public void EditAdminEvent(EventDto eventDto, IFormFile photo)
         {
-            if (photo == null)
-            {
-                eventDto.PhotoId = null;
-            }
+            //if (photo == null)
+            //{
+            //    eventDto.PhotoId = null;
+            //}
 
             if (photo != null)
             {
@@ -98,13 +98,15 @@ namespace Questionary.Core.Services.AdminService.AdminEventService
                     Base64 = str.ToArray(),
                     NameFile = photo.FileName
                 };
-
                 eventDto.Photo = photoDto;
-
-                var eventEntity = _mapper.Map<Event>(eventDto);
-                _context.Update(eventEntity);
-                _context.SaveChanges();
+                //eventDto.PhotoId = null;
             }
+
+            var eventEntity = _mapper.Map<Event>(eventDto);
+
+            _context.Update(eventEntity);
+            _context.SaveChanges();
+
         }
 
         public void DeleteAdminEvent(int id)
