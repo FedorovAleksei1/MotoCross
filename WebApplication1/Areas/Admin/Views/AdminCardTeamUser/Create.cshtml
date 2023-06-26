@@ -75,6 +75,19 @@
         <br />
         <div>
             <label>
+                Стаж в мотокросе
+                @Html.TextBoxFor(x => Model.CardPerson.Stag, new { @class = "form-control"})
+            </label>
+        </div>
+        <br />
+        <div>
+            <label>
+                <input type="file" asp-for="UploadPhoto" class="form-control" />
+            </label>
+        </div>
+        <br />
+        <div>
+            <label>
                 <input type="file" asp-for="UploadPhoto" class="form-control" />
             </label>
         </div>

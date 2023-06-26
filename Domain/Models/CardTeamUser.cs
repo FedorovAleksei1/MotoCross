@@ -16,6 +16,8 @@ namespace Domain.Models
         public string Facts { get; set; }
         public string StartNumber { get; set; }
         public string Experience { get; set; }
+        public string Moto { get; set; }
+        public string Stag { get; set; }
         /// <summary>
         /// Приход в анархию
         /// </summary>

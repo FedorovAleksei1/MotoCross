@@ -141,6 +141,41 @@
             </main>
         </div>
 
+        <section class="contacts-section" id="contacts-section">
+            <div class="inner-section">
+
+                <div class="contacts-block">
+                    <div class="section-title">Контакты</div>
+
+                    <p>
+                        <a class="contact-p" href="tel:+7 (925) 508-61-64">+7 (925) 508-61-64</a><br />
+
+                        <a class="contact-p" href="tel:+7 (926) 30-13-669">+7 (926) 30-13-669</a><br />
+                    </p>
+
+                    <p>
+                        Вопросы и предложения:<br />
+                        <a class="contact-p" href="mailto:polkanov@a4h.ru">polkanov@a4h.ru</a>
+                    </p>
+
+                    <p>
+                        ANARCHY RACING, Москва
+                    </p>
+                </div>
+
+                <div class="map-container">
+                    @*<div class="map" id="map"></div>*@
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="map" style="width: 100%; height: 400px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <footer class="footer">
             <div class="inner-section inner-footer">
                 <div class="copyright">©️ Все права защищены</div>
@@ -180,6 +215,44 @@
     <script src="~/js/itc-slider.js" asp-append-version="true" defer></script>
     <script src="~/js/api_yandex_map.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(function () {
+            var url = '@Html.Raw(Url.Action("FormedTeamCard", "Home"))';
+
+            $.get(url, function (response) {
+                $('#formed-block').html(response);
+            });
+        });
+
+
+        ymaps.ready(function () {
+            const map = new ymaps.Map('map', {
+                center: [55.762984, 37.4330016],
+                zoom: 13,
+                controls: []
+            });
+
+            const placemark = new ymaps.Placemark([55.762984, 37.4330016], {}, {
+                iconColor: '#ff0000'
+            });
+
+            map.geoObjects.add(placemark);
+
+            map.behaviors.disable('scrollZoom');
+
+            map.controls.add('zoomControl', {
+                position: { right: 10, top: 10 }
+            });
+
+            map.controls.add('typeSelector', {
+                position: { right: 10, bottom: 10 }
+            });
+
+            $('#map').show();
+        });
+
+    </script>
 </body>
 </html>
 

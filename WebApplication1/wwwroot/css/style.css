@@ -1041,8 +1041,12 @@ section {
 
 }
 
+.stats-block p {
+    word-break: break-all;
+}
+
 .person-popup-left {
-    width:620px;
+    width: 620px;
     max-width: 100%;
 }
 

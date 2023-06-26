@@ -2,9 +2,11 @@
 @model AdminEventViewModel;
 
 @{
-    ViewData["Title"] = "Добавление студента";
+    ViewData["Title"] = "Редактирование Мероприятия";
 }
-<h2>Добавление студента</h2>
+
+<div class="container">
+<h2>Редактировние Мероприятия</h2>
 <form method="post" enctype="multipart/form-data">
     @Html.HiddenFor(x => x.Event.Id)
     @Html.HiddenFor(x => x.Event.BasePhoto64)
@@ -46,6 +48,9 @@
     <input type="submit" value="Редактировать" />
 
 </form>
+
+</div>
+
 <script src="~/js/datepicker.min.js" asp-append-version="true"></script>
 
 <script>
