@@ -362,7 +362,7 @@ section {
 
 .advantages-block {
     display: flex;
-    flex-flow:row wrap;
+    flex-flow:row nowrap;
     justify-content: space-between;
     align-items:flex-start;
 }   
@@ -382,19 +382,24 @@ section {
     margin:0 0 9px 0;
 }
 
-.advantages-item .text {
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 1.2em;
-    color: #FFFFFF;
-    margin-left: 80px;
-}
+    .advantages-item .text {
+        font-weight: 300;
+        font-size: 18px;
+        line-height: 1.2em;
+        color: #FFFFFF;
+        margin-left: 80px;
+        text-wrap: wrap;
+        max-width: 45%;
+    }
+    .advantages-item:last-child .text {
+        max-width: 65%;
+    }
 
-.team-section {
-    padding-top: 34px;
-    padding-bottom: 85px;
-    background:url(../img/team-bg1.png) no-repeat center -140px;
-}
+        .team-section {
+            padding-top: 34px;
+            padding-bottom: 85px;
+            background: url(../img/team-bg1.png) no-repeat center -140px;
+        }
 
 .section-title {
     font-family: 'Pitcrew', sans-serif;
@@ -702,7 +707,7 @@ section {
 .contacts-section .map-container {
     width:50%;
     position: relative;
-    height:356px;
+    height:70%;
 }
 
 .contacts-section .map {

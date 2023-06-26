@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MotoCross.Models;
 using MotoCross.Services.InfoUserService;
 using Questionary.Core.Services.AdminService.AdminCardTeamUser;
+using Questionary.Core.Services.AdminService.AdminFormedTeam;
 using Questionary.Web.Areas.Admin.ViewModel;
 using System.Diagnostics;
 using System.Linq;
@@ -14,12 +15,14 @@ namespace MotoCross.Controllers
 		private readonly ILogger<HomeController> _logger;
 		private readonly IUserInfoService _userInfoService;
 		private readonly ICardTeamUserService _cardTeamUserService;
+		private readonly IFormedTeamService _formedTeamService;
 
-        public HomeController(ILogger<HomeController> logger, IUserInfoService userInfoService, ICardTeamUserService cardTeamUserService)
+        public HomeController(ILogger<HomeController> logger, IUserInfoService userInfoService, ICardTeamUserService cardTeamUserService, IFormedTeamService formedTeamService)
 		{
 			_logger = logger;
 			_userInfoService = userInfoService;
 			_cardTeamUserService = cardTeamUserService;
+			_formedTeamService = formedTeamService;
 		}
 
 		//[Authorize(Roles = "admin")]
@@ -39,6 +42,14 @@ namespace MotoCross.Controllers
             model.ItemCards = evetnPagination;
             //model.MonthName = GetMonthName(month);
             return PartialView(model);
+        }
+
+		public PartialViewResult FormedTeamCard()
+		{
+			var model = new MainViewModel();
+			var formedTeams = _formedTeamService.FormedTeams();
+			model.FormedTeams = formedTeams;
+			return PartialView(model);
         }
 
         public IActionResult Privacy()

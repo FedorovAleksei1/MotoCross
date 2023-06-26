@@ -1,0 +1,21 @@
+﻿@using Questionary.Web.Areas.Admin.ViewModel;
+@model MainViewModel;
+
+@{
+    Layout = null;
+}
+
+
+
+ @foreach( var form in Model.FormedTeams)
+ {
+<div class="advantages-item">
+    <div class="title">@form.Title </div>
+
+    <div class="text">
+        @form.Description
+    </div>
+</div>
+ }
+
+

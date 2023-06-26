@@ -140,8 +140,8 @@
                 <span>по <i>мото</i>кроссу</span>
             </div>
 
-            <div class="advantages-block">
-                <div class="advantages-item">
+            <div class="advantages-block" id="formed-block">
+                @*<div class="advantages-item">
                     <div class="title">в 2018 году </div>
 
                     <div class="text">
@@ -168,7 +168,7 @@
                         спортсменов в  <br />
                         составе команды
                     </div>
-                </div>
+                </div>*@
             </div>
 
         </div>
@@ -379,7 +379,13 @@
         </div>
 
         <div class="map-container">
-            <div class="map" id="map"></div>
+            @*<div class="map" id="map"></div>*@
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="map" style="width: 100%; height: 400px;">
+                        </div>
+                    </div>
+                </div>
         </div>
 
     </div>
@@ -388,6 +394,7 @@
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/api_yandex_map.js"></script>
 <script>
     $(document).ready(function () {
         $('#person').on('click', function (event) {
@@ -428,6 +435,44 @@
         $.get(url, function (response) {
             $('#person-block').html(response);
         });
+    });
+
+</script>
+
+<script>
+    $(function () {
+        var url = '@Html.Raw(Url.Action("FormedTeamCard", "Home"))';
+
+        $.get(url, function (response) {
+            $('#formed-block').html(response);
+        });
+    });
+
+
+    ymaps.ready(function () {
+        const map = new ymaps.Map('map', {
+            center: [55.762984, 37.4330016],
+            zoom: 13,
+            controls: []
+        });
+
+        const placemark = new ymaps.Placemark([55.762984, 37.4330016], {}, {
+            iconColor: '#ff0000'
+        });
+
+        map.geoObjects.add(placemark);
+
+        map.behaviors.disable('scrollZoom');
+
+        map.controls.add('zoomControl', {
+            position: { right: 10, top: 10 }
+        });
+
+        map.controls.add('typeSelector', {
+            position: { right: 10, bottom: 10 }
+        });
+
+        $('#map').show();
     });
 
 </script>

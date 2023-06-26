@@ -1,6 +1,13 @@
 ﻿@using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
 @model AdminCardTeamUserViewModel;
 
+<style>
+    .textArea {
+        height: 300px;
+        width: 480px;
+    }
+</style>
+
 @{
     ViewData["Title"] = "Добавление  окна тимы";
 }
@@ -34,10 +41,10 @@
 
             </label>
         </div>
-        <div>
+        <div >
             <label>
                 Факты
-                @Html.TextAreaFor(x => Model.CardPerson.Facts, new { @class = "form-control", placeholder="Введите текст", data_readonly="" })
+                @Html.TextAreaFor(x => Model.CardPerson.Facts, new { @class = "form-control textArea", placeholder="Введите текст", data_readonly="" })
 
             </label>
         </div>
