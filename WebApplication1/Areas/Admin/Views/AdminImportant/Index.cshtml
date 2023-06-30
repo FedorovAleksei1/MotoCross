@@ -1,0 +1,35 @@
+﻿@using Questionary.Web.Areas.Admin.ViewModel.AdminViewModel
+@model AdminImportantViewModel;
+
+@{
+    ViewData["Title"] = "Добавление Важности";
+}
+
+
+<div class="container my-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Наименование Важности</th>
+                <th>Цвет</th>               
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Importants)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Color</td>
+                    <td><a type="button" class="btn btn-primary" href="~/Admin/AdminImportant/Edit/@item.Id">Редактировать</a></td>
+                    <td><a type="button" class="btn btn-danger" href="~/Admin/AdminImportant/Delete?id=@item.Id">Удалить</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <a type="button" class="btn btn-primary" href='/Admin/AdminImportant/Create'>Добавить</a>
+    </div>
+</div>

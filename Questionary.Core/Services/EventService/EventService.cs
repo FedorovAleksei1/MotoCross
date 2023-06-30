@@ -54,10 +54,19 @@ namespace Questionary.Core.Services.EventService
             return dataList;
         }
 
-		public PaginationDto<EventDto> EventsWithMonth(int month/*, int page, int take*/)
+		public PaginationDto<EventDto> EventsWithMonthAndYear(int? month, int? year/*, int page, int take*/)
 		{
+            if (!year.HasValue)
+            {
+                year = DateTime.Now.Year;
+            }
+            if (!month.HasValue)
+            {
+                month = DateTime.Now.Month;
+            }
+
 			var events = _context.Events.Include(e => e.Important).Include(x => x.Photo)
-                .Where(x => x.DateStart.Month == month).OrderBy(d => d.DateStart)
+                .Where(x => x.DateStart.Month == month && x.DateStart.Year == year).OrderBy(d => d.DateStart)
 				//.Skip((page - 1) * take)
 				//.Take(take)
 				.AsEnumerable();

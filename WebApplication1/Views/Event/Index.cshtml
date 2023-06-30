@@ -131,9 +131,10 @@
         $('.month-list').on('click', 'div[data-month]', function () {
             var monthValue = $(this).attr('data-month');
             console.log('Значение атрибута data-month:', monthValue);
-
-            var url = '@Html.Raw(Url.Action("EventListWithMonth", "Event"))?month=' + monthValue;
-
+            var year = parseInt($('#year').text());
+            console.log('Значение year:', year);
+            var url = '@Html.Raw(Url.Action("EventListWithMonthAndYear", "Event"))?month=' + monthValue + '&year=' + year;
+            console.log(url);
             $.get(url, function (response) {
                 $('#eventList').html(response);
             });
@@ -141,8 +142,8 @@
     });
 
     $(function () {
-        var url = '@Html.Raw(Url.Action("EventListWithMonth", "Event"))?month=' + '@Model.Month';
-
+        var url = '@Html.Raw(Url.Action("EventListWithMonthAndYear", "Event"))';
+        console.log(url);
         $.get(url, function (response) {
             $('#eventList').html(response);
         });
@@ -163,5 +164,34 @@
                     //        });
                     //    });
                     //});
+
+
+    $(function () {
+        $('#prev-year').on('click', function () {
+            GetEventsByYear();
+            console.log('left');
+        });
+
+        $('#next-year').on('click', function () {
+            GetEventsByYear();
+            console.log('right');
+        });
+    });
+
+    function GetEventsByYear (){
+        console.log(11);
+        var year = parseInt($('#year').text());
+        console.log(year);
+        if (year){
+            var monthValue = $('#month-picker').attr('data-month');
+            console.log('Значение атрибута data-month:', monthValue);
+            console.log('Year-', year);
+            var url = '@Html.Raw(Url.Action("EventListWithMonthAndYear", "Event"))?month=' + monthValue + '&year=' + year;
+
+            $.get(url, function (response) {
+                $('#eventList').html(response);
+            });
+        }
+    }
 </script>
 

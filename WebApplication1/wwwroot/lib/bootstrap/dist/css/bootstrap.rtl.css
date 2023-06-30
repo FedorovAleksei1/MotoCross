@@ -4031,6 +4031,7 @@ textarea.form-control-lg {
   }
   .navbar-expand-sm .navbar-nav .dropdown-menu {
     position: absolute;
+    width:max-content;
   }
   .navbar-expand-sm .navbar-nav .nav-link {
     padding-left: 0.5rem;

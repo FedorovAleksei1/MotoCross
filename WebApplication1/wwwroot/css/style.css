@@ -851,9 +851,9 @@ section {
     border-radius:10px 0 0 10px;
 }
 
-.calendar-list-item .img.yellow {background: #FCC000;}
+/*.calendar-list-item .img.yellow {background: #FCC000;}
 .calendar-list-item .img.red {background: #F9221F;}
-.calendar-list-item .img.gray {background: #CCCCCC;}
+.calendar-list-item .img.gray {background: #CCCCCC;}*/
 
 .calendar-list-item .img .title {
     font-weight: 700;

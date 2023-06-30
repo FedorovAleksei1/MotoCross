@@ -27,10 +27,11 @@ namespace Questionary.Web.Controllers
 			return View(model);
 		}
 
-		public PartialViewResult EventListWithMonth(int month /*int page = 1, int take = 5*/)
+		[HttpGet]
+		public PartialViewResult EventListWithMonthAndYear(int? month, int? year /*int page = 1, int take = 5*/)
         {
 			var model = new EventViewModel();
-            var evetnPagination = _eventService.EventsWithMonth(month/*, page, take*/);
+            var evetnPagination = _eventService.EventsWithMonthAndYear(month, year/*, page, take*/);
 			model.Item = evetnPagination;
             model.MonthName = GetMonthName(month);
             return PartialView(model);
@@ -47,8 +48,12 @@ namespace Questionary.Web.Controllers
 			return importantDataList;
 		}
 
-		private static string GetMonthName(int month)
+		private static string GetMonthName(int? month)
 		{
+			if (!month.HasValue)
+			{
+				month = DateTime.Now.Month;
+			}
 			string monthName = "";
 			switch (month)
 			{

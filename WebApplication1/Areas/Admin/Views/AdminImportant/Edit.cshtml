@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Добавление Важности";
 }
-<h2>Добавление важности</h2>
+<h2>Редактирование важности</h2>
 <form method="post">
     <div>
         <label>
@@ -18,8 +18,8 @@
             @Html.TextBoxFor(x => Model.Important.Color, new { @class = "form-control"})
         </label>
     </div>*@
-    <input type="color" asp-for="@Model.Important.Color" />
+     <input type="color" asp-for="@Model.Important.Color" class="form-control">
 
-    <input type="submit" value="Сохранить" />
+    <input type="submit" value="Редактировать" />
 
 </form>
