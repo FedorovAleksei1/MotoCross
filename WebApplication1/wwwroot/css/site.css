@@ -99,3 +99,114 @@ body {
     height: 50%;
     width: 50%;
 }
+
+
+.personal_area_h1 {
+    padding-bottom: 5%;
+    padding-top:5%;
+    width: 387px;
+    height: 37px;
+    left: 103px;
+    top: 127px;
+}
+.personal_area_p1 {
+   
+    width: 452px;
+    height: 66px;
+    left: 103px;
+    top: 175px;
+}
+.personal_area_button {
+    padding-top:5%;
+    display: flex;
+    justify-content: space-between;
+}
+.personal_area_p_wiht_button {
+    display: flex;
+    justify-content: space-between;
+}
+.qwe {
+    margin: auto 1em auto 0
+}
+.qaz {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2%;
+    padding-bottom: 10%;
+    padding-left: inherit;
+}
+.ul_form {
+    /*box-shadow: 1px 1px 5px 0px red;*/
+    background: beige;
+    width: 30%;
+    border-radius: 10px;
+}
+.form_input_personal_area {
+    /*display: flex;
+    justify-content: space-between;*/
+    /*box-shadow: 1px 1px 5px 0px red;*/
+    /*background: beige;
+
+    
+    border-radius: 10px;*/
+
+}
+
+.form_name_personal_area {
+/*    padding-top: 5%;
+    padding-bottom: 21%;
+    padding-left: 10%;*/
+}
+.form_name_personal_area_right {
+/*    padding-top: 5%;
+    padding-bottom: 21%;
+    padding-right: 10%;*/
+}
+.right_div_personal_area {
+    width: 69%;
+    background: beige;
+    border-radius: 10px;
+    padding: 5%;
+}
+.name_user {
+    padding: 14px 55px 55px 50px;
+}
+.img_photo_personal_area {
+    margin: auto 0;
+}
+.li_near_the_photo {
+    width: 10%;
+    display: flex;
+    margin: auto 0;
+}
+.div_on_lale_out {
+    display: flex;
+    padding-left: 2rem;
+}
+.input_on_personal_area {
+    width: 100%;
+    margin-top: 1.2em;
+    
+}
+.button_on_personal_area {
+    text-align: center;
+    background: #FCC000;
+    border-radius: 5px;
+    width: 100%;
+    height: 40px;
+    outline: none;
+    border: none;
+    /*margin-top: 1.5em;*/
+}
+}
+.form_lable_with_input {
+    padding: 1px 0 20px 0;
+}
+
+.button_balanc {
+    width: 200px;
+    
+    background: none;
+    border-radius: 5px;
+    height: 40px;
+}

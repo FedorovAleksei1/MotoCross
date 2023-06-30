@@ -1,68 +1,116 @@
-﻿
-@using Questionary.Web.Areas.Admin.ViewModel;
+﻿@using Questionary.Web.Areas.Admin.ViewModel;
 @model UserViewModel;
 @{
     ViewData["Title"] = "Личный кабинет";
 }
 <div class="container">
-    <form method="post">
-        @User.Identity.Name
-        @Html.HiddenFor(x => x.User.Id)
-        <div>
-            <label>
-                Имя
-                @Html.TextBoxFor(x => Model.User.FirstName, new { @class = "form-control"})
-            </label>
+    <h1 class="personal_area_h1">Личный кабинет</h1>
+    <p class="personal_area_p1">Добро пожаловать в личный кабинет, тут вы сможете посмотреть всю информацию о заказе, пополнить текущий баланс.</p>
+    <div class="personal_area_button">
+        <p class="qwe p-0">Информация о пользователе</p>
+        <div class="personal_area_p_wiht_button">
+            <p class="qwe p-0">Баланс</p>
+            <input class="button_balanc" type="submit" value="Пополнить" />
         </div>
+    </div>
 
-        <div>
-            <label>
-                Отчество
-                @Html.TextBoxFor(x => Model.User.MiddleName,new { @class = "form-control"})
-            </label>
-        </div>
-
-        <div>
-            <label>
-                Фамилия
-                @Html.TextBoxFor(x => Model.User.LastName, new { @class = "form-control"})
-            </label>
-        </div>
-
-        <div>
-            <label>
-                Возраст
-                @Html.TextBoxFor(x => Model.User.Email, new { @class = "form-control"})
-            </label>
-        </div>
-
-        <div>
-            <label>
-                Телефон
-                @Html.TextBoxFor(x => Model.User.Phone,  new { @class = "form-control"} )
-            </label>
-        </div>
-        <div>
-            <label>
-                Мотоциклы
-                @Html.TextBoxFor(x => Model.User.MotoName,  new { @class = "form-control"} )
-            </label>
-        </div>
-
-        @if (Model.User.MotosDto != null && Model.User.MotosDto.Any())
-        {
-            <div>
-                <label>
-                    Мотоциклы
-                    @for (int i = 0; i < Model.User.MotosDto.Count(); i++)
-                    {
-                        @Html.TextBoxFor(x => Model.User.MotosDto.ElementAt(i), new { @class = "form-control"})
-                    }
-                </label>
+    <div class="qaz">
+        <div class="ul_form d-flex flex-column">
+            <div class="name_user">
+            @Model.User.FirstName
+            @Model.User.MiddleName
             </div>
-        }
+            <ul>
+                
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" src="/img//pictures/Vectoradmin.png"><a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="Edit" type="button">Профиль</a>
+                </li >
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" src="/img//pictures/Vector (2).png"> <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="Orders" type="button">Заказы</a>
+                </li >
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" src="/img//pictures/Vector (3).png">  <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="" type="button">Баланс</a>
+                </li>
+                <li class="nav-item li_near_the_photo">
+                    
+                        
+                   
+                </li>
+            </ul>
+            <div class="div_on_lale_out mt-auto mb-5 ">
+                <img class="img_photo_personal_area" src="/img//pictures/Vector (4).png"> <a class="nav-link text-dark" class="btn users-btn" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" type="button">Выйти</a>
+            </div>
+        </div>
 
-        <input type="submit" value="Сохранить" />
+        <div class="right_div_personal_area">
+            <form class="form_input_personal_area d-flex gap-5" method="post">
+               
+                <div class="form_name_personal_area w-100 d-flex flex-column gap-4">
+                    
+                    @Html.HiddenFor(x => x.User.Id)
+                    <div class="form_lable_with_input">
+                        <label class="w-100">
+                            Имя
+                            @Html.TextBoxFor(x => Model.User.FirstName, new { @class = "form-control"})
+                        </label>
+                    </div>
 
-    </form>
+                    <div class="form_lable_with_input">
+                        <label class="w-100">
+                            Отчество
+                            @Html.TextBoxFor(x => Model.User.MiddleName,new { @class = "form-control"})
+                        </label > 
+                    </div>
+
+                    <div class="form_lable_with_input">
+                        <label class="w-100">
+                            Фамилия
+                            @Html.TextBoxFor(x => Model.User.LastName, new { @class = "form-control"})
+                        </label>
+                    </div>
+                    <div class="input_on_personal_area">
+                        <input class="button_on_personal_area" type="submit" value="Сохранить Изменения" />
+                    </div>
+                </div>
+                <div class="form_name_personal_area_right w-100 d-flex flex-column gap-4">
+                    <div class="form_lable_with_input">
+                        <label class="w-100">
+                            Email
+                            @Html.TextBoxFor(x => Model.User.Email, new { @class = "form-control"})
+                        </label>
+                    </div>
+
+                    <div class=" form_lable_with_input">
+                        <label class="w-100">
+                            Телефон
+                            @Html.TextBoxFor(x => Model.User.Phone,  new { @class = "form-control"} )
+                        </label>
+                    </div>
+                    <div class="form_lable_with_input">
+                        <label class="w-100">
+                            Мотоциклы
+                            @Html.TextBoxFor(x => Model.User.MotoName,  new { @class = "form-control"} )
+                        </label>
+                    </div>
+
+                    <div class="form_lable_with_input">
+                    @if (Model.User.MotosDto != null && Model.User.MotosDto.Any())
+                    {
+                        <div >
+                            <label class="w-100">
+                                Мотоциклы
+                                @for (int i = 0; i < Model.User.MotosDto.Count(); i++)
+                                {
+                                    @Html.TextBoxFor(x => Model.User.MotosDto.ElementAt(i), new { @class = "form-control"})
+                                }
+                            </label>
+                        </div>
+                    }
+                    </div>
+
+                   
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
