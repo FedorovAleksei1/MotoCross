@@ -7,6 +7,10 @@ namespace MotoCross.Services.MotoService
     {
         IEnumerable<MotoDto> GetAllByUserId(string userId);
 
-		void Create(IEnumerable<MotoDto> motosDto);
+        void Create(MotoDto motoDto);
+
+        void Update(MotoDto motoDto);
+
+        void Create(IEnumerable<MotoDto> motosDto);
     }
 }

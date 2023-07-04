@@ -1,4 +1,6 @@
 ﻿using MotoCross.Models;
+using System;
+using System.Data;
 
 namespace Domain.Dto
 {

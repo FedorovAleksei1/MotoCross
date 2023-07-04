@@ -7,6 +7,8 @@ using MotoCross.Json;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
 using Questionary.Web.Areas.Admin.ViewModel;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MotoCross.Controllers
@@ -35,6 +37,17 @@ namespace MotoCross.Controllers
 			var user = await _userService.GetUserByName(User.Identity.Name);
 			var model = new UserViewModel();
 			model.User = user;
+
+			if (user.MotosDto == null || user.MotosDto.Count == 0)
+			{
+                List<MotoDto> motosDto = new List<MotoDto>();
+                for (int i = 0; i < 3; i++)
+                {
+                    motosDto.Add(new MotoDto());
+                }
+                model.User.MotosDto = motosDto;
+            }
+			
 			return View(model);
 		}
 
@@ -42,7 +55,7 @@ namespace MotoCross.Controllers
 		public async Task<IActionResult> Edit(UserViewModel model)
 		{
 			await _userService.Edit(model.User);
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction(nameof(Edit));
 			// return RedirectToAction("Edit", "User", new { model.User.Id });
 		}
 

@@ -21,7 +21,7 @@ namespace MotoCross.Services.UserService
         private readonly UserManager<User> _userManager;
         private readonly IMotoService _motoService;
         private readonly IUserInfoService _userInfoService;
-		public UserService(ApplicationDbContext context
+        public UserService(ApplicationDbContext context
             , IMapper mapper
             , UserManager<User> userManager
             , IMotoService motoService
@@ -41,10 +41,10 @@ namespace MotoCross.Services.UserService
 
             var user = await _userManager.FindByIdAsync(id);
 
-            var motos = _motoService.GetAllByUserId(user.Id);
+            var motos = _motoService.GetAllByUserId(user.Id).ToList();
             var info = _userInfoService.GetByUserId(user.Id);
 
-			if (user == null)
+            if (user == null)
                 throw new Exception("Объект не найден");
 
             var userdto = _mapper.Map<UserDto>(user);
@@ -64,7 +64,10 @@ namespace MotoCross.Services.UserService
                 throw new Exception("Объект не найден");
 
             var userdto = _mapper.Map<UserDto>(user);
-         
+            var usermoto = _motoService.GetAllByUserId(userdto.Id).ToList();
+            userdto.MotosDto = usermoto;
+
+
             return userdto;
         }
 
@@ -81,8 +84,8 @@ namespace MotoCross.Services.UserService
 
             if (string.IsNullOrEmpty(userdto.LastName))
                 throw new Exception("Наименование не может быть пустым");
-            
-            
+
+
 
             var user = await _userManager.FindByIdAsync(userdto.Id);
 
@@ -99,26 +102,30 @@ namespace MotoCross.Services.UserService
 
             IdentityResult result = await _userManager.UpdateAsync(user);
 
-			if (!string.IsNullOrEmpty(userdto.MotoName))
-			{
-                var moto = new MotoDto
+            foreach (var moto in userdto.MotosDto)
+            {
+                moto.UserId = userdto.Id;
+                if (moto.Id > 0)
                 {
-                    UserId = user.Id,
-                    Name = userdto.MotoName
-                };
-				var listMoto = new List<MotoDto>
-				{
-					moto
-				};
+                    if (!string.IsNullOrEmpty(moto.Name))
+                    {
+                        _motoService.Update(moto);
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(moto.Name))
+                    {
+                        _motoService.Create(moto);
+                    }
+                }           
+            }
 
-				_motoService.Create(listMoto);
-			}
-
-			//foreach (var item in userdto.MotosDto)
-   //         {
-   //             item.UserId = user.Id;
-   //         }
+            //foreach (var item in userdto.MotosDto)
+            //         {
+            //             item.UserId = user.Id;
+            //         }
             //_motoService.Create(userdto.MotosDto);
-        }     
+        }
     }
 }

@@ -17,24 +17,24 @@
     <div class="qaz">
         <div class="ul_form d-flex flex-column">
             <div class="name_user">
-            @Model.User.FirstName
-            @Model.User.MiddleName
+                @Model.User.FirstName
+                @Model.User.MiddleName
             </div>
             <ul>
-                
+
                 <li class="nav-item li_near_the_photo">
                     <img class="img_photo_personal_area" src="/img//pictures/Vectoradmin.png"><a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="Edit" type="button">Профиль</a>
-                </li >
+                </li>
                 <li class="nav-item li_near_the_photo">
                     <img class="img_photo_personal_area" src="/img//pictures/Vector (2).png"> <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="Orders" type="button">Заказы</a>
-                </li >
+                </li>
                 <li class="nav-item li_near_the_photo">
                     <img class="img_photo_personal_area" src="/img//pictures/Vector (3).png">  <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="" type="button">Баланс</a>
                 </li>
                 <li class="nav-item li_near_the_photo">
-                    
-                        
-                   
+
+
+
                 </li>
             </ul>
             <div class="div_on_lale_out mt-auto mb-5 ">
@@ -44,9 +44,9 @@
 
         <div class="right_div_personal_area">
             <form class="form_input_personal_area d-flex gap-5" method="post">
-               
+
                 <div class="form_name_personal_area w-100 d-flex flex-column gap-4">
-                    
+
                     @Html.HiddenFor(x => x.User.Id)
                     <div class="form_lable_with_input">
                         <label class="w-100">
@@ -59,7 +59,7 @@
                         <label class="w-100">
                             Отчество
                             @Html.TextBoxFor(x => Model.User.MiddleName,new { @class = "form-control"})
-                        </label > 
+                        </label>
                     </div>
 
                     <div class="form_lable_with_input">
@@ -86,29 +86,22 @@
                             @Html.TextBoxFor(x => Model.User.Phone,  new { @class = "form-control"} )
                         </label>
                     </div>
+                    
                     <div class="form_lable_with_input">
-                        <label class="w-100">
-                            Мотоциклы
-                            @Html.TextBoxFor(x => Model.User.MotoName,  new { @class = "form-control"} )
-                        </label>
+                        @if (Model.User.MotosDto != null && Model.User.MotosDto.Any())
+                        {
+                            <div>
+                                <label class="w-100">
+                                    Мотоциклы
+                                    @for (int i = 0; i < Model.User.MotosDto.Count(); i++)
+                                    {
+                                        <input type="text" name="User.MotosDto[@i].Name" value="@Model.User.MotosDto[i].Name" />
+                                        <input type="hidden" name="User.MotosDto[@i].Id" value="@Model.User.MotosDto[i].Id" />
+                                    }
+                                </label>
+                            </div>
+                        }
                     </div>
-
-                    <div class="form_lable_with_input">
-                    @if (Model.User.MotosDto != null && Model.User.MotosDto.Any())
-                    {
-                        <div >
-                            <label class="w-100">
-                                Мотоциклы
-                                @for (int i = 0; i < Model.User.MotosDto.Count(); i++)
-                                {
-                                    @Html.TextBoxFor(x => Model.User.MotosDto.ElementAt(i), new { @class = "form-control"})
-                                }
-                            </label>
-                        </div>
-                    }
-                    </div>
-
-                   
                 </div>
             </form>
         </div>

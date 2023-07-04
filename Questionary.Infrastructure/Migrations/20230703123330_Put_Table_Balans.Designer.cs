@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotoCross.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Questionary.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230703123330_Put_Table_Balans")]
+    partial class Put_Table_Balans
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +28,8 @@ namespace Questionary.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<decimal?>("BalansMoney")
-                        .HasColumnType("numeric");
+                    b.Property<string>("BalansMoney")
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("CreateDate")
                         .HasColumnType("timestamp with time zone");
@@ -38,9 +40,6 @@ namespace Questionary.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("OperationId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTimeOffset?>("UpdateDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -48,8 +47,6 @@ namespace Questionary.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OperationId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -278,9 +275,10 @@ namespace Questionary.Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Operation", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("integer");
+
+                    b.Property<string>("BalansId")
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("CreateDate")
                         .HasColumnType("timestamp with time zone");
@@ -613,17 +611,9 @@ namespace Questionary.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Balans", b =>
                 {
-                    b.HasOne("Domain.Models.Operation", "Operation")
-                        .WithMany()
-                        .HasForeignKey("OperationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Models.User", "User")
                         .WithOne("Balans")
                         .HasForeignKey("Domain.Models.Balans", "UserId");
-
-                    b.Navigation("Operation");
 
                     b.Navigation("User");
                 });
@@ -670,6 +660,17 @@ namespace Questionary.Infrastructure.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Models.Operation", b =>
+                {
+                    b.HasOne("Domain.Models.Balans", "Balans")
+                        .WithOne("Operation")
+                        .HasForeignKey("Domain.Models.Operation", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Balans");
                 });
 
             modelBuilder.Entity("Domain.Models.Order", b =>
@@ -746,6 +747,11 @@ namespace Questionary.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Models.Balans", b =>
+                {
+                    b.Navigation("Operation");
                 });
 
             modelBuilder.Entity("Domain.Models.Important", b =>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Dto;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using MotoCross.Data;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,15 +25,32 @@ namespace MotoCross.Services.MotoService
             return motosDto;
         }
 
+        public void Create(MotoDto motoDto)
+        {
+            var entity = _mapper.Map<Moto>(motoDto);
+            _context.Add(entity);
+            _context.SaveChanges();
+        }
+
+        public void Update(MotoDto motoDto)
+        {
+            var exist = _context.Motoes.Where(x => x.Id == motoDto.Id).AsNoTracking().FirstOrDefault();
+            if (exist != null)
+            {
+                exist = _mapper.Map<Moto>(motoDto);
+                _context.Update(exist);
+                _context.SaveChanges();
+            }
+        }
+
         public void Create(IEnumerable<MotoDto> motosDto)
         {
             if (motosDto == null || !motosDto.Any())
                 return;
-            
-                var motoes = _mapper.Map<IEnumerable<Moto>>(motosDto);
-                _context.Motoes.AddRange(motoes);
-                _context.SaveChanges();
-            
+
+            var motoes = _mapper.Map<IEnumerable<Moto>>(motosDto);
+            _context.Motoes.AddRange(motoes);
+            _context.SaveChanges();
         }
     }
 }
