@@ -1,14 +1,18 @@
-﻿@using MotoCross.Json;
-@using Domain.Models.ViewModel;
-@model OrderViewModel;
+﻿@using Questionary.Web.Areas.Admin.ViewModel;
+@model UserViewModel;
 
-
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+<style>
+    
+</style>
 
 <div class="container">
     <h1 class="personal_area_h1">Личный кабинет</h1>
     <p class="personal_area_p1">Добро пожаловать в личный кабинет, тут вы сможете посмотреть всю информацию о заказе, пополнить текущий баланс.</p>
     <div class="personal_area_button">
-        <p class="qwe p-0">Мои заказы</p>
+        <p class="qwe p-0">Баланс Кошелька</p>
         <div class="personal_area_p_wiht_button">
             <p class="qwe p-0">Баланс</p>
             <input class="button_balanc" type="submit" value="Пополнить" />
@@ -43,36 +47,47 @@
             </div>
         </div>
 
-        <div class="right_div_personal_area1">
+        <div class="right_div_personal_area">
+            <p>Баланс:</p>
+            <p>@Model.Balans.BalansMoney</p>
 
-
+            <input class="button_on_personal_area_balans" type="submit" value="Пополнить по реквизитам" />
+            
             <form class="form_input_personal_area d-flex gap-5" method="post">
-
+             
                 <table class="table">
-                    <thead class="thead_orders">
+                    <thead>
+                        <tr class="balans_table_th tr_orders">
+                            <th><a class="teg_a" href="">Оплата и списания</a> </th>
+                            <th><a class="teg_a" href="">История транзакции</a></th>
+                            <th></th>
 
+                        </tr>
                         <tr class="tr_orders">
                             <th>Дата </th>
-                            <th>Наименование</th>
-                            <th>Цена</th>
-                            <th>Статус</th>
-
+                            <th>Операции</th>
+                            <th>Сумма</th>
+                           
                         </tr>
                     </thead>
                     <tbody class="scroll">
                         <tr class="tr_orders">
-                            @foreach (var order in Model.Orders)
+                            @if (@Model.Balans.BalansMoney != null)
                             {
-                                <td>@order.Data.ToString("dd.MM.yyyy") </td>
-                                <td>@order.Name</td>
-                                <td>@order.Price</td>
-                                <td>
-
-                                    <button class="button_on_personal_area" onclick="myFunction('@order.Id')">Подвердить</button>
-                                </td>
+                                <td>@Model.Balans.DatePutMoney</td>
+                                <td>@Model.Balans.Operation.Name</td>
+                                <td>@Model.Balans.BalansMoney</td>
+                                
+                                
                             }
-                        </tr>
-
+                            else
+                            {
+                              
+                                <td>-</td>
+                                <td>-</td>
+                                <td>0</td>
+                            }
+                        </tr>                       
                     </tbody>
                 </table>
 
@@ -80,46 +95,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-<h1></h1>
-
-<script>
-    function myFunction(orderid) {
-        if (orderid === null) {
-            alert('id заказа null');
-            return;
-        }
-        var url = "@Url.Action("ConfirmationOrder", "User")" + "?orderId=" + orderid;
-        console.log(url);
-        $.ajax({
-            url: url,
-            dataType: 'json',
-            type: "post",
-            async: false,
-            success: function (response) {
-                console.log(response);
-                switch (response.status) {
-                    case parseInt('@((int)JsonResponseStatuses.Ok)'): {
-                        alert(response.message);
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 500);
-                        break;
-                    }
-
-                    case parseInt('@((int)JsonResponseStatuses.NotFound)'): {
-                        alert(response.message);
-                        break;
-                    }
-                    case parseInt('@((int)JsonResponseStatuses.Error)'): {
-                        alert("Ошибка подверждения заказа!");
-                        break;
-                    }
-                }
-            }
-        });
-    }
-</script>

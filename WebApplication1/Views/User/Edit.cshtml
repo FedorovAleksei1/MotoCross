@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "Личный кабинет";
 }
+<style>
+    
+</style>
+
+
+
 <div class="container">
     <h1 class="personal_area_h1">Личный кабинет</h1>
     <p class="personal_area_p1">Добро пожаловать в личный кабинет, тут вы сможете посмотреть всю информацию о заказе, пополнить текущий баланс.</p>
@@ -20,7 +26,15 @@
                 @Model.User.FirstName
                 @Model.User.MiddleName
             </div>
-            <ul>
+            @*<div>
+                <a >
+                    <span>
+                        <img />
+                    </span>
+                    tretrewywr
+                </a>
+            </div>*@
+            <ul class="p-0">
 
                 <li class="nav-item li_near_the_photo">
                     <img class="img_photo_personal_area" src="/img//pictures/Vectoradmin.png"><a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="Edit" type="button">Профиль</a>
@@ -29,7 +43,7 @@
                     <img class="img_photo_personal_area" src="/img//pictures/Vector (2).png"> <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="Orders" type="button">Заказы</a>
                 </li>
                 <li class="nav-item li_near_the_photo">
-                    <img class="img_photo_personal_area" src="/img//pictures/Vector (3).png">  <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="" type="button">Баланс</a>
+                    <img class="img_photo_personal_area" src="/img//pictures/Vector (3).png">  <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="GetBalansByUserId" asp-route-id="@Model.User.Id" type="button">Баланс</a>
                 </li>
                 <li class="nav-item li_near_the_photo">
 
@@ -87,21 +101,21 @@
                         </label>
                     </div>
                     
-                    <div class="form_lable_with_input">
+                    
                         @if (Model.User.MotosDto != null && Model.User.MotosDto.Any())
                         {
-                            <div>
-                                <label class="w-100">
+                            <div class=" form_lable_with_input">
+                            <label class="w-100 lable_in_moto">
                                     Мотоциклы
                                     @for (int i = 0; i < Model.User.MotosDto.Count(); i++)
                                     {
-                                        <input type="text" name="User.MotosDto[@i].Name" value="@Model.User.MotosDto[i].Name" />
+                                    <input class="input_wiht_moto" type="text" name="User.MotosDto[@i].Name" value="@Model.User.MotosDto[i].Name" />
                                         <input type="hidden" name="User.MotosDto[@i].Id" value="@Model.User.MotosDto[i].Id" />
                                     }
                                 </label>
                             </div>
                         }
-                    </div>
+                    
                 </div>
             </form>
         </div>

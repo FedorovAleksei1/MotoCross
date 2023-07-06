@@ -2,6 +2,7 @@
 using Domain.Dto;
 using Domain.Models;
 using MotoCross.Models;
+using Questionary.Core.Services.AdminService.AdminBalansService;
 
 namespace MotoCross.Mapping
 {
@@ -24,6 +25,9 @@ namespace MotoCross.Mapping
                 .ForMember(x => x.Name, opt => opt.MapFrom(r => r.СustomerService.Name)).ReverseMap();
             CreateMap<Photo, PhotoDto>().ReverseMap();
             CreateMap<FormedTeam, FormedTeamDto>().ReverseMap();
+            CreateMap<Balans, BalansDto>().ReverseMap();
+            CreateMap<Operation, OperationDto>().ReverseMap();
+
         }
     }
 }

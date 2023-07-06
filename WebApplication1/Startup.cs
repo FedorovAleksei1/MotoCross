@@ -25,6 +25,8 @@ using Questionary.Core.Services.AdminService.AdminUserInfoService;
 using Questionary.Core.Services.AdminService.AdminCardTeamUser;
 using Questionary.Core.Services.UserRoleService;
 using Questionary.Core.Services.AdminService.AdminFormedTeam;
+using Questionary.Core.Services.AdminService.AdminOperationService;
+using Questionary.Core.Services.AdminService.AdminBalansService;
 
 namespace MotoCross
 {
@@ -63,6 +65,8 @@ namespace MotoCross
             services.AddTransient<ICardTeamUserService, CardTeamUserService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IFormedTeamService, FormedTeamService>();
+            services.AddTransient<IOperationService, OperationService>();
+            services.AddTransient<IBalansService, BalansService>();
 
             
             services.Configure<IdentityOptions>(options =>

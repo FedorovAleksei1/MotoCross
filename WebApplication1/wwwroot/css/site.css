@@ -2,66 +2,69 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
     /*position: absolute;*/
     width: 100%;
@@ -69,6 +72,7 @@ body {
     line-height: 20px; /* Vertically center the text there */
     flex: 0 0 auto;
 }
+
 .test {
     height: 100%;
     min-height: 100vh;
@@ -77,24 +81,27 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 .test-2 {
     flex: 1 0 auto;
 }
+
 .loginitemcenter {
     justify-content: center;
     display: flex;
     padding-top: 100px;
 }
+
 .loginitemcenter1 {
     justify-content: center;
     display: flex;
-    
 }
+
 .form_on_button {
-    
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
+
 .img_admin_photo {
     height: 50%;
     width: 50%;
@@ -103,31 +110,35 @@ body {
 
 .personal_area_h1 {
     padding-bottom: 5%;
-    padding-top:5%;
+    padding-top: 5%;
     width: 387px;
     height: 37px;
     left: 103px;
     top: 127px;
 }
+
 .personal_area_p1 {
-   
     width: 452px;
     height: 66px;
     left: 103px;
     top: 175px;
 }
+
 .personal_area_button {
-    padding-top:5%;
+    padding-top: 5%;
     display: flex;
     justify-content: space-between;
 }
+
 .personal_area_p_wiht_button {
     display: flex;
     justify-content: space-between;
 }
+
 .qwe {
     margin: auto 1em auto 0
 }
+
 .qaz {
     display: flex;
     justify-content: space-between;
@@ -135,12 +146,15 @@ body {
     padding-bottom: 10%;
     padding-left: inherit;
 }
+
 .ul_form {
+    min-height: 30rem;
     /*box-shadow: 1px 1px 5px 0px red;*/
     background: beige;
     width: 30%;
     border-radius: 10px;
 }
+
 .form_input_personal_area {
     /*display: flex;
     justify-content: space-between;*/
@@ -149,44 +163,59 @@ body {
 
     
     border-radius: 10px;*/
-
 }
 
 .form_name_personal_area {
-/*    padding-top: 5%;
+    /*    padding-top: 5%;
     padding-bottom: 21%;
     padding-left: 10%;*/
 }
+
 .form_name_personal_area_right {
-/*    padding-top: 5%;
+    /*    padding-top: 5%;
     padding-bottom: 21%;
     padding-right: 10%;*/
 }
+
 .right_div_personal_area {
     width: 69%;
     background: beige;
     border-radius: 10px;
     padding: 5%;
 }
+
 .name_user {
     padding: 14px 55px 55px 50px;
 }
+
 .img_photo_personal_area {
     margin: auto 0;
 }
+
 .li_near_the_photo {
-    width: 10%;
     display: flex;
     margin: auto 0;
+    padding: 0 2rem;
 }
+
+    .li_near_the_photo:hover {
+        background-color: indianred;
+    }
+
 .div_on_lale_out {
     display: flex;
     padding-left: 2rem;
 }
+
+    .div_on_lale_out:hover {
+        background-color: indianred;
+    }
+
 .input_on_personal_area {
     width: 100%;
     margin-top: 3.6em;
 }
+
 .button_on_personal_area {
     text-align: center;
     background: #FCC000;
@@ -197,15 +226,87 @@ body {
     border: none;
     /*margin-top: 1.5em;*/
 }
+
 }
+
 .form_lable_with_input {
     padding: 1px 0 20px 0;
 }
 
 .button_balanc {
     width: 200px;
-    
     background: none;
     border-radius: 5px;
     height: 40px;
 }
+
+.balans_table_th {
+    border-bottom-color: currentColor;
+}
+
+.button_on_personal_area_balans {
+    text-align: center;
+    background: #FCC000;
+    border-radius: 5px;
+    width: 60%;
+    height: 40px;
+    outline: none;
+    border: none;
+    margin-bottom: 1em;
+}
+
+
+
+
+.teg_a {
+    text-decoration: none;
+    color: inherit;
+}
+
+    .teg_a:hover {
+        color: inherit;
+        padding-bottom: 0.8rem;
+        border-bottom: 5.2px solid #4d4d4d;
+    }
+.right_div_personal_area1 {
+    width: 69%;
+    background: beige;
+    border-radius: 10px;
+}
+
+.tr_orders {
+    text-align: center;
+    vertical-align: middle;
+    height: 3rem
+}
+
+.thead_orders {
+    background: gray;
+}
+
+.input_wiht_moto {
+    margin-bottom: 0.2rem;
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s;
+}
+
+.lable_in_moto {
+    display: grid;
+}
+
+
+
+

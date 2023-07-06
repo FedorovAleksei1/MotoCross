@@ -8,7 +8,7 @@ namespace Domain.Models.ViewModel
         public OrderViewModel(List<OrderDto> orders) {
             Orders = orders;
         }
-
+        public UserDto User { get; set; }
         public List<OrderDto> Orders { get; set; }
     }
 }

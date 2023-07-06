@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using MotoCross.Json;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
+using Questionary.Core.Services.AdminService.AdminBalansService;
 using Questionary.Web.Areas.Admin.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,16 +20,18 @@ namespace MotoCross.Controllers
 		private readonly IUserService _userService;
 		private readonly SignInManager<User> _signInManager;
 		private readonly IOrderService _orderService;
-
+		private readonly IBalansService _balansService;
 		public UserController(UserManager<User> userManager
 			, IUserService userService
 			, SignInManager<User> signInManager
-			, IOrderService orderService)
+			, IOrderService orderService
+			, IBalansService balansService)
 		{
 			_userService = userService;
 			_userManager = userManager;
 			_signInManager = signInManager;
 			_orderService = orderService;
+			_balansService = balansService;
 		}
 
 		[HttpGet]
@@ -64,7 +67,9 @@ namespace MotoCross.Controllers
 		{
 			var userName = User.Identity.Name;
 			var orders = _orderService.GetOrder(userName);
-			var model = new OrderViewModel(orders);
+            var username = await _userService.GetUserByName(User.Identity.Name);
+            var model = new OrderViewModel(orders);
+			model.User = username;
 			return View(model);
 		}
 
@@ -97,5 +102,26 @@ namespace MotoCross.Controllers
 			model.User = user;
 			return PartialView(model);
 		}
-	}
+
+		public async Task<IActionResult> GetBalansByUserId(string id)
+		{
+			var userBalans = _balansService.GetBalansByUserId(id);
+            var username = await _userService.GetUserByName(User.Identity.Name);
+            var model = new UserViewModel();
+			if(userBalans == null)
+			{
+				model.Balans = new();
+			}
+			else
+			{
+				model.Balans = userBalans;
+			}
+		
+			model.User = username;
+            return View(model);
+
+            
+           
+        }
+    }
 }
