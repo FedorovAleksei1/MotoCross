@@ -27,7 +27,9 @@ namespace MotoCross.Mapping
             CreateMap<FormedTeam, FormedTeamDto>().ReverseMap();
             CreateMap<Balans, BalansDto>().ReverseMap();
             CreateMap<Operation, OperationDto>().ReverseMap();
+            CreateMap<СustomerService, CustomerServiceDto>().ReverseMap();
 
+            
         }
     }
 }

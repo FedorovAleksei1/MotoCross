@@ -11,7 +11,7 @@ namespace Questionary.Core.Services.AdminService.AdminCardTeamUser
     public interface ICardTeamUserService
     {
         CardTeamUserDto GetByCardTeamId(int id);
-        //void CreateInfoUser (InfoUserDto infoUser)
+       
         PaginationDto<CardTeamUserDto> AllCardTeam(int page, int take);
 		void CreateCardTeam(CardTeamUserDto cardTeamDto, IFormFile photo);
         void EditCardTeam(CardTeamUserDto cardTeamDto, IFormFile photo);

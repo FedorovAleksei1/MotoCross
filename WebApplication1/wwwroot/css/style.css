@@ -248,6 +248,7 @@ header {
 }
 
 .header-menu ul li {
+    position: relative;
     display: inline-block;
     vertical-align: middle;
     padding:0 20px;

@@ -11,6 +11,8 @@ namespace Domain.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public int? PhotoId { get; set; }
+        public Photo Photo { get; set; }
         public List<Order> Orders { get; set; }
     }
 }

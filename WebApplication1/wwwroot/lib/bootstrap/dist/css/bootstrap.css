@@ -3692,9 +3692,10 @@ textarea.form-control-lg {
 }
 
 .dropdown-menu.show {
-  display: block;
-  width:max-content;
+    display: grid;
+    width: max-content;
 }
+
 
 .dropdown-header {
   display: block;
