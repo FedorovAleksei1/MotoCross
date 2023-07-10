@@ -14,7 +14,7 @@ namespace Domain.Models
         public bool IsConfirmed { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
-        public int MotoId { get; set; }
+        public int? MotoId { get; set; }
         public Moto Moto { get; set; }
         public int СustomerServiceId { get; set; }
         public СustomerService СustomerService { get; set; }

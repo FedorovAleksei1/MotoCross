@@ -60,19 +60,21 @@
                         </tr>
                     </thead>
                     <tbody class="scroll">
+                        @foreach (var order in Model.Orders)
+                        {
                         <tr class="tr_orders">
-                            @foreach (var order in Model.Orders)
-                            {
+                            
+                          
                                 <td>@order.Data.ToString("dd.MM.yyyy") </td>
                                 <td>@order.Name</td>
-                                <td>@order.Price</td>
+                                <td>@order.Price.ToString("C")</td>
                                 <td>
 
                                     <button class="button_on_personal_area" onclick="myFunction('@order.Id')">Подвердить</button>
                                 </td>
-                            }
+                            
                         </tr>
-
+                        }
                     </tbody>
                 </table>
 

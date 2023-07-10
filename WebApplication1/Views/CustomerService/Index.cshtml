@@ -1,4 +1,5 @@
-﻿@using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
+﻿@using MotoCross.Json;
+@using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
 @model AdminCustomerServiceViewModel;
 @{
     ViewData["Title"] = "Список Услуг";
@@ -35,7 +36,7 @@
         
         <div class="card-body">
                     <a href="#" class="card-link" style="text-align: center;">Добавить в заказ</a>
-           
+                    <button class="button_on_personal_area" onclick="myFunction(@item.Id)">Подвердить</button>
         </div>
     </div>
 
@@ -43,4 +44,40 @@
     
     </div>
 </div>
-    
+<script>
+    function myFunction(id) {
+        if (id === null) {
+            alert('id заказа null');
+            return;
+        }
+        var url = "@Url.Action("Addorder", "CustomerService")" + "?customerId=" + id;
+        console.log(url);
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: "post",
+            async: false,
+            success: function (response) {
+                console.log(response);
+                switch (response.status) {
+                    case parseInt('@((int)JsonResponseStatuses.Ok)'): {
+                        alert(response.message);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 500);
+                        break;
+                    }
+
+                    case parseInt('@((int)JsonResponseStatuses.NotFound)'): {
+                        alert(response.message);
+                        break;
+                    }
+                    case parseInt('@((int)JsonResponseStatuses.Error)'): {
+                        alert("Ошибка подверждения заказа!");
+                        break;
+                    }
+                }
+            }
+        });
+    }
+</script>

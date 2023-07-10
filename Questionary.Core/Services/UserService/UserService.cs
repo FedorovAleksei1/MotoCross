@@ -57,9 +57,9 @@ namespace MotoCross.Services.UserService
             if (string.IsNullOrEmpty(name))
                 throw new Exception("name должен быть больше 0");
 
-            var user = await _userManager.FindByNameAsync(name);
+            //var user = await _userManager.FindByNameAsync(name);
 
-
+            var user = _context.Users.FirstOrDefault(u=>u.UserName == name);
             if (user == null)
                 throw new Exception("Объект не найден");
 
