@@ -16,5 +16,7 @@ namespace Domain.Dto
 		public InfoUserDto InfoDto { get; set; }
 		public List<MotoDto> MotosDto { get; set; }
         public List<OrderDto> OrdersDto { get; set; }
+
+        public IEnumerable<OperationUserDto> OperationsUser { get; set; }
     }
 }

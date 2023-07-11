@@ -11,7 +11,7 @@
         <p class="qwe p-0">Мои заказы</p>
         <div class="personal_area_p_wiht_button">
             <p class="qwe p-0">Баланс</p>
-            <input class="button_balanc" type="submit" value="Пополнить" />
+            <input class="button_balanc" id="myButton" type="submit" value="Пополнить" />
         </div>
     </div>
 
@@ -62,18 +62,16 @@
                     <tbody class="scroll">
                         @foreach (var order in Model.Orders)
                         {
-                        <tr class="tr_orders">
-                            
-                          
+                            <tr class="tr_orders">
+
                                 <td>@order.Data.ToString("dd.MM.yyyy") </td>
                                 <td>@order.Name</td>
                                 <td>@order.Price.ToString("C")</td>
                                 <td>
 
-                                    <button class="button_on_personal_area" onclick="myFunction('@order.Id')">Подвердить</button>
+                                    <button class="button_on_personal_area" onclick="myFunction(@order.Id)">Подвердить</button>
                                 </td>
-                            
-                        </tr>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -92,23 +90,22 @@
     function myFunction(orderid) {
         if (orderid === null) {
             alert('id заказа null');
+            console.log(1);
             return;
         }
-        var url = "@Url.Action("ConfirmationOrder", "User")" + "?orderId=" + orderid;
+        
+        var url = "@Url.Action("ResetTranzaction", "User")" + "?orderId=" + orderid;
         console.log(url);
         $.ajax({
             url: url,
-            dataType: 'json',
+            dataType: 'json',          
             type: "post",
             async: false,
             success: function (response) {
                 console.log(response);
                 switch (response.status) {
                     case parseInt('@((int)JsonResponseStatuses.Ok)'): {
-                        alert(response.message);
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 500);
+                        location.reload();
                         break;
                     }
 
@@ -124,4 +121,12 @@
             }
         });
     }
+
+
+
+    document.getElementById("myButton").addEventListener("click", function () {
+        location.href = "@Url.Action("AddTranzaction", "User")";
+    });
+
+    
 </script>

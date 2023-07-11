@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotoCross.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Questionary.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230711080828_AddOperationUser")]
+    partial class AddOperationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -294,6 +296,9 @@ namespace Questionary.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
                     b.Property<DateTimeOffset?>("UpdateDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -315,20 +320,10 @@ namespace Questionary.Infrastructure.Migrations
                     b.Property<string>("NameCustomer")
                         .HasColumnType("text");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("integer");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("OperationsUser");
                 });
@@ -647,21 +642,6 @@ namespace Questionary.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("OperationOperationUser", b =>
-                {
-                    b.Property<int>("OperationsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("OperationsUserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("OperationsId", "OperationsUserId");
-
-                    b.HasIndex("OperationsUserId");
-
-                    b.ToTable("OperationOperationUser");
-                });
-
             modelBuilder.Entity("Domain.Models.Balans", b =>
                 {
                     b.HasOne("Domain.Models.Operation", "Operation")
@@ -719,23 +699,6 @@ namespace Questionary.Infrastructure.Migrations
                     b.HasOne("Domain.Models.User", "User")
                         .WithMany("Motos")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Models.OperationUser", b =>
-                {
-                    b.HasOne("Domain.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.User", "User")
-                        .WithMany("OperationsUser")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Order");
 
                     b.Navigation("User");
                 });
@@ -823,21 +786,6 @@ namespace Questionary.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OperationOperationUser", b =>
-                {
-                    b.HasOne("Domain.Models.Operation", null)
-                        .WithMany()
-                        .HasForeignKey("OperationsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.OperationUser", null)
-                        .WithMany()
-                        .HasForeignKey("OperationsUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Models.Important", b =>
                 {
                     b.Navigation("Events");
@@ -855,8 +803,6 @@ namespace Questionary.Infrastructure.Migrations
                     b.Navigation("Info");
 
                     b.Navigation("Motos");
-
-                    b.Navigation("OperationsUser");
 
                     b.Navigation("Orders");
                 });

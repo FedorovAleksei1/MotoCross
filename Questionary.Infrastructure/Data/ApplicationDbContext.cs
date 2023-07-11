@@ -22,5 +22,6 @@ namespace MotoCross.Data
         public DbSet<FormedTeam> FormedTeams { get; set; }
         public DbSet<Balans> Balanses { get; set; }
         public DbSet<Operation> Operations { get; set; }
+        public DbSet<OperationUser> OperationsUser { get; set; }
     }
 }

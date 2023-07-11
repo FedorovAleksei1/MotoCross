@@ -1,4 +1,5 @@
-﻿using Domain.Dto;
+﻿using AutoMapper;
+using Domain.Dto;
 using Domain.Models;
 using Domain.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
@@ -7,7 +8,9 @@ using MotoCross.Json;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
 using Questionary.Core.Services.AdminService.AdminBalansService;
+using Questionary.Core.Services.OperationUserService;
 using Questionary.Web.Areas.Admin.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,17 +24,24 @@ namespace MotoCross.Controllers
 		private readonly SignInManager<User> _signInManager;
 		private readonly IOrderService _orderService;
 		private readonly IBalansService _balansService;
-		public UserController(UserManager<User> userManager
+		private readonly IOperationUserService _operationUserService;
+		private readonly IMapper _mapper;
+
+        public UserController(UserManager<User> userManager
 			, IUserService userService
 			, SignInManager<User> signInManager
 			, IOrderService orderService
-			, IBalansService balansService)
+			, IBalansService balansService
+			, IOperationUserService operationUserService
+			, IMapper mapper)
 		{
 			_userService = userService;
 			_userManager = userManager;
 			_signInManager = signInManager;
 			_orderService = orderService;
 			_balansService = balansService;
+			_operationUserService = operationUserService;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
@@ -73,26 +83,26 @@ namespace MotoCross.Controllers
 			return View(model);
 		}
 
-		[HttpPost]
-		public IActionResult ConfirmationOrder(int orderId)
-		{
-			var response = new JsonResponse();
-			var order = _orderService.GetById(orderId);
-			var orderDto = new OrderDto();
-			if (orderDto == null)
-			{
-				response.status = (int)JsonResponseStatuses.NotFound;
-				response.message = "Объект не найден";
-			}
-			else
-			{
-				_orderService.Confirmation(order);
-				response.status = (int)JsonResponseStatuses.Ok;
-				response.message = "Заказ подвержден";
-			}
+		//[HttpPost]
+		//public IActionResult ConfirmationOrder(int orderId)
+		//{
+		//	var response = new JsonResponse();
+		//	var order = _orderService.GetById(orderId);
+		//	var orderDto = new OrderDto();
+		//	if (orderDto == null)
+		//	{
+		//		response.status = (int)JsonResponseStatuses.NotFound;
+		//		response.message = "Объект не найден";
+		//	}
+		//	else
+		//	{
+		//		_orderService.Confirmation(order);
+		//		response.status = (int)JsonResponseStatuses.Ok;
+		//		response.message = "Заказ подвержден";
+		//	}
 
-			return Json(response);
-		}
+		//	return Json(response);
+		//}
 
 		[HttpGet]
 		public async Task<PartialViewResult> GetPersonById(string id)
@@ -122,6 +132,47 @@ namespace MotoCross.Controllers
 
             
            
+        }
+        [HttpPost]
+        public void AddTranzaction(OrderViewModel model, int orderId) 
+		{
+			var operation = model.User.OperationsUser.FirstOrDefault(o => o.OrderId == orderId);
+			//var operation = new OperationDto() { };
+
+            _operationUserService.AddBalans(operation);
+
+        }
+        [HttpPost]
+        public IActionResult ResetTranzaction(int orderId)
+        {
+            var response = new JsonResponse();
+            var order = _orderService.GetById(orderId);
+			var orderDto = _mapper.Map<OrderDto>(order);
+			
+			if (orderDto == null)
+            {
+                response.status = (int)JsonResponseStatuses.NotFound;
+                response.message = "Объект не найден";
+            }
+            else
+            {
+                _orderService.Confirmation(order);
+                response.status = (int)JsonResponseStatuses.Ok;
+                response.message = "Заказ подвержден";
+            }
+            var operation = new OperationUserDto() {
+				OrderId = orderId,
+				//Order = orderDto,
+				UserId = orderDto.UserId,
+				Price = orderDto.Price,
+				DataOperation = DateTime.Now
+				
+			};
+            /*var operation = _operationUserService.GetOperationByOrder(orderId);*/     /* FirstOrDefault(o => o.OrderId == orderId);*/
+            //var operation = new OperationDto() { };
+
+            _operationUserService.ResetBalans(operation);
+            return Json(response);
         }
     }
 }

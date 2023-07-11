@@ -12,7 +12,6 @@ namespace Domain.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public int? DictionaryTypeId { get; set; }
-        public string BalansId { get; set; }
-        public BalansDto Balans { get; set; }
+        public IEnumerable<OperationUserDto> OperationsUser { get; set; }
     }
 }

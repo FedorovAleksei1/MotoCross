@@ -19,5 +19,6 @@ namespace Domain.Models
         //Связь С таблицей Moto так как для заполнения ЛК необходимо внести названия мотоциклов
         public List<Moto> Motos { get; set; }
         public List<Order> Orders { get; set; }
+        public IEnumerable<OperationUser> OperationsUser { get; set; }
     }
 }

@@ -28,8 +28,9 @@ namespace MotoCross.Mapping
             CreateMap<Balans, BalansDto>().ReverseMap();
             CreateMap<Operation, OperationDto>().ReverseMap();
             CreateMap<СustomerService, CustomerServiceDto>().ReverseMap();
+            CreateMap<OperationUser, OperationUserDto>().ReverseMap();
 
-            
+
         }
     }
 }
