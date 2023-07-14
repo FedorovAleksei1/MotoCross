@@ -113,25 +113,45 @@ namespace MotoCross.Controllers
 			return PartialView(model);
 		}
 
-		public async Task<IActionResult> GetBalansByUserId(string id)
+        [HttpGet]
+        public async Task<IActionResult> GetBalansByUserId(string id)
 		{
-			var userBalans = _balansService.GetBalansByUserId(id);
-            var username = await _userService.GetUserByName(User.Identity.Name);
-            var model = new UserViewModel();
-			if(userBalans == null)
-			{
-				model.Balans = new();
-			}
-			else
-			{
-				model.Balans = userBalans;
-			}
-		
-			model.User = username;
-            return View(model);
+            //var userBalans = _balansService.GetBalansByUserId(id);
+            //         var username = await _userService.GetUserByName(User.Identity.Name);
+            //         var model = new UserViewModel();
+            //if(userBalans == null)
+            //{
+            //	model.Balans = new();
+            //}
+            //else
+            //{
+            //	model.Balans = userBalans;
+            //}
 
-            
-           
+            //model.User = username;
+            //         return View(model);
+
+
+			UserViewModel model = new();
+
+
+            var userBalans = _balansService.GetBalansByUserId(id);
+
+            if (userBalans == null)
+            {
+                model.Balans = new();
+            }
+            else
+            {
+                model.Balans = userBalans;
+            }
+
+            var username = await _userService.GetUserByName(User.Identity.Name);
+            model.User = username;
+
+            model.OpeartionUser = _operationUserService.ListOperationsUser(id).ToList();
+
+			return View(model);
         }
         [HttpPost]
         public void AddTranzaction(OrderViewModel model, int orderId) 
@@ -142,20 +162,23 @@ namespace MotoCross.Controllers
             _operationUserService.AddBalans(operation);
 
         }
+
         [HttpPost]
-        public IActionResult ResetTranzaction(int orderId)
+        public IActionResult ResetTranzaction(int orderId, string UserId)
         {
             var response = new JsonResponse();
             var order = _orderService.GetById(orderId);
-			var orderDto = _mapper.Map<OrderDto>(order);
+			var balans = _userService.GetUserByName(UserId);
+			//var orderDto = _mapper.Map<OrderDto>(order);
 			
-			if (orderDto == null)
+			if (order == null)
             {
                 response.status = (int)JsonResponseStatuses.NotFound;
                 response.message = "Объект не найден";
             }
             else
             {
+				_operationUserService.ListOperationsUser(UserId);
                 _orderService.Confirmation(order);
                 response.status = (int)JsonResponseStatuses.Ok;
                 response.message = "Заказ подвержден";
@@ -163,16 +186,27 @@ namespace MotoCross.Controllers
             var operation = new OperationUserDto() {
 				OrderId = orderId,
 				//Order = orderDto,
-				UserId = orderDto.UserId,
-				Price = orderDto.Price,
+				UserId = order.UserId,
+				Price = order.Price,
 				DataOperation = DateTime.Now
 				
 			};
-            /*var operation = _operationUserService.GetOperationByOrder(orderId);*/     /* FirstOrDefault(o => o.OrderId == orderId);*/
-            //var operation = new OperationDto() { };
+			//var balansuser = new BalansDto()
+			//{
+			//	DatePutMoney = DateTime.Now,
+			//	//BalansMoney =
+   //             Operation.Name = balans.
+   //         }
+
 
             _operationUserService.ResetBalans(operation);
-            return Json(response);
+			return Json(response);
+        }
+
+        public PartialViewResult CardPushMoney()
+        {
+            
+            return PartialView();
         }
     }
 }

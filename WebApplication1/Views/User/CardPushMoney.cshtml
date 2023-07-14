@@ -1,0 +1,93 @@
+﻿<style>
+    .modal-dialog {
+        max-width: 60vw;
+    }
+
+    .modal-content {
+        border-radius: 20px;
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+
+    .modal-dialog-centered {
+        justify-content: space-around;
+    }
+
+    .buttonnext {
+        position: absolute;
+        z-index: 99;
+        right: 0;
+        /*left: 0;*/
+        top: 50%;
+        transform: translate(100%, -50%);
+    }
+
+    .buttonprev {
+        position: absolute;
+        z-index: 99;
+        /* right: 0;*/
+        left: 0;
+        top: 50%;
+        transform: translate(-100%, -50%);
+    }
+
+    .blocperson {
+        position: relative;
+    }
+
+    .imgPput_money {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+        .imgPput_money img {
+            width: 10rem;
+            margin: auto;
+        }
+</style>
+
+
+<div style="
+    padding: 5%;
+">
+    <div class="form_lable_with_input">
+        <label class="w-50">
+            Введите сумму для пополнения
+
+        </label>
+    </div>
+    <div  style="position: relative">
+        <p style="padding: 0.8em;
+    top: calc(50%-10px);
+    top: calc(50%-10px);
+    position: absolute;">₽</p>
+        <input class="input_wiht_moto"  style="border-radius: 10px;
+    width: 25rem;
+    
+    padding: 10px 25px;" type="text" value="" />
+        
+    </div>
+    <div class="form_lable_with_input">
+        <label class="w-50">
+            Способ пополнения счета
+
+        </label>
+    </div>
+    <div class="imgPput_money">
+
+        <img src="/img//pictures/kivi.png" />
+
+        <img src="/img//pictures/webmoney.jpg" />
+
+        <img src="/img//pictures/yandex.png" />
+
+        <img src="/img//pictures/kivi.png" />
+
+        <img src="/img//pictures/webmoney.jpg" />
+
+        <img src="/img//pictures/yandex.png" />
+
+    </div>
+</div>

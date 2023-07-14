@@ -3,6 +3,7 @@ using Domain.Dto;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using MotoCross.Data;
+using MotoCross.Services.UserService;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,10 +17,12 @@ namespace Questionary.Core.Services.OperationUserService
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        public OperationUserService(ApplicationDbContext context, IMapper mapper)
+        private readonly IUserService _userService;
+        public OperationUserService(ApplicationDbContext context, IMapper mapper, IUserService userService)
         {
             _context = context;
             _mapper = mapper;
+            _userService = userService;
         }
         public IEnumerable<OperationUserDto> ListOperationsUser(string userId)
         {
@@ -78,6 +81,8 @@ namespace Questionary.Core.Services.OperationUserService
             return operationuserDto;
         }
 
+
+        
 
     }
 }

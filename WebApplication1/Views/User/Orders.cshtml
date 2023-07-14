@@ -46,7 +46,7 @@
         <div class="right_div_personal_area1">
 
 
-            <form class="form_input_personal_area d-flex gap-5" method="post">
+            
 
                 <table class="table">
                     <thead class="thead_orders">
@@ -68,15 +68,21 @@
                                 <td>@order.Name</td>
                                 <td>@order.Price.ToString("C")</td>
                                 <td>
-
+                                @if (!order.IsConfirmed)
+                                {
                                     <button class="button_on_personal_area" onclick="myFunction(@order.Id)">Подвердить</button>
+                                }
+                                else
+                                {
+                                    <button class="button_on_personal_area" onclick="myFunction(@order.Id)" disabled>Подвердить</button>
+                                }
+
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
 
-            </form>
         </div>
     </div>
 </div>
@@ -93,6 +99,7 @@
             console.log(1);
             return;
         }
+ 
         
         var url = "@Url.Action("ResetTranzaction", "User")" + "?orderId=" + orderid;
         console.log(url);
@@ -100,7 +107,7 @@
             url: url,
             dataType: 'json',          
             type: "post",
-            async: false,
+            async: true,
             success: function (response) {
                 console.log(response);
                 switch (response.status) {
@@ -118,6 +125,8 @@
                         break;
                     }
                 }
+               
+
             }
         });
     }

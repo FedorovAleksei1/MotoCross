@@ -4,9 +4,52 @@
 @{
     ViewData["Title"] = "Личный кабинет";
 }
+@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+
+<!-- Скрипты Bootstrap -->
+
 <style>
-    
+    .scrole-table {
+        width: 90%;
+        overflow: auto;
+        height: 300px;
+    }
+
+    .fixed {
+        position: relative;
+    }
+
+
+    form::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    form::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 8px;
+        margin-top: 48px;
+    }
+
+    /* Handle */
+    form::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 8px;
+    }
+
 </style>
+
+
+<div class="modal" id="infoPersonTeam" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body" id="infoPersonTeamBody"></div>
+        </div>
+    </div>
+</div>
+
 
 <div class="container">
     <h1 class="personal_area_h1">Личный кабинет</h1>
@@ -15,7 +58,8 @@
         <p class="qwe p-0">Баланс Кошелька</p>
         <div class="personal_area_p_wiht_button">
             <p class="qwe p-0">Баланс</p>
-            <input class="button_balanc" type="submit" value="Пополнить" />
+            <input class="button_balanc" type="submit" id="money-block" value="Пополнить" />
+           
         </div>
     </div>
 
@@ -52,42 +96,65 @@
             <p>@Model.Balans.BalansMoney</p>
 
             <input class="button_on_personal_area_balans" type="submit" value="Пополнить по реквизитам" />
-            
-            <form class="form_input_personal_area d-flex gap-5" method="post">
-             
-                <table class="table">
-                    <thead>
-                        <tr class="balans_table_th tr_orders">
-                            <th><a class="teg_a" href="">Оплата и списания</a> </th>
-                            <th><a class="teg_a" href="">История транзакции</a></th>
-                            <th></th>
+
+            <div class="d-flex">
+                <a class="teg_a" href="">Оплата и списания</a>
+                <a class="teg_a" href="">История транзакции</a>
+            </div>
+
+            <form class="form_input_personal_area d-flex gap-5 scrole-table" method="post">
+
+                <table class="table" style="position: relative; border-collapse: collapse;">
+                    <thead style="position: sticky; top: 0; background: beige; border: 0;">
+                        @*              <tr class="balans_table_th tr_orders fixed">
+                        <th> </th>
+                        <th>></th>
+                        <th></th>
+
+                        </tr>*@
+                        <tr class="tr_orders fixed" style="box-shadow: 0px 1px 0px 0px #040404; top: 0;">
+                            <th style="border: 0;">Дата </th>
+                            <th style="border: 0;">Операции</th>
+                            <th style="border: 0;">Сумма</th>
 
                         </tr>
-                        <tr class="tr_orders">
-                            <th>Дата </th>
-                            <th>Операции</th>
-                            <th>Сумма</th>
-                           
-                        </tr>
                     </thead>
-                    <tbody class="scroll">
-                        <tr class="tr_orders">
-                            @if (@Model.Balans.BalansMoney != null)
+
+                    <tbody>
+
+                        @if (@Model.OpeartionUser != null)
+                        {
+                            @*<td>@Model.Balans.DatePutMoney</td>
+                        <td>@Model.Balans.Operation.Name</td>
+                        <td>@Model.Balans.BalansMoney</td>*@
+
+                            foreach (var item in Model.OpeartionUser)
                             {
-                                <td>@Model.Balans.DatePutMoney</td>
-                                <td>@Model.Balans.Operation.Name</td>
-                                <td>@Model.Balans.BalansMoney</td>
-                                
-                                
+                                <tr class="tr_orders ">
+                                    <td>@item.DataOperation</td>
+                                    <td>@item.NameCustomer</td>
+                                    @if (@item.NameCustomer == "Списано")
+                                    {
+                                        <td>-@item.Price.ToString("C")</td>
+                                    }
+                                    else if (@item.NameCustomer == "Пополнено")
+                                    {
+                                        <td>+@item.Price.ToString("C")</td>
+                                    }
+
+                                </tr>
+
                             }
-                            else
-                            {
-                              
+                        }
+                        else
+                        {
+                            <tr class="tr_orders">
                                 <td>-</td>
                                 <td>-</td>
                                 <td>0</td>
-                            }
-                        </tr>                       
+                            </tr>
+                        }
+
                     </tbody>
                 </table>
 
@@ -95,3 +162,56 @@
         </div>
     </div>
 </div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script><!-- Модальное окно -->
+
+
+<script>
+  
+
+
+    $(document).ready(function () {
+        $('#money-block').on('click', function (event) {
+            event.preventDefault();
+           
+            
+            var url = '@Html.Raw(Url.Action("CardPushMoney", "User"))' ;
+            console.log(url);
+            $.get(url, function (response) {
+                $('#infoPersonTeamBody').html(response);
+            });
+
+            $('#infoPersonTeam').modal('show');
+        });               
+    });
+
+    //$(document).ready(function () {
+    //    $('#person').on('click', function (event) {
+    //        event.preventDefault();
+    //        var personId = $(this).data('person-id');
+    //        console.log(personId);
+    //        var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + personId;
+    //        console.log(url);
+    //        $.get(url, function (response) {
+    //            $('#infoPersonTeamBody').html(response);
+    //        });
+
+    //        $('#infoPersonTeam').modal('show');
+    //    });
+
+
+    //    $('#fullCalendar').click(function () {
+    //        var month = document.querySelector('#month-picker').getAttribute('data-month');
+    //        var url = '@Html.Raw(Url.Action("Index", "Event"))?month=' + month;
+    //        window.location.href = url;
+    //    });
+    //});
+
+
+
+
+
+
+</script>

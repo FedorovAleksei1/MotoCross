@@ -2,6 +2,7 @@
 using Domain.Dto;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MotoCross.Data;
 using MotoCross.Models;
 using MotoCross.Services.InfoUserService;
@@ -59,7 +60,7 @@ namespace MotoCross.Services.UserService
 
             //var user = await _userManager.FindByNameAsync(name);
 
-            var user = _context.Users.FirstOrDefault(u=>u.UserName == name);
+            var user = _context.Users.Include(u=>u.Balans).Include(u=>u.OperationsUser).FirstOrDefault(u=>u.UserName == name);
             if (user == null)
                 throw new Exception("Объект не найден");
 

@@ -36,7 +36,7 @@ namespace MotoCross.Services.OrderService
 
         public void Confirmation(OrderDto orderDto)
         {
-            var order = _mapper.Map<Order>(orderDto);
+            var order = _context.Orders.FirstOrDefault(x => x.Id == orderDto.Id);
             if (!order.IsConfirmed)
             {
                 order.IsConfirmed = true;
@@ -49,7 +49,7 @@ namespace MotoCross.Services.OrderService
         {
             var orderDto = new OrderDto();
 
-            var order = _context.Orders.Include(o => o.СustomerService).AsNoTracking().FirstOrDefault(x => x.Id == id);
+            var order = _context.Orders.Include(o => o.СustomerService).FirstOrDefault(x => x.Id == id);
             if (order != null)
             {
                 orderDto.Id = order.Id;
@@ -64,5 +64,7 @@ namespace MotoCross.Services.OrderService
 
             return orderDto;
         }
+
+        
     }
 }

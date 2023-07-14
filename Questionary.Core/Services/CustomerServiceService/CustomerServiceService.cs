@@ -65,7 +65,7 @@ namespace MotoCross.Services.CustomerServiceService
                 }
                 else
                 {
-                    order.СustomerService =  _mapper.Map<СustomerService>(entity.Order);
+                    order.СustomerService = _mapper.Map<СustomerService>(entity);
                     _context.Orders.Update(order);
                 }
 
