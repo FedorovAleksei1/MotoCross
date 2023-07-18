@@ -1,0 +1,31 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
+@model LogoutModel
+@{
+    ViewData["Title"] = "Выйти из сайта";
+}
+<style>
+    .logout{
+        display: flex;
+        padding-top: 100px;
+    }
+</style>
+
+<div class="container">
+    <h1 class="logout">@ViewData["Title"]</h1>
+    <div style="align-items:center;margin-bottom:50px;">
+    @{
+        if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <form class="" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                    <button style="border-color: black;" type="submit" class="nav-link btn btn-link text-dark">Нажмите чтобы выйти</button>
+            </form>
+        }
+        else
+        {
+            <p>Вы успешно вышли из приложения.</p>
+        }
+    }
+    </div>
+
+    </div>

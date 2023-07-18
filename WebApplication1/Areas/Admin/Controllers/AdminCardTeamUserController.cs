@@ -16,7 +16,6 @@ namespace Questionary.Web.Areas.Admin.Controllers
         public AdminCardTeamUserController(ICardTeamUserService adminCardTeamUserService)
         {
             _adminCardTeamUserService = adminCardTeamUserService;
-
         }
 
         [Area("Admin")]
@@ -24,15 +23,16 @@ namespace Questionary.Web.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var model = new AdminCardTeamUserViewModel();
+            //model.CardPersonsTeam = _adminCardTeamUserService.AllCardTeam((int)s, (int)e);
             return View(model);
         }
 
         [Area("Admin")]
         [Authorize]
-        public PartialViewResult AdminCardIndexInTable(int page = 1, int take = int.MaxValue)
+        public PartialViewResult AdminCardIndexInTable(int? page = 1, int? take = 20)
         {
             var model = new AdminCardTeamUserViewModel();
-            var userinfoList = _adminCardTeamUserService.AllCardTeam(page, take);
+            var userinfoList = _adminCardTeamUserService.AllCardTeam(page ?? 1, take ?? 20);
             model.CardPersonsTeam = userinfoList;
 
             return PartialView(model);

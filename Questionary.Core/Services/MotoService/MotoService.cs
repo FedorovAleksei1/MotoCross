@@ -3,6 +3,7 @@ using Domain.Dto;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using MotoCross.Data;
+using Questionary.Infrastructure.Migrations;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +21,7 @@ namespace MotoCross.Services.MotoService
 
         public IEnumerable<MotoDto> GetAllByUserId(string userId)
         {
-            var motos = _context.Motoes.Where(x => x.UserId == userId);
+            var motos = _context.Motoes.Where(x => x.UserId == userId && !x.IsDeleted);
             var motosDto = _mapper.Map<IEnumerable<MotoDto>>(motos);
             return motosDto;
         }
@@ -43,6 +44,7 @@ namespace MotoCross.Services.MotoService
             }
         }
 
+
         public void Create(IEnumerable<MotoDto> motosDto)
         {
             if (motosDto == null || !motosDto.Any())
@@ -50,6 +52,14 @@ namespace MotoCross.Services.MotoService
 
             var motoes = _mapper.Map<IEnumerable<Moto>>(motosDto);
             _context.Motoes.AddRange(motoes);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var moto = _context.Motoes.FirstOrDefault(x => x.Id == id);
+            moto.IsDeleted = true;
+            _context.Update(moto);
             _context.SaveChanges();
         }
     }

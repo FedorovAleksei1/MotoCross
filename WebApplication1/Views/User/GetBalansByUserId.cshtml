@@ -39,6 +39,32 @@
         border-radius: 8px;
     }
 
+    a1 {
+        position: relative;
+        color: #00a650; /*задаём цвет ссылки*/
+        cursor: pointer;
+        line-height: 1; /*задаём высоту строки*/
+        text-decoration: none; /*убираем подчёркивание*/
+    }
+
+        a1:after {
+            display: block;
+            position: absolute;
+            left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+            width: 0; /*задаём длинну линии до наведения курсора*/
+            height: 2px; /*задаём ширину линии*/
+            background-color: #00a650; /*задаём цвет линии*/
+            content: "";
+            transition: width 0.3s ease-out; /*задаём время анимации*/
+        }
+
+        a1:hover:after,
+        a1:focus:after {
+            width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
+        }
+
+
+
 </style>
 
 
@@ -93,12 +119,13 @@
 
         <div class="right_div_personal_area">
             <p>Баланс:</p>
-            <p>@Model.Balans.BalansMoney</p>
+            <p>@Model.Balans.BalansMoney ₽</p>
 
             <input class="button_on_personal_area_balans" type="submit" value="Пополнить по реквизитам" />
 
-            <div class="d-flex">
-                <a class="teg_a" href="">Оплата и списания</a>
+            <div class="d-flex" style="margin-left: 6rem; gap: 7rem;">
+   
+                <a class="teg_a1 first-link" href="">Оплата и списания</a>
                 <a class="teg_a" href="">История транзакции</a>
             </div>
 

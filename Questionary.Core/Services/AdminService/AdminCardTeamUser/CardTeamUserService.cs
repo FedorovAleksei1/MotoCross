@@ -24,10 +24,16 @@ namespace Questionary.Core.Services.AdminService.AdminCardTeamUser
 
         public PaginationDto<CardTeamUserDto> AllCardTeam(int page, int take)
         {
-            var cardTeams = _context.CardTeamUsers.Include(x => x.Photo).Where(x => !x.IsDeleted).Skip((page - 1) * take)
+            var cardTeamsQuery = _context.CardTeamUsers.Include(x => x.Photo)
+                .Where(x => !x.IsDeleted);
+
+            var totalCount = cardTeamsQuery.Count();
+            var cardTeams = cardTeamsQuery
+                .Skip((page - 1) * take)
 				.Take(take)
-                .OrderBy(x => x.Photo != null).OrderBy(d => d.Id)
-                .AsEnumerable();
+                .OrderBy(x => x.PhotoId.HasValue)
+                .ThenBy(d => d.Id)
+                .ToList();
 
             var cardTeamDto = _mapper.Map<List<CardTeamUserDto>>(cardTeams);
 			foreach (var card in cardTeamDto)
@@ -40,16 +46,43 @@ namespace Questionary.Core.Services.AdminService.AdminCardTeamUser
             }
 
             var paginationDto = new PaginationDto<CardTeamUserDto>();
+            paginationDto.Page = page;
             paginationDto.Elements = _mapper.Map<List<CardTeamUserDto>>(cardTeamDto);
+            paginationDto.TotalCount = totalCount;
 
             return paginationDto;
         }
 
         public CardTeamUserDto GetByCardTeamId(int id)
         {
+            //var cardTeam = _context.CardTeamUsers.Include(x => x.Photo).FirstOrDefault(c => c.Id == id);
+            //var cardTeamDto = _mapper.Map<CardTeamUserDto>(cardTeam);
+            //return cardTeamDto;
+
+
+            var cardTeamDto = new CardTeamUserDto();
             var cardTeam = _context.CardTeamUsers.Include(x => x.Photo).FirstOrDefault(c => c.Id == id);
-            var cardTeamDto = _mapper.Map<CardTeamUserDto>(cardTeam);
-            return cardTeamDto;
+            if (cardTeam != null)
+            {
+                //eventdto.Id = evetn.Id;
+                //eventdto.Name = evetn.Name;
+                //eventdto.DateStart = evetn.DateStart;
+                //eventdto.DateAnd = evetn.DateAnd;
+                //eventdto.ImportantId = evetn.ImportantId;
+                //eventdto.
+
+                if (cardTeam.Photo != null && cardTeam.Photo.Base64 != null && cardTeam.Photo.Base64.Length > 0)
+                {
+                    cardTeamDto = _mapper.Map<CardTeamUserDto>(cardTeam);
+                    cardTeamDto.BasePhoto64 = $"data:image/png;base64,{Convert.ToBase64String(cardTeam.Photo.Base64)}";
+                }
+                return cardTeamDto;
+
+            }
+            return null;
+
+
+
         }
 
         public void CreateCardTeam(CardTeamUserDto cardTeamDto, IFormFile photo)
@@ -80,10 +113,10 @@ namespace Questionary.Core.Services.AdminService.AdminCardTeamUser
         public void EditCardTeam(CardTeamUserDto cardTeamDto, IFormFile photo)
         {
 
-            if (photo == null)
-            {
-                cardTeamDto.PhotoId = null;
-            }
+            //if (photo == null)
+            //{
+            //    cardTeamDto.PhotoId = null;
+            //}
             if (photo != null)
             {
                 MemoryStream str = new();
@@ -97,10 +130,11 @@ namespace Questionary.Core.Services.AdminService.AdminCardTeamUser
 
                 cardTeamDto.Photo = photoDto;
 
-                var cardTeam = _mapper.Map<CardTeamUser>(cardTeamDto);
-                _context.Update(cardTeam);
-                _context.SaveChanges();
+                
             }
+            var cardTeam = _mapper.Map<CardTeamUser>(cardTeamDto);
+            _context.Update(cardTeam);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)

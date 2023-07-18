@@ -257,6 +257,26 @@ body {
 
 
 
+.teg_a1 {
+    text-decoration: none; /* Убираем подчеркивание по умолчанию */
+    color: inherit;
+}
+
+    .teg_a1:hover {
+        text-decoration: none; /* Добавляем подчеркивание при наведении */
+        color:#222;
+    }
+
+
+
+.first-link {
+    padding-bottom: 0.8rem;
+    text-decoration: none; /* Добавляем подчеркивание для первой ссылки */
+    color: inherit;
+    border-bottom: 5.2px solid #4d4d4d;
+}
+
+
 
 .teg_a {
     text-decoration: none;
@@ -276,7 +296,7 @@ body {
 
 .tr_orders {
     text-align: center;
-    vertical-align: middle;
+   /* vertical-align: middle;*/
     height: 3rem
 }
 
@@ -302,6 +322,25 @@ body {
     border-radius: 0.25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s;
 }
+.input_wiht_modal {
+    
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s;
+}
+
 
 .lable_in_moto {
     display: grid;

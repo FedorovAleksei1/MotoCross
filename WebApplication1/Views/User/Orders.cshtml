@@ -3,6 +3,45 @@
 @model OrderViewModel;
 
 
+<style>
+    .scrole-table {
+        width: 100%;
+        overflow: auto;
+        height: 410px;
+    }
+
+    .fixed {
+        position: relative;
+    }
+
+
+    div::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    div::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 8px;
+        margin-top: 48px;
+    }
+
+    /* Handle */
+    div::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 8px;
+    }
+
+</style>
+
+<div class="modal" id="infoPersonTeam" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body" id="infoPersonTeamBody"></div>
+        </div>
+    </div>
+</div>
+
 
 <div class="container">
     <h1 class="personal_area_h1">Личный кабинет</h1>
@@ -11,7 +50,7 @@
         <p class="qwe p-0">Мои заказы</p>
         <div class="personal_area_p_wiht_button">
             <p class="qwe p-0">Баланс</p>
-            <input class="button_balanc" id="myButton" type="submit" value="Пополнить" />
+            <input class="button_balanc" id="money-block" type="submit" value="Пополнить" />
         </div>
     </div>
 
@@ -46,28 +85,28 @@
         <div class="right_div_personal_area1">
 
 
-            
 
-                <table class="table">
-                    <thead class="thead_orders">
+            <div class=" scrole-table">
+            <table class="table " style="position: relative; border-collapse: collapse;">
+                <thead class="thead_orders" style="position: sticky; top: 0; background: beige; border: 0;">
 
+                    <tr class="tr_orders fixed" style="box-shadow: 0px 1px 0px 0px #040404; top: 0;">
+                        <th style="border: 0;">Дата </th>
+                        <th style="border: 0;">Наименование</th>
+                        <th style="border: 0;">Цена</th>
+                        <th style="border: 0;">Статус</th>
+
+                    </tr>
+                </thead>
+                <tbody class="scroll">
+                    @foreach (var order in Model.Orders)
+                    {
                         <tr class="tr_orders">
-                            <th>Дата </th>
-                            <th>Наименование</th>
-                            <th>Цена</th>
-                            <th>Статус</th>
 
-                        </tr>
-                    </thead>
-                    <tbody class="scroll">
-                        @foreach (var order in Model.Orders)
-                        {
-                            <tr class="tr_orders">
-
-                                <td>@order.Data.ToString("dd.MM.yyyy") </td>
-                                <td>@order.Name</td>
-                                <td>@order.Price.ToString("C")</td>
-                                <td>
+                            <td>@order.Data.ToString("dd.MM.yyyy") </td>
+                            <td>@order.Name</td>
+                            <td>@order.Price.ToString("C")</td>
+                            <td>
                                 @if (!order.IsConfirmed)
                                 {
                                     <button class="button_on_personal_area" onclick="myFunction(@order.Id)">Подвердить</button>
@@ -77,12 +116,12 @@
                                     <button class="button_on_personal_area" onclick="myFunction(@order.Id)" disabled>Подвердить</button>
                                 }
 
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
         </div>
     </div>
 </div>
@@ -91,7 +130,8 @@
 
 
 <h1></h1>
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script><!-- Модальное окно -->
 <script>
     function myFunction(orderid) {
         if (orderid === null) {
@@ -99,13 +139,13 @@
             console.log(1);
             return;
         }
- 
-        
+
+
         var url = "@Url.Action("ResetTranzaction", "User")" + "?orderId=" + orderid;
         console.log(url);
         $.ajax({
             url: url,
-            dataType: 'json',          
+            dataType: 'json',
             type: "post",
             async: true,
             success: function (response) {
@@ -125,7 +165,7 @@
                         break;
                     }
                 }
-               
+
 
             }
         });
@@ -137,5 +177,52 @@
         location.href = "@Url.Action("AddTranzaction", "User")";
     });
 
-    
+
+</script>
+<script>
+
+
+
+    $(document).ready(function () {
+        $('#money-block').on('click', function (event) {
+            event.preventDefault();
+
+
+            var url = '@Html.Raw(Url.Action("CardPushMoney", "User"))';
+            console.log(url);
+            $.get(url, function (response) {
+                $('#infoPersonTeamBody').html(response);
+            });
+
+            $('#infoPersonTeam').modal('show');
+        });
+    });
+
+        //$(document).ready(function () {
+        //    $('#person').on('click', function (event) {
+        //        event.preventDefault();
+        //        var personId = $(this).data('person-id');
+        //        console.log(personId);
+        //        var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + personId;
+        //        console.log(url);
+        //        $.get(url, function (response) {
+        //            $('#infoPersonTeamBody').html(response);
+        //        });
+
+        //        $('#infoPersonTeam').modal('show');
+        //    });
+
+
+        //    $('#fullCalendar').click(function () {
+        //        var month = document.querySelector('#month-picker').getAttribute('data-month');
+        //        var url = '@Html.Raw(Url.Action("Index", "Event"))?month=' + month;
+        //        window.location.href = url;
+        //    });
+        //});
+
+
+
+
+
+
 </script>

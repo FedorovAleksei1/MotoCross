@@ -51,10 +51,15 @@ namespace Questionary.Core.Services.AdminService.AdminCastomerService
             if (customerService != null)
             {
 
+                
+                    customerServicedto = _mapper.Map<CustomerServiceDto>(customerService);
                 if (customerService.Photo != null && customerService.Photo.Base64 != null && customerService.Photo.Base64.Length > 0)
                 {
-                    customerServicedto = _mapper.Map<CustomerServiceDto>(customerService);
                     customerServicedto.BasePhoto64 = $"data:image/png;base64,{Convert.ToBase64String(customerService.Photo.Base64)}";
+                }
+                else
+                {
+                    customerServicedto = _mapper.Map<CustomerServiceDto>(customerService);
                 }
                 
 

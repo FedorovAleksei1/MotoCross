@@ -10,6 +10,7 @@ namespace MotoCross.Services.MotoService
         void Create(MotoDto motoDto);
 
         void Update(MotoDto motoDto);
+        void Delete(int id);
 
         void Create(IEnumerable<MotoDto> motosDto);
     }

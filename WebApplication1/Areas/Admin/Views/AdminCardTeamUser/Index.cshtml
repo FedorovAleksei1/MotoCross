@@ -20,30 +20,72 @@
 
 
 <div class="container my-5">
-<table class="table">
-    
-    <tbody class="cardItemUser" id="adminCardItem">
-    </tbody>
-</table>
+
+    <div id="adminCardItem">
+    </div>
+
     <div>
         <a type="button" class="btn btn-primary" href='/Admin/AdminCardTeamUser/Create'>Добавить</a>
-
     </div>
 
-<div class="button_pagination"> 
-<button type="button" class="btn btn-dark" id="prevPage">Назад</button>
-<button type="button" class="btn btn-dark" id="nextPage">Вперед</button>
-    </div>
+@*<div class="button_pagination"> 
+    <button type="button" class="btn btn-dark" id="prevPage">Назад</button>
+    <button type="button" class="btn btn-dark" id="nextPage">Вперед</button>
+</div>*@
 </div>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
-    $ (function  () {
-        var url = '@Html.Raw(Url.Action("AdminCardIndexInTable", "AdminCardTeamUser"))';
+    $(function () {
+        ReloadTable(1, 5);
+    });
+
+    function ReloadTable(page, take) {
+        console.log('start');
+        var url = '@Html.Raw(Url.Action("AdminCardIndexInTable", "AdminCardTeamUser"))' + '?page=' + page + '&take=' + take;
         $.get(url, function (response) {
             $('#adminCardItem').html(response);
         });
-    });
+        console.log('end');
+    }
 
+    
 
+    //$(document).ready(function () {
+    //    var itemsPerPage = 4; // Количество элементов на одной странице
+    //    var currentPage = 1; // Текущая страница
+    //    var totalItems = 50;
+    //    var totalPages = Math.ceil(totalItems / itemsPerPage); // Общее число страниц
+
+    //    // Функция для отображения элементов текущей страницы
+    //    function showPage(page) {
+    //        var startIndex = (page - 1) * itemsPerPage;
+    //        var endIndex = startIndex + itemsPerPage;
+    //        $("#adminCardItem .admin_cards").hide().slice(startIndex, endIndex).show();
+    //    }
+
+    //    // Инициализация страницы
+    //    showPage(currentPage);
+    //    $("#currentPage").text(currentPage);
+    //    $("#totalPages").text(totalPages);
+
+    //    // Обработчик нажатия кнопки "Назад"
+    //    $("#prevPage").click(function () {
+    //        if (currentPage > 1) {
+    //            currentPage--;
+    //            showPage(currentPage);
+    //            $("#currentPage").text(currentPage);
+    //        }
+    //    });
+
+    //    // Обработчик нажатия кнопки "Вперед"
+    //    $("#nextPage").click(function () {
+    //        if (currentPage < totalPages) {
+    //            currentPage++;
+    //            showPage(currentPage);
+    //            $("#currentPage").text(currentPage);
+    //        }
+    //    });
+    //});
 </script>

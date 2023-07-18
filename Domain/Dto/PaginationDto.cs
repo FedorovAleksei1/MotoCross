@@ -9,6 +9,7 @@ namespace Domain.Dto
 	public class PaginationDto<T>
 	{
 		public List<T> Elements { get; set; } = new();
+		public int Page { get; set; }
 		public int TotalCount { get; set; }
 	}
 }

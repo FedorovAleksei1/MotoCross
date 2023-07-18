@@ -5,6 +5,7 @@ using Domain.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MotoCross.Json;
+using MotoCross.Services.MotoService;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
 using Questionary.Core.Services.AdminService.AdminBalansService;
@@ -26,6 +27,7 @@ namespace MotoCross.Controllers
 		private readonly IBalansService _balansService;
 		private readonly IOperationUserService _operationUserService;
 		private readonly IMapper _mapper;
+		private readonly IMotoService _motoService;
 
         public UserController(UserManager<User> userManager
 			, IUserService userService
@@ -33,7 +35,8 @@ namespace MotoCross.Controllers
 			, IOrderService orderService
 			, IBalansService balansService
 			, IOperationUserService operationUserService
-			, IMapper mapper)
+			, IMapper mapper
+			, IMotoService motoService)
 		{
 			_userService = userService;
 			_userManager = userManager;
@@ -42,6 +45,7 @@ namespace MotoCross.Controllers
 			_balansService = balansService;
 			_operationUserService = operationUserService;
 			_mapper = mapper;
+			_motoService = motoService;
 		}
 
 		[HttpGet]
@@ -202,6 +206,14 @@ namespace MotoCross.Controllers
             _operationUserService.ResetBalans(operation);
 			return Json(response);
         }
+     
+
+        public IActionResult DeleteMoto(int id)
+		{
+			_motoService.Delete(id);
+		  return RedirectToAction("Edit");
+
+		}
 
         public PartialViewResult CardPushMoney()
         {
