@@ -43,6 +43,8 @@
             <td>@item.Stag</td>
             <td>@item.Moto</td>
             <td><img class="img_admin_photo" src="@item.BasePhoto64" alt=""></td>
+            <td><a type="button" class="btn btn-primary" href="~/Admin/AdminCardTeamUser/Edit/@item.Id">Редактировать</a></td>
+            <td><a type="button" class="btn btn-danger" href="~/Admin/AdminCardTeamUser/Delete?id=@item.Id">Удалить</a></td>
         </tr>
     }
 </table>
