@@ -1,5 +1,8 @@
 ﻿@model Questionary.Web.Areas.Admin.ViewModels.ChangeRoleViewModel;
 
+
+<div class="container">
+
 <h2>Изменение ролей для пользователя @Model.UserEmail</h2>
 
 <form asp-action="Edit" method="post">
@@ -15,3 +18,4 @@
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
 </form>
+</div>

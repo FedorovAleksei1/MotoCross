@@ -1,6 +1,7 @@
 ﻿@using Domain.Models;
 @model IEnumerable<User>
 
+<div class="container">
 <h2>Список пользователей</h2>
 <table class="table">
     @foreach (var user in Model)
@@ -13,3 +14,4 @@
         </tr>
     }
 </table>
+</div>
