@@ -9,5 +9,9 @@ namespace MotoCross.Services.OrderService
         List<OrderDto> GetOrder(string userName);
         OrderDto GetById(int id);
         void Confirmation(OrderDto orderDto);
+
+        void AdminConfirmation(OrderDto orderDto);
+
+        
     }
 }

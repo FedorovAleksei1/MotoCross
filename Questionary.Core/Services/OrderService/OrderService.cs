@@ -45,6 +45,17 @@ namespace MotoCross.Services.OrderService
             }
         }
 
+        public void AdminConfirmation(OrderDto orderDto)
+        {
+            var order = _context.Orders.FirstOrDefault(x => x.Id == orderDto.Id);
+            if (!order.AdminOrderConfirmed)
+            {
+                order.AdminOrderConfirmed = true;
+                _context.Update(order);
+                _context.SaveChanges();
+            }
+        }
+
         public OrderDto GetById(int id)
         {
             var orderDto = new OrderDto();

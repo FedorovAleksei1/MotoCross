@@ -15,6 +15,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Domain.Models.ViewModel;
 using MotoCross.Services.OrderService;
+using Domain.Dto;
+using MotoCross.Json;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {
@@ -202,18 +204,45 @@ namespace Questionary.Web.Areas.Admin.Controllers
             return View(model);
         }
 
-
-        public async Task<IActionResult> AllOrdersByUser() 
+        [HttpGet]
+        [Area("Admin")]
+        [Authorize]
+        public async Task<IActionResult> AllOrdersByUser(string id) 
         {
-            var userName = User.Identity.Name;
-            var orders = _orderService.GetOrder(userName);
-            var username = await _userService.GetUserByName(User.Identity.Name);
+            var username = await _userService.GetUserById(id);
+            var orders = _orderService.GetOrder(username.Email);
+            
             var model = new OrderViewModel(orders);
             model.User = username;
             return View(model);
            
         }
 
+        [HttpPost]
+        [Area("Admin")]
+        [Authorize]
+        public IActionResult AdminConfirmedOrders(int orderId)
+        {
+            var response = new JsonResponse();
+            var order = _orderService.GetById(orderId);
+           
+            //var orderDto = _mapper.Map<OrderDto>(order);
+
+            if (order == null)
+            {
+                response.status = (int)JsonResponseStatuses.NotFound;
+                response.message = "Объект не найден";
+            }
+            else
+            {
+                
+                _orderService.AdminConfirmation(order);
+                response.status = (int)JsonResponseStatuses.Ok;
+                response.message = "Заказ подвержден";
+            }
+        
+            return Json(response);
+        }
 
 
         //[Area("Admin")]

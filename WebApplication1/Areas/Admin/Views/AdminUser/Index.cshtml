@@ -60,7 +60,8 @@
                     <td>@user.User.FirstName</td>
                     <td>@user.User.LastName</td>
                     <td>@user.Role</td>
-                        <td><button asp-action="" asp-controller="User" asp-route-id="@user.User.Id">Подробнее</button></td>
+                        <td><a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminUser" asp-action="AllOrdersByUser" asp-route-id="@user.User.Id" type="button">Услуги</a></td>
+                       
                     
 
                     <td>
