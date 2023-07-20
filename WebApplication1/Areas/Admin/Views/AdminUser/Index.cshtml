@@ -16,7 +16,7 @@
             @Html.DropDownList("searchBy", new SelectList(new Dictionary<string, string>
             {
             {"Email", "Email"},
-            {"PhoneNumber", "Номер телефона"}
+            {"Phone", "Номер телефона"}
             // Добавьте дополнительные параметры анкеты в список
             }, "Key", "Value"))
             <br />
@@ -49,16 +49,18 @@
                 <th>Имя</th>
                 <th>Фамилия</th>
                 <th>Роль</th>
+                <th>Услуги пользователя</th>
                 <th></th>
             </tr>
             @foreach (var user in Model)
             {
                 <tr>
                     <td>@user.User.Email</td>
-                    <td>@user.User.PhoneNumber</td>
+                    <td>@user.User.Phone</td>
                     <td>@user.User.FirstName</td>
                     <td>@user.User.LastName</td>
                     <td>@user.Role</td>
+                        <td><button asp-action="" asp-controller="User" asp-route-id="@user.User.Id">Подробнее</button></td>
                     
 
                     <td>

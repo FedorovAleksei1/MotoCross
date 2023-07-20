@@ -2,15 +2,19 @@
 using Domain.Dto;
 using Domain.Models;
 using Domain.Models.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MotoCross.Json;
+using MotoCross.Services.CustomerServiceService;
 using MotoCross.Services.MotoService;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
 using Questionary.Core.Services.AdminService.AdminBalansService;
+using Questionary.Core.Services.AdminService.AdminCastomerService;
 using Questionary.Core.Services.OperationUserService;
 using Questionary.Web.Areas.Admin.ViewModel;
+using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +32,9 @@ namespace MotoCross.Controllers
 		private readonly IOperationUserService _operationUserService;
 		private readonly IMapper _mapper;
 		private readonly IMotoService _motoService;
+        private readonly IAdminCustomerService _adminCustomerService;
+        private readonly ICustomerServiceService _customerServiceService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UserController(UserManager<User> userManager
 			, IUserService userService
@@ -36,7 +43,10 @@ namespace MotoCross.Controllers
 			, IBalansService balansService
 			, IOperationUserService operationUserService
 			, IMapper mapper
-			, IMotoService motoService)
+			, IMotoService motoService
+			, IAdminCustomerService adminCustomerService
+			, ICustomerServiceService customerServiceService
+			, IHttpContextAccessor httpContextAccessor)
 		{
 			_userService = userService;
 			_userManager = userManager;
@@ -46,6 +56,9 @@ namespace MotoCross.Controllers
 			_operationUserService = operationUserService;
 			_mapper = mapper;
 			_motoService = motoService;
+			_adminCustomerService = adminCustomerService;
+			_customerServiceService = customerServiceService;
+			_httpContextAccessor = httpContextAccessor;
 		}
 
 		[HttpGet]
@@ -219,6 +232,63 @@ namespace MotoCross.Controllers
         {
             
             return PartialView();
+        }
+
+
+        public async Task<IActionResult> Index()
+        {
+
+            var model = new AdminCustomerServiceViewModel();
+            var customer = _adminCustomerService.AllCustomerService();
+            var username = await _userService.GetUserByName(User.Identity.Name);
+            model.User = username;
+            model.Customers = customer;
+            return View(model);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Addorder(int customerId)
+        {
+            HttpContext context = _httpContextAccessor.HttpContext;
+
+            string username = "";
+            // Проверка, авторизован ли пользователь
+            if (context.User.Identity.IsAuthenticated)
+            {
+                // Получение имени пользователя
+                username = context.User.Identity.Name;
+
+                // Дополнительные действия с авторизованным пользователем
+                // ...
+            }
+            var response = new JsonResponse();
+
+            if (!string.IsNullOrEmpty(username))
+            {
+                var customer = _adminCustomerService.GetCustomerServiceById(customerId);
+
+                if (customer == null)
+                {
+                    response.status = (int)JsonResponseStatuses.NotFound;
+                    response.message = "Объект не найден";
+                }
+                else
+                {
+                    _customerServiceService.AddInOrders(customer, username);
+                    response.status = (int)JsonResponseStatuses.Ok;
+                    response.message = "Заказ подвержден";
+                }
+            }
+            else
+            {
+                response.status = (int)JsonResponseStatuses.NotFound;
+                response.message = "Объект не существует";
+            }
+
+
+            return Json(response);
         }
     }
 }

@@ -13,6 +13,8 @@ using AutoMapper;
 using Questionary.Core.Services.UserRoleService;
 using System.Collections;
 using System.Collections.Generic;
+using Domain.Models.ViewModel;
+using MotoCross.Services.OrderService;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {
@@ -24,9 +26,11 @@ namespace Questionary.Web.Areas.Admin.Controllers
         private IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IRoleService _roleService;
+        private readonly IOrderService _orderService;
+      
 
 
-        public AdminUserController(UserManager<User> userManager,  IUserService userService, /*IUserRoleStore<User> userRoleStore,*/ IMapper mapper, RoleManager<IdentityRole> roleManager, IRoleService roleService)
+        public AdminUserController(UserManager<User> userManager,  IUserService userService, /*IUserRoleStore<User> userRoleStore,*/ IMapper mapper, RoleManager<IdentityRole> roleManager, IRoleService roleService, IOrderService orderService)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -34,6 +38,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
             //_userRoleStore = userRoleStore;
             _roleManager = roleManager;
             _roleService = roleService;
+            _orderService = orderService;
         }
         [Area("Admin")]
         [Authorize]
@@ -59,8 +64,8 @@ namespace Questionary.Web.Areas.Admin.Controllers
                     case "Email":
                         userRoles = userRoles.Where(p => !string.IsNullOrEmpty(p.User.Email) && p.User.Email.StartsWith(searchTerm)).OrderBy(p => p.User.Email).ToList();
                         break;
-                    case "PhoneNumber":
-                        userRoles = userRoles.Where(p => !string.IsNullOrEmpty(p.User.PhoneNumber) && p.User.PhoneNumber.Contains(searchTerm)).OrderBy(p => p.User.PhoneNumber).ToList();
+                    case "Phone":
+                        userRoles = userRoles.Where(p => !string.IsNullOrEmpty(p.User.Phone) && p.User.Phone.Contains(searchTerm)).OrderBy(p => p.User.Phone).ToList();
                         break;
                     default:
                         break;
@@ -82,6 +87,9 @@ namespace Questionary.Web.Areas.Admin.Controllers
 
 
 
+
+
+
         [Area("Admin")]
         [Authorize]
         public async Task<IActionResult> Edit(string id)
@@ -95,7 +103,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
                 return NotFound();
 
 
-            var model = new EditUserViewModel { Id = user.Id, Email = user.Email, PhoneNumber = user.PhoneNumber };
+            var model = new EditUserViewModel { Id = user.Id, Email = user.Email, Phone = user.Phone };
 
             return View(model);
         }
@@ -114,7 +122,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
 
             user.Email = model.Email;
             user.UserName = model.Email;
-            user.PhoneNumber = model.PhoneNumber;
+            user.Phone = model.Phone;
 
             if (!string.IsNullOrEmpty(model.NewPassword))
             {
@@ -193,6 +201,20 @@ namespace Questionary.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+
+
+        public async Task<IActionResult> AllOrdersByUser() 
+        {
+            var userName = User.Identity.Name;
+            var orders = _orderService.GetOrder(userName);
+            var username = await _userService.GetUserByName(User.Identity.Name);
+            var model = new OrderViewModel(orders);
+            model.User = username;
+            return View(model);
+           
+        }
+
+
 
         //[Area("Admin")]
         //[Authorize]

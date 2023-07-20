@@ -29,7 +29,7 @@ namespace MotoCross.Services.OrderService
                 throw new Exception("Пользователь не найден");
 
             var order = _context.Orders.Include(o => o.СustomerService)
-                .Where(t => t.User.UserName == userName).ToList();
+                .Where(t => t.User.UserName == userName).OrderByDescending(d => d.Id).ToList();
 
             return _mapper.Map<List<OrderDto>>(order);
         }

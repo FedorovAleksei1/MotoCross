@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Views\CardPushMoney\" />
+    <Folder Include="Views\CustomerService\" />
   </ItemGroup>
 
 </Project>

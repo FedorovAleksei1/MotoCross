@@ -1,19 +1,16 @@
 ﻿@using MotoCross.Json;
-@using Domain.Models.ViewModel;
-@model OrderViewModel;
-
+@using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
+@model AdminCustomerServiceViewModel;
+@{
+    ViewData["Title"] = "Список Услуг";
+}
 
 <style>
-    .scrole-table {
+    .scrole-table_ysliga {
         width: 100%;
         overflow: auto;
-        height: 410px;
+        height: 472px;
     }
-
-    .fixed {
-        position: relative;
-    }
-
 
     div::-webkit-scrollbar {
         width: 10px;
@@ -23,7 +20,7 @@
     div::-webkit-scrollbar-track {
         background: #f1f1f1;
         border-radius: 8px;
-        margin-top: 48px;
+        margin-top: 18px;
     }
 
     /* Handle */
@@ -86,45 +83,47 @@
             </div>
         </div>
 
-        <div class="right_div_personal_area1">
+        <div class="right_div_personal_area2">
 
+            <div class="container ">
+                <h1 class="personal_area_h2">Услуги</h1>
+                <div class="eee">
+                    <div class="scrole-table_ysliga " style="display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
 
+    margin-right: 0px;
+    margin-left: 0px;">
 
-            <div class=" scrole-table">
-            <table class="table " style="position: relative; border-collapse: collapse;">
-                <thead class="thead_orders" style="position: sticky; top: 0; background: beige; border: 0;">
+                        @foreach (var item in Model.Customers)
+                        {
+                            <div class="card" style="width: 18rem; margin: 0 auto;">
 
-                    <tr class="tr_orders fixed" style="box-shadow: 0px 1px 0px 0px #040404; top: 0;">
-                        <th style="border: 0;">Дата </th>
-                        <th style="border: 0;">Наименование</th>
-                        <th style="border: 0;">Цена</th>
-                        <th style="border: 0;">Статус</th>
-
-                    </tr>
-                </thead>
-                <tbody class="scroll">
-                    @foreach (var order in Model.Orders)
-                    {
-                        <tr class="tr_orders">
-
-                            <td>@order.Data.ToString("dd.MM.yyyy") </td>
-                            <td>@order.Name</td>
-                            <td>@order.Price.ToString("C")</td>
-                            <td>
-                                @if (!order.IsConfirmed)
+                                @if (item?.Photo != null)
                                 {
-                                    <button class="button_on_personal_area" onclick="myFunction(@order.Id)">Подвердить</button>
+                                    <img src="@item.BasePhoto64" class="card-img-top" style="height: 100%;" alt="">
                                 }
                                 else
                                 {
-                                    <button class="button_on_personal_area" onclick="myFunction(@order.Id)" disabled>Подвердить</button>
+                                    <img src="/img/pictures/white-image.png" class="card-img-top" style="height: 100%;" alt="">
                                 }
 
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                <div class="card-body" style="text-align: center;">
+                                    <h5 class="card-title">@item.Name</h5>
+                                    <p class="card-text">@item.Price.ToString("C")</p>
+                                </div>
+
+                                <div class="card-body">
+
+                                    <button class="button_on_personal_area" onclick="myFunction(@item.Id)">Добавить в заказ</button>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -133,30 +132,34 @@
 
 
 
-<h1></h1>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script><!-- Модальное окно -->
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
 <script>
-    function myFunction(orderid) {
-        if (orderid === null) {
+    function myFunction(id) {
+        if (id === null) {
             alert('id заказа null');
-            console.log(1);
             return;
         }
-
-
-        var url = "@Url.Action("ResetTranzaction", "User")" + "?orderId=" + orderid;
+        var url = "@Url.Action("Addorder", "User")" + "?customerId=" + id;
         console.log(url);
         $.ajax({
             url: url,
             dataType: 'json',
             type: "post",
-            async: true,
+            async: false,
             success: function (response) {
                 console.log(response);
                 switch (response.status) {
                     case parseInt('@((int)JsonResponseStatuses.Ok)'): {
-                        location.reload();
+                        alert(response.message);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 500);
                         break;
                     }
 
@@ -169,22 +172,9 @@
                         break;
                     }
                 }
-
-
             }
         });
     }
-
-
-
-    document.getElementById("myButton").addEventListener("click", function () {
-        location.href = "@Url.Action("AddTranzaction", "User")";
-    });
-
-
-</script>
-<script>
-
 
 
     $(document).ready(function () {
@@ -201,32 +191,4 @@
             $('#infoPersonTeam').modal('show');
         });
     });
-
-        //$(document).ready(function () {
-        //    $('#person').on('click', function (event) {
-        //        event.preventDefault();
-        //        var personId = $(this).data('person-id');
-        //        console.log(personId);
-        //        var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + personId;
-        //        console.log(url);
-        //        $.get(url, function (response) {
-        //            $('#infoPersonTeamBody').html(response);
-        //        });
-
-        //        $('#infoPersonTeam').modal('show');
-        //    });
-
-
-        //    $('#fullCalendar').click(function () {
-        //        var month = document.querySelector('#month-picker').getAttribute('data-month');
-        //        var url = '@Html.Raw(Url.Action("Index", "Event"))?month=' + month;
-        //        window.location.href = url;
-        //    });
-        //});
-
-
-
-
-
-
 </script>

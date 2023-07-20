@@ -116,6 +116,14 @@ body {
     left: 103px;
     top: 127px;
 }
+.personal_area_h2 {
+    padding-bottom: 5%;
+    margin-bottom:10px;
+    width: 387px;
+    height: 37px;
+    left: 103px;
+    top: 127px;
+}
 
 .personal_area_p1 {
     width: 452px;
@@ -289,6 +297,12 @@ body {
         border-bottom: 5.2px solid #4d4d4d;
     }
 .right_div_personal_area1 {
+    width: 69%;
+    background: beige;
+    border-radius: 10px;
+}
+.right_div_personal_area2 {
+    padding: 5%;
     width: 69%;
     background: beige;
     border-radius: 10px;

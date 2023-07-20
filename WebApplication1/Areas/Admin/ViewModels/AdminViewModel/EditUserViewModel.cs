@@ -11,7 +11,7 @@ namespace Questionary.Web.Areas.Admin.ViewModels
 
         [Required]
         [Display(Name = "Номер телефона")]
-        public string PhoneNumber { get; set; }
+        public string Phone { get; set; }
         public string NewPassword { get; set; }
     }
 }
