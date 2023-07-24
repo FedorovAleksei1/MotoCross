@@ -11,6 +11,7 @@ using MotoCross.Services.MotoService;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
 using Questionary.Core.Services.AdminService.AdminBalansService;
+using Questionary.Core.Services.AdminService.AdminCardPutMoney;
 using Questionary.Core.Services.AdminService.AdminCastomerService;
 using Questionary.Core.Services.OperationUserService;
 using Questionary.Web.Areas.Admin.ViewModel;
@@ -34,6 +35,7 @@ namespace MotoCross.Controllers
 		private readonly IMotoService _motoService;
         private readonly IAdminCustomerService _adminCustomerService;
         private readonly ICustomerServiceService _customerServiceService;
+        private readonly ICardPutMoneyService _cardPutMoneyService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UserController(UserManager<User> userManager
@@ -46,7 +48,8 @@ namespace MotoCross.Controllers
 			, IMotoService motoService
 			, IAdminCustomerService adminCustomerService
 			, ICustomerServiceService customerServiceService
-			, IHttpContextAccessor httpContextAccessor)
+            , ICardPutMoneyService cardPutMoneyService
+            , IHttpContextAccessor httpContextAccessor)
 		{
 			_userService = userService;
 			_userManager = userManager;
@@ -58,6 +61,7 @@ namespace MotoCross.Controllers
 			_motoService = motoService;
 			_adminCustomerService = adminCustomerService;
 			_customerServiceService = customerServiceService;
+            _cardPutMoneyService = cardPutMoneyService;
 			_httpContextAccessor = httpContextAccessor;
 		}
 
@@ -204,7 +208,7 @@ namespace MotoCross.Controllers
 				OrderId = orderId,
 				//Order = orderDto,
 				UserId = order.UserId,
-				Price = order.Price,
+				Price = (decimal)order.Price,
 				DataOperation = DateTime.Now
 				
 			};
@@ -230,7 +234,9 @@ namespace MotoCross.Controllers
 
         public PartialViewResult CardPushMoney()
         {
-            
+            //var model = new AdminCardPutMoneyViewModel();
+            //var card = _cardPutMoneyService.EditCardPutMoney();
+            //model.CardPutMoneyDto = card;
             return PartialView();
         }
 

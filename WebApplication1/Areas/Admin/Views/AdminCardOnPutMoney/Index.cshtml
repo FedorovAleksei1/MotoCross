@@ -1,0 +1,41 @@
+﻿
+@using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
+@model CardNameOnPutMoneyViewModel
+
+
+
+
+
+
+@{
+    ViewData["Title"] = "Наименование карты";
+}
+
+
+<div class="container my-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Цифры карты</th>
+                
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.cardsNameOnPutMoney)
+            {
+                <tr>
+                    <td>@item.Name</td>
+
+                    <td><a type="button" class="btn btn-primary" href="~/Admin/AdminCardOnPutMoney/Edit/@item.Id">Редактировать</a></td>
+                    <td><a type="button" class="btn btn-danger" href="~/Admin/AdminCardOnPutMoney/Delete?id=@item.Id">Удалить</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <a type="button" class="btn btn-primary" href='/Admin/AdminCardOnPutMoney/Create'>Добавить</a>
+    </div>
+</div>

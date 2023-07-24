@@ -26,7 +26,7 @@ namespace Questionary.Core.Services.OperationUserService
         }
         public IEnumerable<OperationUserDto> ListOperationsUser(string userId)
         {
-            var operationsuser = _context.OperationsUser.Where(o => o.UserId == userId).AsEnumerable();
+            var operationsuser = _context.OperationsUser.Where(o => o.UserId == userId).OrderByDescending(x=>x.Id).AsEnumerable();
             var operationuserDto = _mapper.Map<IEnumerable<OperationUserDto>>(operationsuser);
             return operationuserDto;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class OperationUser
+    public class OperationUser : BaseEntity
     {
         public int Id { get; set; }
         public string NameCustomer { get; set; }

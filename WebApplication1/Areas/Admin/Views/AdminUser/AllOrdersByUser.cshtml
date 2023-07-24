@@ -22,7 +22,7 @@
 
                 <td>@order.Data.ToString("dd.MM.yyyy") </td>
                 <td>@order.Name</td>
-                <td>@order.Price.ToString("C")</td>
+                <td>@order.Price?.ToString("C")</td>
                 <td>
                     @if (!order.AdminOrderConfirmed)
                     {
@@ -63,6 +63,7 @@
                 console.log(response);
                 switch (response.status) {
                     case parseInt('@((int)JsonResponseStatuses.Ok)'): {
+                        alert('Заказ подвержден');
                         location.reload();
                         break;
                     }

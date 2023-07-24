@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Dto
 {
-    public class OperationUserDto
+    public class OperationUserDto : BaseEntity
     {
         public int Id { get; set; }
         public string NameCustomer { get; set; }

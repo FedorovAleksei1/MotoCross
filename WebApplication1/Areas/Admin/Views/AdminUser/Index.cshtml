@@ -50,6 +50,7 @@
                 <th>Фамилия</th>
                 <th>Роль</th>
                 <th>Услуги пользователя</th>
+                    
                 <th></th>
             </tr>
             @foreach (var user in Model)
@@ -60,6 +61,7 @@
                     <td>@user.User.FirstName</td>
                     <td>@user.User.LastName</td>
                     <td>@user.Role</td>
+                        
                         <td><a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminUser" asp-action="AllOrdersByUser" asp-route-id="@user.User.Id" type="button">Услуги</a></td>
                        
                     

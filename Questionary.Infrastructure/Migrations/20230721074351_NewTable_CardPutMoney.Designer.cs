@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotoCross.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Questionary.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230721074351_NewTable_CardPutMoney")]
+    partial class NewTable_CardPutMoney
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,27 +59,6 @@ namespace Questionary.Infrastructure.Migrations
                     b.ToTable("Balanses");
                 });
 
-            modelBuilder.Entity("Domain.Models.CardNameOnputMoney", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CardPutMoneyId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CardPutMoneyId")
-                        .IsUnique();
-
-                    b.ToTable("CardNamePutMoneys");
-                });
-
             modelBuilder.Entity("Domain.Models.CardPutMoney", b =>
                 {
                     b.Property<int>("Id")
@@ -85,7 +66,13 @@ namespace Questionary.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<decimal?>("PutMoneyOnCard")
+                    b.Property<string>("CardName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NameCardWriteUser")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("PutMoneyOnCard")
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
@@ -345,14 +332,8 @@ namespace Questionary.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTimeOffset?>("CreateDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<DateTime>("DataOperation")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("NameCustomer")
                         .HasColumnType("text");
@@ -362,9 +343,6 @@ namespace Questionary.Infrastructure.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
-
-                    b.Property<DateTimeOffset?>("UpdateDate")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserId")
                         .HasColumnType("text");
@@ -412,7 +390,7 @@ namespace Questionary.Infrastructure.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
-                    b.Property<int?>("СustomerServiceId")
+                    b.Property<int>("СustomerServiceId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -727,17 +705,6 @@ namespace Questionary.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Models.CardNameOnputMoney", b =>
-                {
-                    b.HasOne("Domain.Models.CardPutMoney", "cardPutMoney")
-                        .WithOne("CardName")
-                        .HasForeignKey("Domain.Models.CardNameOnputMoney", "CardPutMoneyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("cardPutMoney");
-                });
-
             modelBuilder.Entity("Domain.Models.CardTeamUser", b =>
                 {
                     b.HasOne("Domain.Models.Photo", "Photo")
@@ -811,7 +778,9 @@ namespace Questionary.Infrastructure.Migrations
 
                     b.HasOne("Domain.Models.СustomerService", "СustomerService")
                         .WithMany("Orders")
-                        .HasForeignKey("СustomerServiceId");
+                        .HasForeignKey("СustomerServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("СustomerService");
 
@@ -893,11 +862,6 @@ namespace Questionary.Infrastructure.Migrations
                         .HasForeignKey("OperationsUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Models.CardPutMoney", b =>
-                {
-                    b.Navigation("CardName");
                 });
 
             modelBuilder.Entity("Domain.Models.Important", b =>

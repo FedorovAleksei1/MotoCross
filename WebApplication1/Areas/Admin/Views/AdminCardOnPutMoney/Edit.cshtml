@@ -1,0 +1,25 @@
+﻿@using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
+@model CardNameOnPutMoneyViewModel
+@{
+    ViewData["Title"] = "Редактирование Карты";
+}
+
+<div class="container">
+    <h2>Редактировние Карты</h2>
+    <form method="post" enctype="multipart/form-data">
+        @Html.HiddenFor(x => x.cardNameOnputMoneyDto.Id)
+        
+        <div>
+            <label>
+                Цифры Карты
+                @Html.TextBoxFor(x => Model.cardNameOnputMoneyDto.Name, new { @class = "form-control"})
+            </label>
+        </div>
+
+        
+
+        <input type="submit" value="Редактировать" />
+
+    </form>
+
+</div>

@@ -17,6 +17,8 @@ using Domain.Models.ViewModel;
 using MotoCross.Services.OrderService;
 using Domain.Dto;
 using MotoCross.Json;
+using Questionary.Core.Services.AdminService.AdminBalansService;
+using Questionary.Core.Services.OperationUserService;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {
@@ -29,10 +31,12 @@ namespace Questionary.Web.Areas.Admin.Controllers
         private readonly IMapper _mapper;
         private readonly IRoleService _roleService;
         private readonly IOrderService _orderService;
-      
+        private readonly IBalansService _balansService;
+        private readonly IOperationUserService _operationUserService;
 
 
-        public AdminUserController(UserManager<User> userManager,  IUserService userService, /*IUserRoleStore<User> userRoleStore,*/ IMapper mapper, RoleManager<IdentityRole> roleManager, IRoleService roleService, IOrderService orderService)
+
+        public AdminUserController(UserManager<User> userManager, IUserService userService, /*IUserRoleStore<User> userRoleStore,*/ IMapper mapper, RoleManager<IdentityRole> roleManager, IRoleService roleService, IOrderService orderService, IBalansService balansService, IOperationUserService operationUserService)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -41,6 +45,8 @@ namespace Questionary.Web.Areas.Admin.Controllers
             _roleManager = roleManager;
             _roleService = roleService;
             _orderService = orderService;
+            _balansService = balansService;
+            _operationUserService = operationUserService;
         }
         [Area("Admin")]
         [Authorize]
@@ -74,7 +80,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
                 }
             }
 
-            return View(userRoles);
+            return View(userRoles.OrderBy(x => x.User.Id).ToList());
         }
 
         [Area("Admin")]
@@ -100,13 +106,13 @@ namespace Questionary.Web.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
 
             var user = await _userManager.FindByIdAsync(id);
-
+            var balans = _balansService.GetBalansByUserId(user.Id);
             if (user == null)
                 return NotFound();
 
 
             var model = new EditUserViewModel { Id = user.Id, Email = user.Email, Phone = user.Phone };
-
+            model.Balans = balans;
             return View(model);
         }
         [Area("Admin")]
@@ -120,11 +126,13 @@ namespace Questionary.Web.Areas.Admin.Controllers
             if (!ModelState.IsValid) return View(model);
 
             var user = await _userManager.FindByIdAsync(model.Id);
+            _balansService.EditBalans(model.Balans);
             if (user == null) return View(model);
 
             user.Email = model.Email;
             user.UserName = model.Email;
             user.Phone = model.Phone;
+
 
             if (!string.IsNullOrEmpty(model.NewPassword))
             {
@@ -143,7 +151,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
             }
 
             var result = await _userManager.UpdateAsync(user);
-           
+
             if (result.Succeeded)
                 return RedirectToAction("Index");
             foreach (var error in result.Errors) ModelState.AddModelError(string.Empty, error.Description);
@@ -191,7 +199,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
                 {
                     user.PasswordHash = passwordHasher?.HashPassword(user, model.NewPassword);
                     await _userManager.UpdateAsync(user);
-                    
+
                 }
 
                 foreach (var error in result.Errors) ModelState.AddModelError(string.Empty, error.Description);
@@ -207,15 +215,15 @@ namespace Questionary.Web.Areas.Admin.Controllers
         [HttpGet]
         [Area("Admin")]
         [Authorize]
-        public async Task<IActionResult> AllOrdersByUser(string id) 
+        public async Task<IActionResult> AllOrdersByUser(string id)
         {
             var username = await _userService.GetUserById(id);
             var orders = _orderService.GetOrder(username.Email);
-            
+
             var model = new OrderViewModel(orders);
             model.User = username;
             return View(model);
-           
+
         }
 
         [HttpPost]
@@ -225,7 +233,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
         {
             var response = new JsonResponse();
             var order = _orderService.GetById(orderId);
-           
+
             //var orderDto = _mapper.Map<OrderDto>(order);
 
             if (order == null)
@@ -235,12 +243,12 @@ namespace Questionary.Web.Areas.Admin.Controllers
             }
             else
             {
-                
+
                 _orderService.AdminConfirmation(order);
                 response.status = (int)JsonResponseStatuses.Ok;
                 response.message = "Заказ подвержден";
             }
-        
+
             return Json(response);
         }
 
@@ -272,7 +280,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
         //}
 
         [Area("Admin")]
-        [Authorize]       
+        [Authorize]
         public async Task<ActionResult> Delete(string id)
         {
             if (!User.IsInRole("admin"))
@@ -284,9 +292,59 @@ namespace Questionary.Web.Areas.Admin.Controllers
             {
                 await _userManager.DeleteAsync(user);
             }
-   
+
 
             return RedirectToAction("Index");
         }
+
+        [Area("Admin")]
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult> AddTranzaction(EditUserViewModel model)
+        {
+            var user = _userManager.FindByIdAsync(model.Id).Result;
+
+            user.Email = model.Email;
+            user.Phone = model.Phone;
+
+
+            await _userService.Edit(_mapper.Map<UserDto>(user));
+            //await _userService.GetUserById(model.Id);
+            
+            //var balans = _balansService.GetBalansByUserId(model.Id);
+
+            _operationUserService.ListOperationsUser(model.Id);
+
+            var order = new OrderDto()
+            {
+                IsDeleted = true,
+                Data = DateTime.Now,
+                Price = (decimal)model.NewPrice,
+                UserId = model.Id
+            };
+
+           // user.OrdersDto.Add(order);
+
+            var orderDto = _mapper.Map<OrderDto>(order);
+
+            var oper = new OperationUserDto()
+            {
+                IsDeleted = true,
+                OrderId =  order.Id,
+                Order = orderDto,
+                UserId = user.Id,
+                Price = (decimal)model.NewPrice,
+                DataOperation = DateTime.Now
+            };
+
+            _operationUserService.AddBalans(oper);
+            return RedirectToAction("Index");
+        }
+
+
     }
+
+
+
 }
+

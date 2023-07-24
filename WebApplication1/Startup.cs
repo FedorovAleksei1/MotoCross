@@ -29,6 +29,9 @@ using Questionary.Core.Services.AdminService.AdminOperationService;
 using Questionary.Core.Services.AdminService.AdminBalansService;
 using Questionary.Core.Services.AdminService.AdminCastomerService;
 using Questionary.Core.Services.OperationUserService;
+using Domain.Dto;
+using Questionary.Core.Services.AdminService.AdminCardPutMoney;
+using Questionary.Core.Services.AdminService.AdminCardNamePutMoney;
 
 namespace MotoCross
 {
@@ -71,6 +74,11 @@ namespace MotoCross
             services.AddTransient<IBalansService, BalansService>();
             services.AddTransient<IAdminCustomerService, AdminCustomerService>();
             services.AddTransient<IOperationUserService, OperationUserService>();
+            services.AddTransient<ICardPutMoneyService, CardPutMoneyService>();
+            services.AddTransient<ICardNamePutMoneyService, CardNamePutMoneyService>();
+
+
+
 
             services.Configure<IdentityOptions>(options =>
             {

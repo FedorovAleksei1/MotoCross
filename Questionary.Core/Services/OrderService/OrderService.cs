@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Domain.Dto;
 using Domain.Models;
+using Questionary.Infrastructure.Migrations;
 
 namespace MotoCross.Services.OrderService
 {
@@ -28,8 +29,9 @@ namespace MotoCross.Services.OrderService
             if (string.IsNullOrEmpty(userName))
                 throw new Exception("Пользователь не найден");
 
+            
             var order = _context.Orders.Include(o => o.СustomerService)
-                .Where(t => t.User.UserName == userName).OrderByDescending(d => d.Id).ToList();
+                .Where(t => t.User.UserName == userName && !t.IsDeleted).OrderByDescending(d => d.Id).ToList();
 
             return _mapper.Map<List<OrderDto>>(order);
         }

@@ -100,9 +100,9 @@ namespace MotoCross.Services.UserService
             user.LastName = userdto.LastName;
             user.Phone = userdto.Phone;
 
-
             IdentityResult result = await _userManager.UpdateAsync(user);
 
+            if(userdto.MotosDto != null)
             foreach (var moto in userdto.MotosDto)
             {
                 moto.UserId = userdto.Id;
