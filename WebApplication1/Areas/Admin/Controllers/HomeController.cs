@@ -1,25 +1,47 @@
 ﻿using Domain.Models;
+using Domain.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MotoCross.Services.OrderService;
+using MotoCross.Services.UserService;
+using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
+using System.Threading.Tasks;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {
     public class HomeController : Controller
     {
         private readonly SignInManager<User> _signInManager;
-        public HomeController(SignInManager<User> signInManager)
+        private readonly IOrderService _orderService;
+        private readonly IUserService _userService;
+        public HomeController(SignInManager<User> signInManager, IOrderService orderService, IUserService userService)
         {
             _signInManager = signInManager;
+            _orderService = orderService;
+            _userService = userService;
         }
 
         [Area("Admin")]
         [Authorize]
         // GET: HomeController
-        public ActionResult Index()
+        public ActionResult Index(int page, int take)
         {
-            return View();
+            var model = new AdminOrderViewModel();            
+
+            var orders = _orderService.GetAllOrder(page, take);
+            foreach(var order in orders.Elements)
+            {
+                var username = _userService.GetUserById(order.UserId).Result;
+                model.Dictionaryobject.Add(order, username);
+            }
+
+            model.Orders = orders;
+            return View(model);
         }
+
+
+        
 
         //// GET: HomeController/Details/5
         //public ActionResult Details(int id)

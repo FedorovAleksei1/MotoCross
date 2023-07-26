@@ -19,6 +19,7 @@ using Domain.Dto;
 using MotoCross.Json;
 using Questionary.Core.Services.AdminService.AdminBalansService;
 using Questionary.Core.Services.OperationUserService;
+using Questionary.Core.Services.AdminService.AdminCastomerService;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {
@@ -33,10 +34,11 @@ namespace Questionary.Web.Areas.Admin.Controllers
         private readonly IOrderService _orderService;
         private readonly IBalansService _balansService;
         private readonly IOperationUserService _operationUserService;
+        private readonly IAdminCustomerService _adminCustomerService;
 
 
 
-        public AdminUserController(UserManager<User> userManager, IUserService userService, /*IUserRoleStore<User> userRoleStore,*/ IMapper mapper, RoleManager<IdentityRole> roleManager, IRoleService roleService, IOrderService orderService, IBalansService balansService, IOperationUserService operationUserService)
+        public AdminUserController(UserManager<User> userManager, IUserService userService, /*IUserRoleStore<User> userRoleStore,*/ IMapper mapper, RoleManager<IdentityRole> roleManager, IRoleService roleService, IOrderService orderService, IBalansService balansService, IOperationUserService operationUserService, IAdminCustomerService adminCustomerService)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -47,6 +49,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
             _orderService = orderService;
             _balansService = balansService;
             _operationUserService = operationUserService;
+            _adminCustomerService = adminCustomerService;
         }
         [Area("Admin")]
         [Authorize]
@@ -215,12 +218,42 @@ namespace Questionary.Web.Areas.Admin.Controllers
         [HttpGet]
         [Area("Admin")]
         [Authorize]
-        public async Task<IActionResult> AllOrdersByUser(string id)
+        public async Task<IActionResult> NewCustomerByUserOrders(string id)
         {
             var username = await _userService.GetUserById(id);
-            var orders = _orderService.GetOrder(username.Email);
+            var model = new OrderViewModel();
+           
+            model.User = username;
+            return View(model);
+        }
 
-            var model = new OrderViewModel(orders);
+
+        [HttpPost]
+        [Area("Admin")]
+        [Authorize]
+        public async Task<IActionResult> NewCustomerByUserOrders(OrderViewModel model)
+        {
+            var username = await _userService.GetUserById(model.User.Id);
+          
+            model.Order.Data=DateTime.Now;
+            model.Order.UserId = model.User.Id;
+            _orderService.Create(model.Order);
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
+        [HttpGet]
+        [Area("Admin")]
+        [Authorize]
+        public async Task<IActionResult> AllOrdersByUser(string id, int page, int take)
+        {
+            var username = await _userService.GetUserById(id);
+            var orders = _orderService.GetOrder(username.Email, page, take);
+
+            var model = new AdminOrderViewModel(orders);
             model.User = username;
             return View(model);
 

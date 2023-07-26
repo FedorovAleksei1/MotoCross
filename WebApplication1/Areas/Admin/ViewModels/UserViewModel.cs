@@ -7,6 +7,7 @@ namespace Questionary.Web.Areas.Admin.ViewModel
     {
         public UserDto User { get; set; }
         public BalansDto Balans { get; set; }
+        
 
         public List<OperationUserDto> OpeartionUser { get; set; }
     }

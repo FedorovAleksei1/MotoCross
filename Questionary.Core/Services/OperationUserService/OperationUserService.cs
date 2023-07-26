@@ -2,6 +2,7 @@
 using Domain.Dto;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MotoCross.Data;
 using MotoCross.Services.UserService;
 using System;
@@ -61,8 +62,21 @@ namespace Questionary.Core.Services.OperationUserService
         {
             if (resetOperationBalansDto == null)
                 throw new Exception("Такой операции не сущесвтует");
+            
             var useroperationbalans = _context.Balanses.FirstOrDefault(u => u.UserId == resetOperationBalansDto.UserId);
-
+            if(useroperationbalans == null)
+            {
+                _context.Balanses.Add(new Balans
+                {
+                    BalansMoney = 0,
+                    UserId = resetOperationBalansDto.UserId,
+                    CreateDate = DateTime.Now,
+                    DatePutMoney = DateTime.Now,
+                    Operation = _context.Operations.FirstOrDefault(x => x.Id == 2)
+                }) ;
+                _context.SaveChanges();
+            }
+            useroperationbalans=_context.Balanses.FirstOrDefault(u => u.UserId == resetOperationBalansDto.UserId);
             useroperationbalans.BalansMoney -= resetOperationBalansDto.Price;
             resetOperationBalansDto.NameCustomer="Списано";
 

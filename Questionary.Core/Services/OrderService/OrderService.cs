@@ -24,7 +24,7 @@ namespace MotoCross.Services.OrderService
         }
 
 
-        public List<OrderDto> GetOrder(string userName)
+        public PaginationDto<OrderDto> GetOrder(string userName, int page, int take)
         {
             if (string.IsNullOrEmpty(userName))
                 throw new Exception("Пользователь не найден");
@@ -33,7 +33,60 @@ namespace MotoCross.Services.OrderService
             var order = _context.Orders.Include(o => o.СustomerService)
                 .Where(t => t.User.UserName == userName && !t.IsDeleted).OrderByDescending(d => d.Id).ToList();
 
-            return _mapper.Map<List<OrderDto>>(order);
+
+
+            var totalCount = order.Count();
+            var cardTeams = order
+                .Skip((page - 1) * take)
+                .Take(take)
+                .ToList();
+
+            var orderDto = _mapper.Map<List<OrderDto>>(cardTeams);
+            var paginationDto = new PaginationDto<OrderDto>();
+            paginationDto.Page = page;
+            paginationDto.Elements = _mapper.Map<List<OrderDto>>(orderDto);
+            paginationDto.TotalCount = totalCount;
+
+            return paginationDto;
+
+        }
+
+
+        public List<OrderDto> GetOrder(string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+                throw new Exception("Пользователь не найден");
+
+
+            var order = _context.Orders.Include(o => o.СustomerService)
+                .Where(t => t.User.UserName == userName && !t.IsDeleted).OrderByDescending(d => d.Id).ToList();
+
+
+            return  _mapper.Map<List<OrderDto>>(order);
+
+        }
+
+
+        public PaginationDto<OrderDto> GetAllOrder(int page, int take)
+        {
+            var order = _context.Orders.Include(o => o.СustomerService)
+                .Where(t=> !t.IsDeleted).OrderByDescending(d => d.Id).ToList();
+
+            var totalCount = order.Count();
+            var cardTeams = order
+                .Skip((page - 1) * take)
+                .Take(take)
+                .ToList();
+
+
+
+            var orderDto = _mapper.Map<List<OrderDto>>(cardTeams);
+            var paginationDto = new PaginationDto<OrderDto>();
+            paginationDto.Page = page;
+            paginationDto.Elements = _mapper.Map<List<OrderDto>>(orderDto);
+            paginationDto.TotalCount = totalCount;
+
+            return paginationDto;
         }
 
         public void Confirmation(OrderDto orderDto)
@@ -56,6 +109,17 @@ namespace MotoCross.Services.OrderService
                 _context.Update(order);
                 _context.SaveChanges();
             }
+        }
+
+        public void Create(OrderDto orderDto)
+        {
+            if(orderDto == null )
+                return;
+
+            var order = _mapper.Map<Order>(orderDto);
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
         }
 
         public OrderDto GetById(int id)

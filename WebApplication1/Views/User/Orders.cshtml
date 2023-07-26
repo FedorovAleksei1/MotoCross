@@ -1,5 +1,6 @@
-﻿@using MotoCross.Json;
-@using Domain.Models.ViewModel;
+﻿@using Domain.Models.ViewModel;
+@using MotoCross.Json;
+
 @model OrderViewModel;
 
 
@@ -110,6 +111,12 @@
                                 <td>@order.Data.ToString("dd.MM.yyyy") </td>
                                 <td>@order.Name</td>
                                 <td>@order.Price?.ToString("C")</td>
+                                <td>
+                                    @if(order.ComentAdmin != null)
+                                    {
+                                        <button class="button_on_personal_area" >Подробнее</button>
+                                    }
+                                </td>
                                 <td>
                                 
                                     @if (!order.AdminOrderConfirmed && order.IsConfirmed)

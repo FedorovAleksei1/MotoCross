@@ -102,7 +102,7 @@ namespace MotoCross.Services.UserService
 
             IdentityResult result = await _userManager.UpdateAsync(user);
 
-            if(userdto.MotosDto != null)
+            if(userdto.MotosDto != null )
             foreach (var moto in userdto.MotosDto)
             {
                 moto.UserId = userdto.Id;

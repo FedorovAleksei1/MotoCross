@@ -13,6 +13,7 @@ namespace Domain.Models
         public decimal? Price { get; set; }
         public bool IsConfirmed { get; set; }
         public bool AdminOrderConfirmed { get; set; }
+        public string? ComentAdmin { get; set; }
         public string? UserId { get; set; }
         public User User { get; set; }
         public int? MotoId { get; set; }

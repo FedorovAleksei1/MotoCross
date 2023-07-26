@@ -5,6 +5,7 @@ using Domain.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using MotoCross.Json;
 using MotoCross.Services.CustomerServiceService;
 using MotoCross.Services.MotoService;
@@ -94,38 +95,50 @@ namespace MotoCross.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Orders()
-		{
-			var userName = User.Identity.Name;
-			var orders = _orderService.GetOrder(userName);
+		public async Task<IActionResult> Orders( int page, int take)
+        {
+            var userName = User.Identity.Name;
+			var orders = _orderService.GetOrder(userName,  page,  take);
             var username = await _userService.GetUserByName(User.Identity.Name);
-            var model = new OrderViewModel(orders);
+            var model = new AdminOrderViewModel(orders);
 			model.User = username;
 			return View(model);
 		}
 
-		//[HttpPost]
-		//public IActionResult ConfirmationOrder(int orderId)
-		//{
-		//	var response = new JsonResponse();
-		//	var order = _orderService.GetById(orderId);
-		//	var orderDto = new OrderDto();
-		//	if (orderDto == null)
-		//	{
-		//		response.status = (int)JsonResponseStatuses.NotFound;
-		//		response.message = "Объект не найден";
-		//	}
-		//	else
-		//	{
-		//		_orderService.Confirmation(order);
-		//		response.status = (int)JsonResponseStatuses.Ok;
-		//		response.message = "Заказ подвержден";
-		//	}
 
-		//	return Json(response);
-		//}
+        [HttpGet]
+        public async Task<IActionResult> Orders()
+        {
+            var userName = User.Identity.Name;
+            var orders = _orderService.GetOrder(userName );
+            var username = await _userService.GetUserByName(User.Identity.Name);
+            var model = new OrderViewModel(orders);
+            model.User = username;
+            return View(model);
+        }
 
-		[HttpGet]
+        //[HttpPost]
+        //public IActionResult ConfirmationOrder(int orderId)
+        //{
+        //	var response = new JsonResponse();
+        //	var order = _orderService.GetById(orderId);
+        //	var orderDto = new OrderDto();
+        //	if (orderDto == null)
+        //	{
+        //		response.status = (int)JsonResponseStatuses.NotFound;
+        //		response.message = "Объект не найден";
+        //	}
+        //	else
+        //	{
+        //		_orderService.Confirmation(order);
+        //		response.status = (int)JsonResponseStatuses.Ok;
+        //		response.message = "Заказ подвержден";
+        //	}
+
+        //	return Json(response);
+        //}
+
+        [HttpGet]
 		public async Task<PartialViewResult> GetPersonById(string id)
 		{
 			var user = await _userService.GetUserById(id);
