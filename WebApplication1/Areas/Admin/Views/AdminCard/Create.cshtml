@@ -1,0 +1,34 @@
+﻿@using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
+
+@model AdminCardViewModel
+
+@{
+    ViewData["Title"] = "Добавление Карты";
+}
+
+<div class="container">
+    <h2>Добавление Карты</h2>
+    <form method="post" enctype="multipart/form-data">
+
+        <div>
+            <label>
+                Тип карты
+                @Html.TextBoxFor(x => Model.Card.CardType, new { @class = "form-control"})
+               @* @Html.DropDownListFor(x => x.Card.CardType, Model.CardsNameBanks);*@
+            </label>
+        </div>
+        <div>
+            <label>
+                Тип карты
+                @Html.TextBoxFor(x => Model.Card.CardNumber, new { @class = "form-control"})
+                
+            </label>
+        </div>
+
+        
+
+        <input type="submit" value="Сохранить" />
+
+    </form>
+
+</div>

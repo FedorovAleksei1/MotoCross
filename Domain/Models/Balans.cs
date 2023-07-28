@@ -15,5 +15,7 @@ namespace Domain.Models
         public Operation Operation { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
+       
+
     }
 }

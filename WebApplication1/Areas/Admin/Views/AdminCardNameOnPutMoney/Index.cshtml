@@ -1,0 +1,51 @@
+﻿@using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
+@model CardNameOnPutMoneyViewModel
+
+
+@{
+    ViewData["Title"] = "Список Переводов";
+}
+
+
+
+<div class="container my-5">
+    @Html.HiddenFor(x => x.User.Id)
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Наименование Услуги</th>
+                <th>Цена</th>
+                <th>Фото</th>
+
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CardsNameOnPutMoney)
+            {
+                <tr>
+                    @*<td>@item.Card.CardType</td>
+                    <td>@item.Card.CardNumber</td>*@
+                    <td>@item.Price.ToString("C")</td>
+                    
+                    <td>@item.User.FirstName</td>
+                    <td> </td>
+
+
+
+
+                   
+
+
+
+                
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <a type="button" class="btn btn-primary" href='/Admin/AdminCustomerService/Create'>Добавить</a>
+    </div>
+</div>

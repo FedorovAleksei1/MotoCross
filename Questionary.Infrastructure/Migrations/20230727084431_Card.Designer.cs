@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotoCross.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Questionary.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230727084431_Card")]
+    partial class Card
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,6 +96,9 @@ namespace Questionary.Infrastructure.Migrations
                     b.Property<int>("CardId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("CardUserId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTimeOffset?>("CreateDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -109,15 +114,13 @@ namespace Questionary.Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("UpdateDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CardId")
                         .IsUnique();
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CardUserId")
+                        .IsUnique();
 
                     b.ToTable("CardNamePutMoneys");
                 });
@@ -798,13 +801,15 @@ namespace Questionary.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                    b.HasOne("Domain.Models.CardUser", "CardUser")
+                        .WithOne("NameOnputMoney")
+                        .HasForeignKey("Domain.Models.CardNameOnputMoney", "CardUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Card");
 
-                    b.Navigation("User");
+                    b.Navigation("CardUser");
                 });
 
             modelBuilder.Entity("Domain.Models.CardTeamUser", b =>
@@ -984,6 +989,11 @@ namespace Questionary.Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Card", b =>
                 {
                     b.Navigation("CardNameOnputMoney");
+                });
+
+            modelBuilder.Entity("Domain.Models.CardUser", b =>
+                {
+                    b.Navigation("NameOnputMoney");
                 });
 
             modelBuilder.Entity("Domain.Models.Important", b =>

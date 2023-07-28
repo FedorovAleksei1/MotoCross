@@ -1,0 +1,49 @@
+﻿@using MotoCross.Json;
+@using Domain.Models.ViewModel;
+@model OrderViewModel;
+
+@{
+    ViewData["Title"] = "Редактирование заказа";
+}
+<style>
+    .textArea {
+        height: 300px;
+        width: 480px;
+    }
+</style>
+
+<div class="container">
+    <h2>Редактирование заказа</h2>
+    <form asp-action="Edit" asp-controller="Home" method="post">
+        @Html.HiddenFor(x => x.Order.Id)
+        @Html.HiddenFor(x => x.Order.UserId)
+        @Html.HiddenFor(x => x.Order.Data)
+
+        <div>
+            <label>
+                Название услуги
+                @Html.TextBoxFor(x => Model.Order.Name, new { @class = "form-control"})
+
+            </label>
+        </div>
+        <div>
+            <label>
+                Цена улсуги
+                @Html.TextBoxFor(x => Model.Order.Price, new { @class = "form-control"})
+
+            </label>
+        </div>
+        <div>
+            <label>
+                Коментарий к услуге
+
+                @Html.TextAreaFor(x => Model.Order.ComentAdmin, new { @class = "form-control textArea", placeholder="Введите текст"  })
+
+            </label>
+        </div>
+
+
+        <input type="submit" value="Сохранить" />
+
+    </form>
+</div>

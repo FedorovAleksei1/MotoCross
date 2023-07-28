@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotoCross.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -9,9 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Questionary.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230728083501_Fix_Table_card1")]
+    partial class Fix_Table_card1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,6 +71,9 @@ namespace Questionary.Infrastructure.Migrations
 
                     b.Property<string>("CardType")
                         .HasColumnType("text");
+
+                    b.Property<int>("CardUserId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset?>("CreateDate")
                         .HasColumnType("timestamp with time zone");
@@ -189,6 +194,9 @@ namespace Questionary.Infrastructure.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("CardId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("CardId")
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset?>("CreateDate")
@@ -820,9 +828,7 @@ namespace Questionary.Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Models.Card", "Card")
                         .WithMany()
-                        .HasForeignKey("CardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CardId");
 
                     b.HasOne("Domain.Models.User", "User")
                         .WithMany("CardUsers")

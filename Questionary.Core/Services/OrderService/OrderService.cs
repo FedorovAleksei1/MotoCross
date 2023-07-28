@@ -136,12 +136,36 @@ namespace MotoCross.Services.OrderService
                 orderDto.Price = (decimal)order.Price;
                 orderDto.MotoId = order.MotoId;
                 orderDto.UserId = order.UserId;
+                orderDto.ComentAdmin = order.ComentAdmin;
             }
 
 
             return orderDto;
         }
 
-        
+        public void Edit(OrderDto orderDto)
+        {
+            if (orderDto == null)
+                return;
+
+            var order = _context.Orders.First(o => o.Id == orderDto.Id);
+
+            order.UpdateDate = DateTime.Now;
+            order.Price = orderDto.Price;
+            order.ComentAdmin = orderDto.ComentAdmin;
+
+
+            //var order = _mapper.Map<Order>(orderDto);
+            _context.Orders.Update(order);
+
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var order = _context.Orders.FirstOrDefault(x => x.Id == id);
+            _context.Remove(order);
+            _context.SaveChanges();
+        }
     }
 }

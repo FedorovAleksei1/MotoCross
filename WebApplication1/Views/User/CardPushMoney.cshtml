@@ -1,4 +1,7 @@
-﻿<style>
+﻿@using Questionary.Web.Areas.Admin.ViewModels.AdminViewModel;
+@model CardNameOnPutMoneyViewModel
+
+<style>
     .modal-dialog {
         max-width: 60vw;
     }
@@ -48,8 +51,8 @@
         }
 </style>
 
-
-<div style="
+<div>
+@*<div style="
     padding: 5%;
 ">
     <div class="form_lable_with_input">
@@ -91,15 +94,30 @@
 
         <img src="/img//pictures/kivi.png" />
 
-        <img src="/img//pictures/webmoney.jpg" />
+        
 
-        <img src="/img//pictures/yandex.png" />
+    </div>*@
 
-        <img src="/img//pictures/kivi.png" />
+    <form method="post" action="CardPushMoney" enctype="multipart/form-data">
+      @Html.HiddenFor(x=>x.User.Id)
 
-        <img src="/img//pictures/webmoney.jpg" />
+        <div>
+            <label>
+                Ведите сумму
+                @Html.TextBoxFor(x => x.CardNameOnputMoneyDto.Price, new { @class = "form-control"})
+                
+            </label>
+        </div>
 
-        <img src="/img//pictures/yandex.png" />
+        <div>
+            <label>
+                Выбирите карту для пополнения
+                @Html.DropDownListFor(x => x.CardNameOnputMoneyDto.CardId, Model.BankCards,  new { @class = "form-control"} )
+            </label>
+        </div>
+       
 
-    </div>
+        <input type="submit" value="Сохранить" />
+
+    </form>
 </div>

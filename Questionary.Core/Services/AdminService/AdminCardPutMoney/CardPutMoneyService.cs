@@ -22,7 +22,7 @@ namespace Questionary.Core.Services.AdminService.AdminCardPutMoney
         }
         public void EditCardPutMoney(CardPutMoneyDto cardPutMoneyDto)
         {
-            var cardPutMoney = _mapper.Map<CardPutMoney>(cardPutMoneyDto);
+            var cardPutMoney = _mapper.Map<CardUser>(cardPutMoneyDto);
             _context.Update(cardPutMoney);
             _context.SaveChanges();
         }

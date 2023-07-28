@@ -374,6 +374,17 @@ namespace Questionary.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [Area("Admin")]
+        [Authorize]
+        [HttpGet]
+        public PartialViewResult AdminComentInCustomer(int id)
+        {
+            var item = _orderService.GetById(id);
+            var model = new OrderViewModel();
+            model.Order = item;
+
+            return PartialView(model);
+        }
 
     }
 

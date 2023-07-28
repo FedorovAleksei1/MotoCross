@@ -25,7 +25,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
         [Area("Admin")]
         [Authorize]
         // GET: HomeController
-        public ActionResult Index(int page, int take)
+        public ActionResult Index(int page = 1, int take = 10)
         {
             var model = new AdminOrderViewModel();            
 
@@ -40,8 +40,47 @@ namespace Questionary.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [Area("Admin")]
+        [Authorize]
+        [HttpGet]
+        public PartialViewResult AdminComentInCustomer(int id)
+        {
+            var item = _orderService.GetById(id);
+            var model = new OrderViewModel();
+            model.Order = item;
 
-        
+            return PartialView(model);
+        }
+
+        [Area("Admin")]
+        [Authorize]
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var item = _orderService.GetById(id);
+            var model = new OrderViewModel();
+            model.Order = item;
+            return View(model);
+        }
+
+
+        [Area("Admin")]
+        [Authorize]
+        [HttpPost]
+        public ActionResult Edit(OrderViewModel model)
+        {
+            _orderService.Edit(model.Order);
+            return RedirectToAction("Index");
+        }
+
+        [Area("Admin")]
+        [Authorize]
+        public ActionResult Delete(int id)
+        {
+            _orderService.Delete(id);
+            return RedirectToAction("Admin/Home/Index");
+        }
+
 
         //// GET: HomeController/Details/5
         //public ActionResult Details(int id)

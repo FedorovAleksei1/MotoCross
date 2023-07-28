@@ -5,14 +5,16 @@ using Domain.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MotoCross.Json;
 using MotoCross.Services.CustomerServiceService;
 using MotoCross.Services.MotoService;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
 using Questionary.Core.Services.AdminService.AdminBalansService;
+using Questionary.Core.Services.AdminService.AdminCardNamePutMoney;
 using Questionary.Core.Services.AdminService.AdminCardPutMoney;
+using Questionary.Core.Services.AdminService.AdminCardService;
 using Questionary.Core.Services.AdminService.AdminCastomerService;
 using Questionary.Core.Services.OperationUserService;
 using Questionary.Web.Areas.Admin.ViewModel;
@@ -24,57 +26,62 @@ using System.Threading.Tasks;
 
 namespace MotoCross.Controllers
 {
-	public class UserController : Controller
-	{
-		private readonly UserManager<User> _userManager;
-		private readonly IUserService _userService;
-		private readonly SignInManager<User> _signInManager;
-		private readonly IOrderService _orderService;
-		private readonly IBalansService _balansService;
-		private readonly IOperationUserService _operationUserService;
-		private readonly IMapper _mapper;
-		private readonly IMotoService _motoService;
+    public class UserController : Controller
+    {
+        private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IOrderService _orderService;
+        private readonly IBalansService _balansService;
+        private readonly IOperationUserService _operationUserService;
+        private readonly IMapper _mapper;
+        private readonly IMotoService _motoService;
         private readonly IAdminCustomerService _adminCustomerService;
         private readonly ICustomerServiceService _customerServiceService;
         private readonly ICardPutMoneyService _cardPutMoneyService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ICardService _cardService;
+        private readonly ICardNamePutMoneyService _cardNamePutMoneyService;
 
         public UserController(UserManager<User> userManager
-			, IUserService userService
-			, SignInManager<User> signInManager
-			, IOrderService orderService
-			, IBalansService balansService
-			, IOperationUserService operationUserService
-			, IMapper mapper
-			, IMotoService motoService
-			, IAdminCustomerService adminCustomerService
-			, ICustomerServiceService customerServiceService
+            , IUserService userService
+            , SignInManager<User> signInManager
+            , IOrderService orderService
+            , IBalansService balansService
+            , IOperationUserService operationUserService
+            , IMapper mapper
+            , IMotoService motoService
+            , IAdminCustomerService adminCustomerService
+            , ICustomerServiceService customerServiceService
             , ICardPutMoneyService cardPutMoneyService
-            , IHttpContextAccessor httpContextAccessor)
-		{
-			_userService = userService;
-			_userManager = userManager;
-			_signInManager = signInManager;
-			_orderService = orderService;
-			_balansService = balansService;
-			_operationUserService = operationUserService;
-			_mapper = mapper;
-			_motoService = motoService;
-			_adminCustomerService = adminCustomerService;
-			_customerServiceService = customerServiceService;
+            , IHttpContextAccessor httpContextAccessor
+            , ICardService cardService
+            , ICardNamePutMoneyService cardNamePutMoneyService)
+        {
+            _userService = userService;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _orderService = orderService;
+            _balansService = balansService;
+            _operationUserService = operationUserService;
+            _mapper = mapper;
+            _motoService = motoService;
+            _adminCustomerService = adminCustomerService;
+            _customerServiceService = customerServiceService;
             _cardPutMoneyService = cardPutMoneyService;
-			_httpContextAccessor = httpContextAccessor;
-		}
+            _httpContextAccessor = httpContextAccessor;
+            _cardService = cardService;
+            _cardNamePutMoneyService = cardNamePutMoneyService;
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+            var user = await _userService.GetUserByName(User.Identity.Name);
+            var model = new UserViewModel();
+            model.User = user;
 
-		[HttpGet]
-		public async Task<IActionResult> Edit()
-		{
-			var user = await _userService.GetUserByName(User.Identity.Name);
-			var model = new UserViewModel();
-			model.User = user;
-
-			if (user.MotosDto == null || user.MotosDto.Count == 0)
-			{
+            if (user.MotosDto == null || user.MotosDto.Count == 0)
+            {
                 List<MotoDto> motosDto = new List<MotoDto>();
                 for (int i = 0; i < 3; i++)
                 {
@@ -82,35 +89,35 @@ namespace MotoCross.Controllers
                 }
                 model.User.MotosDto = motosDto;
             }
-			
-			return View(model);
-		}
 
-		[HttpPost]
-		public async Task<IActionResult> Edit(UserViewModel model)
-		{
-			await _userService.Edit(model.User);
-			return RedirectToAction(nameof(Edit));
-			// return RedirectToAction("Edit", "User", new { model.User.Id });
-		}
+            return View(model);
+        }
 
-		[HttpGet]
-		public async Task<IActionResult> Orders( int page, int take)
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserViewModel model)
+        {
+            await _userService.Edit(model.User);
+            return RedirectToAction(nameof(Edit));
+            // return RedirectToAction("Edit", "User", new { model.User.Id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Orders(int page, int take)
         {
             var userName = User.Identity.Name;
-			var orders = _orderService.GetOrder(userName,  page,  take);
+            var orders = _orderService.GetOrder(userName, page, take);
             var username = await _userService.GetUserByName(User.Identity.Name);
             var model = new AdminOrderViewModel(orders);
-			model.User = username;
-			return View(model);
-		}
+            model.User = username;
+            return View(model);
+        }
 
 
         [HttpGet]
-        public async Task<IActionResult> Orders()
+        public async Task<IActionResult> UserOrders()
         {
             var userName = User.Identity.Name;
-            var orders = _orderService.GetOrder(userName );
+            var orders = _orderService.GetOrder(userName);
             var username = await _userService.GetUserByName(User.Identity.Name);
             var model = new OrderViewModel(orders);
             model.User = username;
@@ -139,17 +146,17 @@ namespace MotoCross.Controllers
         //}
 
         [HttpGet]
-		public async Task<PartialViewResult> GetPersonById(string id)
-		{
-			var user = await _userService.GetUserById(id);
-			var model = new UserViewModel();
-			model.User = user;
-			return PartialView(model);
-		}
+        public async Task<PartialViewResult> GetPersonById(string id)
+        {
+            var user = await _userService.GetUserById(id);
+            var model = new UserViewModel();
+            model.User = user;
+            return PartialView(model);
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetBalansByUserId(string id)
-		{
+        {
             //var userBalans = _balansService.GetBalansByUserId(id);
             //         var username = await _userService.GetUserByName(User.Identity.Name);
             //         var model = new UserViewModel();
@@ -166,7 +173,7 @@ namespace MotoCross.Controllers
             //         return View(model);
 
 
-			UserViewModel model = new();
+            UserViewModel model = new();
 
 
             var userBalans = _balansService.GetBalansByUserId(id);
@@ -185,13 +192,13 @@ namespace MotoCross.Controllers
 
             model.OpeartionUser = _operationUserService.ListOperationsUser(id).ToList();
 
-			return View(model);
+            return View(model);
         }
         [HttpPost]
-        public void AddTranzaction(OrderViewModel model, int orderId) 
-		{
-			var operation = model.User.OperationsUser.FirstOrDefault(o => o.OrderId == orderId);
-			//var operation = new OperationDto() { };
+        public void AddTranzaction(OrderViewModel model, int orderId)
+        {
+            var operation = model.User.OperationsUser.FirstOrDefault(o => o.OrderId == orderId);
+            //var operation = new OperationDto() { };
 
             _operationUserService.AddBalans(operation);
 
@@ -202,55 +209,98 @@ namespace MotoCross.Controllers
         {
             var response = new JsonResponse();
             var order = _orderService.GetById(orderId);
-			var balans = _userService.GetUserByName(UserId);
-			//var orderDto = _mapper.Map<OrderDto>(order);
-			
-			if (order == null)
+            var balans = _userService.GetUserByName(UserId);
+            //var orderDto = _mapper.Map<OrderDto>(order);
+
+            if (order == null)
             {
                 response.status = (int)JsonResponseStatuses.NotFound;
                 response.message = "Объект не найден";
             }
             else
             {
-				_operationUserService.ListOperationsUser(UserId);
+                _operationUserService.ListOperationsUser(UserId);
                 _orderService.Confirmation(order);
                 response.status = (int)JsonResponseStatuses.Ok;
                 response.message = "Заказ подвержден";
             }
-            var operation = new OperationUserDto() {
-				OrderId = orderId,
-				//Order = orderDto,
-				UserId = order.UserId,
-				Price = (decimal)order.Price,
-				DataOperation = DateTime.Now
-				
-			};
-			//var balansuser = new BalansDto()
-			//{
-			//	DatePutMoney = DateTime.Now,
-			//	//BalansMoney =
-   //             Operation.Name = balans.
-   //         }
+            var operation = new OperationUserDto()
+            {
+                OrderId = orderId,
+                //Order = orderDto,
+                UserId = order.UserId,
+                Price = (decimal)order.Price,
+                DataOperation = DateTime.Now
+
+            };
+            //var balansuser = new BalansDto()
+            //{
+            //	DatePutMoney = DateTime.Now,
+            //	//BalansMoney =
+            //             Operation.Name = balans.
+            //         }
 
 
             _operationUserService.ResetBalans(operation);
-			return Json(response);
+            return Json(response);
         }
-     
+
 
         public IActionResult DeleteMoto(int id)
-		{
-			_motoService.Delete(id);
-		  return RedirectToAction("Edit");
-
-		}
-
-        public PartialViewResult CardPushMoney()
         {
+            _motoService.Delete(id);
+            return RedirectToAction("Edit");
+
+        }
+
+        [HttpGet]
+        public async Task<PartialViewResult> CardPushMoney()
+        {
+           
+
+            var model = new CardNameOnPutMoneyViewModel();
+            var user = await _userService.GetUserByName(User.Identity.Name);
+
+            var cardList = _cardService.GetAllCardAdmin().Select(i => new SelectListItem
+            {
+                Text = i.CardNumber,
+                Value = i.Id.ToString()
+            }).ToList();
+
+            cardList.Insert(0, new SelectListItem
+            {
+                Text = "--Не выбрано значение--",
+                Value = 0.ToString()
+            });
+
+            model.BankCards = cardList;
+            model.CardNameOnputMoneyDto = new CardNameOnputMoneyDto();
+            model.CardNameOnputMoneyDto.User =  user;
+
+
             //var model = new AdminCardPutMoneyViewModel();
             //var card = _cardPutMoneyService.EditCardPutMoney();
             //model.CardPutMoneyDto = card;
-            return PartialView();
+            return PartialView(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CardPushMoney(CardNameOnPutMoneyViewModel model)
+        {
+
+            _cardNamePutMoneyService.Create(model.CardNameOnputMoneyDto);
+            //await _userService.Edit(model.User);
+            return RedirectToAction(nameof(Edit));
+
+
+        }
+
+        public PartialViewResult AdminComentInCustomer(int id)
+        {
+            var item = _orderService.GetById(id);
+            var model = new OrderViewModel();
+            model.Order = item;
+
+            return PartialView(model);
         }
 
 

@@ -32,6 +32,9 @@ using Questionary.Core.Services.OperationUserService;
 using Domain.Dto;
 using Questionary.Core.Services.AdminService.AdminCardPutMoney;
 using Questionary.Core.Services.AdminService.AdminCardNamePutMoney;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using Questionary.Core.Services.AdminService.AdminCardService;
+using Questionary.Core.Services.CardUserService;
 
 namespace MotoCross
 {
@@ -76,6 +79,9 @@ namespace MotoCross
             services.AddTransient<IOperationUserService, OperationUserService>();
             services.AddTransient<ICardPutMoneyService, CardPutMoneyService>();
             services.AddTransient<ICardNamePutMoneyService, CardNamePutMoneyService>();
+            services.AddTransient<ICardService, CardService>();
+            services.AddTransient<ICardUserService, CardUserService>();
+
 
 
 

@@ -1,0 +1,19 @@
+﻿@using Domain.Models.ViewModel;
+@using MotoCross.Json;
+
+@model OrderViewModel;
+
+
+<style>
+    .teaxtarea_comment {
+        border: none;
+        height: 300px;
+        resize: vertical;
+        width: 300px;
+    }
+</style>
+
+
+<div>
+    @Html.TextAreaFor(x => x.Order.ComentAdmin, new { @class = "teaxtarea_comment"})
+</div>

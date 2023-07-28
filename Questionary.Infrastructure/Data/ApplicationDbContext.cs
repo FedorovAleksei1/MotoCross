@@ -23,7 +23,8 @@ namespace MotoCross.Data
         public DbSet<Balans> Balanses { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<OperationUser> OperationsUser { get; set; }
-        public DbSet<CardPutMoney> CardPutMoneys { get; set; }
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<CardUser> CardsUser { get; set; }
         public DbSet<CardNameOnputMoney> CardNamePutMoneys { get; set; }
     }
 }

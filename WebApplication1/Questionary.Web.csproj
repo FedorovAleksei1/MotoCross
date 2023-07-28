@@ -22,9 +22,4 @@
     <ProjectReference Include="..\Questionary.Core\Questionary.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\CardPushMoney\" />
-    <Folder Include="Views\CustomerService\" />
-  </ItemGroup>
-
 </Project>

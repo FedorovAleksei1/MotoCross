@@ -29,7 +29,8 @@ namespace MotoCross.Mapping
             CreateMap<Operation, OperationDto>().ReverseMap();
             CreateMap<СustomerService, CustomerServiceDto>().ReverseMap();
             CreateMap<OperationUser, OperationUserDto>().ReverseMap();
-            CreateMap<CardPutMoney, CardPutMoneyDto>().ReverseMap();
+            CreateMap<CardUser, CardUserDto>().ReverseMap();
+            CreateMap<Card, CardDto>().ReverseMap();
             CreateMap<CardNameOnputMoney, CardNameOnputMoneyDto>().ReverseMap();
 
         }

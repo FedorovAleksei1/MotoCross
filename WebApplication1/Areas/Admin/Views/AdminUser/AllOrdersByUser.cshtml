@@ -20,6 +20,19 @@
     }
  </style>
 
+
+
+<div class="modal" id="ComentAdmin" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body" style="display:flex; justify-content:center;" id="ComentAdmininfo"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
  <div class="container">
     <a class="a_ysluga" asp-controller="AdminUser" asp-action="NewCustomerByUserOrders" asp-route-id="@Model.User.Id" type="button">Добавление услгуи для пользователя</a>
 <table class="table " style="position: relative; border-collapse: collapse;">
@@ -43,10 +56,10 @@
                 <td>@order.Name</td>
                 <td>@order.Price?.ToString("C")</td>
                 <td>
-                    @if (order.ComentAdmin != null)
-                    {
-                        <button class="button_on_personal_area">Подробнее</button>
-                    }
+                        @if (order.ComentAdmin != null)
+                        {
+                            <button onclick="test2(@order.Id)" style="border: none;"><img style="height: 30px;" src="/img//pictures/comment.png" /></button>
+                        }
                 </td>
                 <td>
                     @if (!order.AdminOrderConfirmed)
@@ -156,5 +169,19 @@
             ReloadTable(currentPage, currentTake);
         }
     });
+
+
+
+
+
+    function test2(id) {
+        var url = '@Html.Raw(Url.Action("AdminComentInCustomer", "AdminUser"))?id=' + id;
+        console.log(url);
+        $.get(url, function (response) {
+            $('#ComentAdmininfo').html(response);
+        });
+
+        $('#ComentAdmin').modal('show');
+    };
 
 </script>

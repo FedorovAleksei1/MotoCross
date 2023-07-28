@@ -15,5 +15,7 @@ namespace MotoCross.Services.OrderService
         void AdminConfirmation(OrderDto orderDto);
 
         public void Create(OrderDto orderDto);
+        public void Edit(OrderDto orderDto);
+        public void Delete(int id);
     }
 }

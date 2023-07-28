@@ -12,6 +12,23 @@
 @{
     ViewData["Title"] = "Админ";
 }
+
+<div class="modal" id="ComentAdmin" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body" style="display:flex; justify-content:center;" id="ComentAdmininfo"></div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    a.disabled {
+        pointer-events: none;
+    }
+</style>
+
+
 <div class="container">
     <div class="text-center">
         <h1 class="display-4">Добро пожаловать Админ</h1>
@@ -27,6 +44,8 @@
                 <th style="border: 0;">Коментарий</th>
                 <th style="border: 0;">Пользователь</th>
                 <th style="border: 0;">Подробнее</th>
+                <th> </th>
+                <th> </th>
 
             </tr>
         </thead>
@@ -41,7 +60,7 @@
                     <td>
                         @if (order.Key.ComentAdmin != null)
                         {
-                            <button class="button_on_personal_area">Подробнее</button>
+                            <button onclick="test3(@order.Key.Id)" style="border: none;"><img style="height: 30px;" src="/img//pictures/comment.png" /></button>
                         }
                     </td>
                     <td>
@@ -54,6 +73,27 @@
                         <a class="nav-link text-dark" class="btn users-btn" href="~/Admin/AdminUser/AllOrdersByUser/?id=@order.Value.Id&page=1&take=10" type="button">Услуги</a>
                         
                         </td>
+                       
+                    <td>
+                        @if (order.Key.IsConfirmed!=true)
+                        {
+                             <a type="button" class="btn btn-primary" href="~/Admin/Home/Edit/@order.Key.Id">Редактировать</a>
+                        }
+                        else
+                        {
+                            <a type="button" class="btn btn-primary disabled" href="~/Admin/Home/Edit/@order.Key.Id">Редактировать</a>
+                        }
+                    </td>
+                    <td>
+                        @if (order.Key.IsConfirmed!=true)
+                        {
+                            <a type="button" class="btn btn-danger" href="~/Admin/Home/Delete?id=@order.Key.Id">Удалить</a>
+                        }
+                        else
+                        {
+                            <a type="button" class="btn btn-danger disabled" href="~/Admin/Home/Delete?id=@order.Key.Id">Удалить</a>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
@@ -73,6 +113,20 @@
 
 
 <script>
+
+
+    function test3(id) {
+        var url = '@Html.Raw(Url.Action("AdminComentInCustomer", "AdminUser"))?id=' + id;
+        console.log(url);
+        $.get(url, function (response) {
+            $('#ComentAdmininfo').html(response);
+        });
+
+        $('#ComentAdmin').modal('show');
+    };
+
+
+
 
     //$(function () {
     //    ReloadTable(1, 5);
@@ -118,4 +172,8 @@
             ReloadTable(currentPage, currentTake);
         }
     });
+
+
+
+
 </script>

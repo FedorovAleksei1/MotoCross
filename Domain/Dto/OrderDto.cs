@@ -11,7 +11,7 @@ namespace Domain.Dto
         public bool IsConfirmed { get; set; }
         public bool AdminOrderConfirmed { get; set; }
         public string Name { get; set; }
-        public string? ComentAdmin { get; set; }
+        public string ComentAdmin { get; set; }
         public int? СustomerServiceId { get; set; }
         public int? MotoId { get; set; }
         public string? UserId { get; set; }
