@@ -23,7 +23,7 @@ namespace Questionary.Core.Services.AdminService.AdminCardNamePutMoney
         }
         public List<CardNameOnputMoneyDto> GetCardNameOnputMoney()
         {
-            var cards = _context.CardNamePutMoneys.Include(x => x.User).Include(x=>x.Card).ToList();
+            var cards = _context.CardNamePutMoneys.Include(x => x.User).Include(x=>x.Card).OrderByDescending(x=>x.Id).ToList();
             var cardsDto = _mapper.Map<List<CardNameOnputMoneyDto>>(cards);
             return cardsDto;
         }

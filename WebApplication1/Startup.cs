@@ -35,6 +35,7 @@ using Questionary.Core.Services.AdminService.AdminCardNamePutMoney;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Questionary.Core.Services.AdminService.AdminCardService;
 using Questionary.Core.Services.CardUserService;
+using Questionary.Web.Middlewares;
 
 namespace MotoCross
 {
@@ -127,12 +128,11 @@ namespace MotoCross
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+          
             app.UseRouting();
 
             app.UseAuthentication();
@@ -141,6 +141,11 @@ namespace MotoCross
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+               name: "NotFoundPage",
+               pattern: "{*.}",
+               defaults: new { controller = "Error", action = "NotFoundPage" });
+
                 endpoints.MapAreaControllerRoute(
                     name: "Admin",
                     areaName: "Admin",
@@ -151,6 +156,8 @@ namespace MotoCross
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            app.UseCustomExceptionHandler();
         }
     }
 }
