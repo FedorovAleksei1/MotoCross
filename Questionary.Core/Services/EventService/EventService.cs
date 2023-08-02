@@ -42,7 +42,9 @@ namespace Questionary.Core.Services.EventService
                 eventdto.Name = evetn.Name;
                 eventdto.DateStart = evetn.DateStart;
                 eventdto.DateAnd = evetn.DateAnd;
-                eventdto.ImportantId = evetn.ImportantId;
+                eventdto.ImportantId = evetn.ImportantId;  
+                eventdto.InfoEvent = evetn.InfoEvent;
+                
             }
             return eventdto;
         }
@@ -56,6 +58,7 @@ namespace Questionary.Core.Services.EventService
 
 		public PaginationDto<EventDto> EventsWithMonthAndYear(int? month, int? year/*, int page, int take*/)
 		{
+
             if (!year.HasValue)
             {
                 year = DateTime.Now.Year;
@@ -84,20 +87,60 @@ namespace Questionary.Core.Services.EventService
                     even.BasePhoto64 = $"data:image/png;base64,{basePhoto64}";
                 }
             }
-            GetDateRange(paginationDto.Elements);
 			return paginationDto;
 		}
 
-		private static void GetDateRange(IEnumerable<EventDto> eventsDto)
-		{
-			if (eventsDto.Any())
-			{
-				foreach (var eventDto in eventsDto)
-				{
-					var endDate = eventDto.DateAnd.HasValue ? "-" + eventDto.DateAnd.Value.Day.ToString() : "";
-					eventDto.DateRange = eventDto.DateStart.Day + endDate;
-				}
-			}
-		}
-	}
+        //public EventDto EventWithMonthAndYear(int id /*, int page, int take*/)
+        //{
+
+
+           
+
+        //    var events = _context.Events.Include(e => e.Important).Include(x => x.Photo).FirstOrDefault(x => x.Id == model.Id)
+        //        (x => x.DateStart.Month == month && x.DateStart.Year == year).OrderBy(d => d.DateStart)
+        //        //.Skip((page - 1) * take)
+        //        //.Take(take)
+        //        .AsEnumerable();
+
+        //    var paginationDto = new PaginationDto<EventDto>();
+        //    paginationDto.Elements = _mapper.Map<List<EventDto>>(events);
+        //    //paginationDto.TotalCount = _context.Events
+        //    //	.Where(x => x.DateStart.Month == month)
+        //    //	.Count();
+        //    foreach (var even in paginationDto.Elements)
+        //    {
+        //        if (even.Photo != null && even.Photo.Base64 != null && even.Photo.Base64.Length > 0)
+        //        {
+        //            string basePhoto64 = Convert.ToBase64String(even.Photo.Base64);
+        //            even.BasePhoto64 = $"data:image/png;base64,{basePhoto64}";
+        //        }
+        //    }
+        //    GetDateRange(paginationDto.Elements);
+        //    return paginationDto;
+        //}
+
+
+
+  //      private static void GetDateRange(IEnumerable<EventDto> eventsDto)
+		//{
+		//	if (eventsDto.Any())
+		//	{
+		//		foreach (var eventDto in eventsDto)
+		//		{
+		//			var endDate = eventDto.DateAnd.HasValue ? "-" + eventDto.DateAnd.Value.Day.ToString() : "";
+		//			eventDto.DateRange = eventDto.DateStart.Day + endDate;
+		//		}
+		//	}
+		//}
+
+  //      private static void GetDateRange(EventDto eventDto)
+  //      {
+            
+               
+  //                  var endDate = eventDto.DateAnd.HasValue ? "-" + eventDto.DateAnd.Value.Day.ToString() : "";
+  //                  eventDto.DateRange = eventDto.DateStart.Day + endDate;
+                
+            
+  //      }
+    }
 }

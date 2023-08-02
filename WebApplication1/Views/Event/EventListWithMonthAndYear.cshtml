@@ -32,9 +32,9 @@
                 <div class="icon">
                     <img src="@item.BasePhoto64" alt="">
                 </div>
-                <a class="ref" href="calendar-event.html"></a>
+                <a class="ref" asp-controller="Event" asp-action="InfoEvent" asp-route-id="@item.Id" type="button"></a>
             </div>
-            <div>@item.Name</div>
+            <div style="margin: auto 0 auto 2rem">@item.Name</div>
         </div>
     }
 }

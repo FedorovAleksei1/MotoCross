@@ -83,10 +83,6 @@ namespace MotoCross
             services.AddTransient<ICardService, CardService>();
             services.AddTransient<ICardUserService, CardUserService>();
 
-
-
-
-
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequiredLength = 5;
@@ -142,9 +138,9 @@ namespace MotoCross
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-               name: "NotFoundPage",
+               name: "NotFound",
                pattern: "{*.}",
-               defaults: new { controller = "Error", action = "NotFoundPage" });
+               defaults: new { controller = "Error", action = "NotFound" });
 
                 endpoints.MapAreaControllerRoute(
                     name: "Admin",

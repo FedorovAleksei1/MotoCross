@@ -13,6 +13,8 @@ namespace Domain.Models
         public string Name { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime? DateAnd { get; set; }
+        public string? InfoEvent { get; set; }
+        public string DateRange { get; set; }
         public int ImportantId { get; set; }
         public Important Important { get; set; }
         public int? PhotoId { get; set; }

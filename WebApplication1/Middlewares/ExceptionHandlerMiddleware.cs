@@ -26,10 +26,7 @@ namespace Questionary.Web.Middlewares
             }
             catch (Exception)
             {
-                if (!httpContext.User.Identity.IsAuthenticated && httpContext.Request.Path.Value != "/Account/Login")
-                {
-                    httpContext.Response.Redirect("/Error/NotFoundPage");
-                }
+                httpContext.Response.Redirect("/Error/NotFound");
             }
 
         }

@@ -4,6 +4,14 @@
 @{
     ViewData["Title"] = "Редактирование Мероприятия";
 }
+<style>
+    .teaxtarea_comment {
+        border: none;
+        height: 300px;
+        resize: vertical;
+        width: 300px;
+    }
+</style>
 
 <div class="container">
 <h2>Редактировние Мероприятия</h2>
@@ -38,6 +46,14 @@
             @Html.DropDownListFor(x => Model.Event.ImportantId, Model.ImportantsList,  new { @class = "form-control"} )
         </label>
     </div>
+        <div>
+            <label>
+                Информация по мероприятию
+                @Html.TextAreaFor(x => Model.Event.InfoEvent, new { @class = "teaxtarea_comment"})
+            </label>
+        </div>
+
+
     <div>
         <label>
             <img class="img_admin_photo" src="@Model.Event.BasePhoto64" alt="">

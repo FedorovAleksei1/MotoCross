@@ -4,6 +4,14 @@
 @{
     ViewData["Title"] = "Добавление Мероприятия";
 }
+<style>
+    .teaxtarea_comment {
+        border: none;
+        height: 300px;
+        resize: vertical;
+        width: 300px;
+    }
+</style>
 
 <div class="container">
 <h2>Добавление Мероприятия</h2>
@@ -39,6 +47,12 @@
         </label>
     </div>
 
+        <div>
+            <label>
+                Информация по мероприятию
+                @Html.TextAreaFor(x => Model.Event.InfoEvent, new { @class = "teaxtarea_comment"})
+            </label>
+        </div>
 
         
     <div>

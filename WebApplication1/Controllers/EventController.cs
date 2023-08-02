@@ -36,6 +36,16 @@ namespace Questionary.Web.Controllers
             model.MonthName = GetMonthName(month);
             return PartialView(model);
 		}
+        public IActionResult InfoEvent( int id)
+        {
+           
+            var model = new EventViewModel();
+			var ev = _eventService.GetEventById(id);
+			model.EventDto = ev;
+			model.MonthName = GetMonthName(model.EventDto.DateStart.Month);
+			return View(model);
+        }
+      
 
 		public Dictionary<int, IEnumerable<DateTime>> GetDateDictionary()
 		{
