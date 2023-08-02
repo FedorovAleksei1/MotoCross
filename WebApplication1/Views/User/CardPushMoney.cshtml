@@ -51,73 +51,126 @@
         }
 </style>
 
-<div>
-@*<div style="
+<div style="padding: 5%;
+    padding-top: 1%;">
+    @*<div style="
     padding: 5%;
-">
+    ">
     <div class="form_lable_with_input">
-        <label style="background: #FCC000;
+    <label style="background: #FCC000;
     text-align: center;
     width: 25px;
     border-radius: 30px;">
-            1
-        </label>
-        <label class="w-50" style="padding-bottom: 0.4rem;">
-            Введите сумму для пополнения
+    1
+    </label>
+    <label class="w-50" style="padding-bottom: 0.4rem;">
+    Введите сумму для пополнения
 
-        </label>
+    </label>
     </div>
     <div style="position: relative;margin-bottom: 0.2rem; max-width: 38%;">
-        <p style="padding: 0.8em;
+    <p style="padding: 0.8em;
     top: calc(50%-10px);
     top: calc(50%-10px);
     position: absolute; right: 0;">₽</p>
-        <input class="input_wiht_modal" style="border-radius: 10px;
+    <input class="input_wiht_modal" style="border-radius: 10px;
     width: 25rem;
-    
+
     padding: 10px 25px;" type="text" value="" />
-        
+
     </div>
     <div class="form_lable_with_input">
-        <label style="background: #FCC000;
+    <label style="background: #FCC000;
     text-align: center;
     width: 25px;
     border-radius: 30px;">
-            2
-        </label>
-        <label class="w-50">
-            Способ пополнения счета
+    2
+    </label>
+    <label class="w-50">
+    Способ пополнения счета
 
-        </label>
+    </label>
     </div>
     <div class="imgPput_money">
 
-        <img src="/img//pictures/kivi.png" />
+    <img src="/img//pictures/kivi.png" />
 
-        
+
 
     </div>*@
 
-    <form method="post" action="CardPushMoney" enctype="multipart/form-data">
-      @Html.HiddenFor(x=>x.User.Id)
+    <form method="post" asp-action="CardPushMoney" asp-controller="User" enctype="multipart/form-data">
+        @Html.HiddenFor(x=>x.CardNameOnputMoneyDto.UserId)
+        @Html.HiddenFor(x => x.BankCards)
 
-        <div>
-            <label>
+        <div asp-validation-summary="ModelOnly"></div>
+        <div style="
+    padding-bottom: 2%;
+">
+            <label style="background: #FCC000;
+    text-align: center;
+    width: 25px;
+    border-radius: 30px;">
+                1
+            </label>
+
+
+            <label style="
+    padding-bottom: 2%;
+">
+
                 Ведите сумму
+
                 @Html.TextBoxFor(x => x.CardNameOnputMoneyDto.Price, new { @class = "form-control"})
-                
+                <span asp-validation-for="CardNameOnputMoneyDto.Price"></span>
+                @*@Html.ValidationMessageFor(model => model.CardNameOnputMoneyDto.Price,
+                "", new {@class = "text-danger"})*@
+
             </label>
         </div>
 
-        <div>
-            <label>
+        <div style="
+    padding-bottom: 1%;
+">
+            <label style="background: #FCC000;
+    text-align: center;
+    width: 25px;
+    border-radius: 30px;
+">
+                2
+            </label>
+
+            <label style="
+    padding-bottom: 2%;
+">
+
+
                 Выбирите карту для пополнения
                 @Html.DropDownListFor(x => x.CardNameOnputMoneyDto.CardId, Model.BankCards,  new { @class = "form-control"} )
+                <span asp-validation-for="CardNameOnputMoneyDto.CardId"></span>
+                @* @Html.ValidationMessageFor(model => model.CardNameOnputMoneyDto.CardId,
+                "", new {@class = "text-danger"})*@
             </label>
         </div>
-       
 
-        <input type="submit" value="Сохранить" />
+
+        <input style="text-align: center;
+    background: #FCC000;
+    border-radius: 5px;
+    width: 100%;
+    height: 40px;
+    outline: none;
+    border: none;" type="submit" value="Сохранить" />
+
+        <br />
 
     </form>
+
+
+</div>
+<div style="padding-bottom: 1%;
+    justify-content: center;
+    display: flex;">
+    <img style="border-radius: 10px;
+    background: black;" src="/img/logo.png" alt="" />
 </div>

@@ -27,7 +27,7 @@ namespace Questionary.Core.Services.AdminService.AdminCastomerService
         }
         public IEnumerable<CustomerServiceDto> AllCustomerService()
         {
-           var customerServices = _context.CustomerServices.Include(x => x.Photo).Where(x => !x.IsDeleted).OrderBy(x => x.Photo != null).OrderBy(d => d.Id).AsEnumerable();
+           var customerServices = _context.CustomerServices.Include(x => x.Photo).Where(x => !x.IsDeleted && !x.Individual).OrderBy(x => x.Photo != null).OrderBy(d => d.Id).AsEnumerable();
            var customerServiceDto = _mapper.Map<IEnumerable<CustomerServiceDto>>(customerServices);
             foreach (var customer in customerServiceDto)
             {
@@ -103,7 +103,8 @@ namespace Questionary.Core.Services.AdminService.AdminCastomerService
             if (id > 0)
             {
                 var customerService = _context.CustomerServices.Find(id);
-                _context.Remove(customerService);
+                customerService.IsDeleted = true;
+                _context.Update(customerService);
                 _context.SaveChanges();
             }
         }

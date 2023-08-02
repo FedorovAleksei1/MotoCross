@@ -23,7 +23,7 @@ namespace Questionary.Core.Services.AdminService.AdminCardNamePutMoney
         }
         public List<CardNameOnputMoneyDto> GetCardNameOnputMoney()
         {
-            var cards = _context.CardNamePutMoneys.Include(x => x.User).ToList();
+            var cards = _context.CardNamePutMoneys.Include(x => x.User).Include(x=>x.Card).ToList();
             var cardsDto = _mapper.Map<List<CardNameOnputMoneyDto>>(cards);
             return cardsDto;
         }
@@ -40,8 +40,13 @@ namespace Questionary.Core.Services.AdminService.AdminCardNamePutMoney
                 throw new Exception("Объект не может быть пустым");
             var card = _mapper.Map<CardNameOnputMoney>(cardNameOnputMoneyDto);
 
+
+
             _context.CardNamePutMoneys.Add(card);
-            _context.SaveChanges();
+                _context.SaveChanges();
+          
+
+            
         }
 
       

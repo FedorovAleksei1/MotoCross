@@ -26,5 +26,15 @@ namespace MotoCross.Data
         public DbSet<Card> Cards { get; set; }
         public DbSet<CardUser> CardsUser { get; set; }
         public DbSet<CardNameOnputMoney> CardNamePutMoneys { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<CardNameOnputMoney>()
+                .HasIndex(x => x.CardId)
+                .HasName("IX_CardNamePutMoneys_CardId")
+                .IsUnique(false);
+        }
     }
 }

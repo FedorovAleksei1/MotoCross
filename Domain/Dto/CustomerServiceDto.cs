@@ -14,6 +14,7 @@ namespace Domain.Dto
         [Required(ErrorMessage = "Вы не ввели цену")]
         public decimal Price { get; set; }
 
+        public bool Individual { get; set; }
         public string BasePhoto64 { get; set; }
 
         public int? PhotoId { get; set; }

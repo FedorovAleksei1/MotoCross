@@ -7,6 +7,7 @@ namespace MotoCross.Json
         Ok = 0,
         Error = 1,
         NotFound = 3,
+        NotPrice = 4,
     }
 
     /// <summary>

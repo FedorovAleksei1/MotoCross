@@ -20,6 +20,7 @@ using MotoCross.Json;
 using Questionary.Core.Services.AdminService.AdminBalansService;
 using Questionary.Core.Services.OperationUserService;
 using Questionary.Core.Services.AdminService.AdminCastomerService;
+using MotoCross.Services.CustomerServiceService;
 
 namespace Questionary.Web.Areas.Admin.Controllers
 {
@@ -234,9 +235,19 @@ namespace Questionary.Web.Areas.Admin.Controllers
         public async Task<IActionResult> NewCustomerByUserOrders(OrderViewModel model)
         {
             var username = await _userService.GetUserById(model.User.Id);
-          
+            var customer = new CustomerServiceDto()
+            {
+                Name = model.Order.Name,
+                Price = (decimal)model.Order.Price,
+                Individual = true
+            };
+
+            //_adminCustomerService.CreateCustomerService(customer);
+
             model.Order.Data=DateTime.Now;
             model.Order.UserId = model.User.Id;
+            model.Order.CustomerService = customer;
+
             _orderService.Create(model.Order);
 
             return RedirectToAction("Index");
@@ -248,7 +259,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
         [HttpGet]
         [Area("Admin")]
         [Authorize]
-        public async Task<IActionResult> AllOrdersByUser(string id, int page, int take)
+        public async Task<IActionResult> AllOrdersByUser(string id, int page = 1, int take = 10)
         {
             var username = await _userService.GetUserById(id);
             var orders = _orderService.GetOrder(username.Email, page, take);
@@ -362,7 +373,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
 
             var oper = new OperationUserDto()
             {
-                IsDeleted = true,
+                //IsDeleted = true,
                 OrderId =  order.Id,
                 Order = orderDto,
                 UserId = user.Id,

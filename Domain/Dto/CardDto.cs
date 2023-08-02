@@ -16,7 +16,6 @@ namespace Domain.Dto
         public string CardType { get; set; }
         public string CardNumber { get; set; }
         public int CardUserId { get; set; }
-
-        public CardNameOnputMoneyDto CardNameOnputMoney { get; set; }
+        public List<CardNameOnputMoneyDto> CardNameOnputMoneys { get; set; }
     }
 }

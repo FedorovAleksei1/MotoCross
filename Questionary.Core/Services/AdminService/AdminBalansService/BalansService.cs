@@ -33,7 +33,15 @@ namespace Questionary.Core.Services.AdminService.AdminBalansService
         {
             if (string.IsNullOrEmpty(id))
                 throw new Exception("Пользователь не найден");
+
             var balans = _context.Balanses.Include(b => b.Operation).FirstOrDefault(b => b.User.Id == id);
+            if(balans == null)
+            {
+                var newbalans = new BalansDto()
+                {
+                    
+                };
+            }
             var balansDto = _mapper.Map<BalansDto>(balans);
             return balansDto;
 

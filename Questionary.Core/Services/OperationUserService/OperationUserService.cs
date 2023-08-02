@@ -50,7 +50,29 @@ namespace Questionary.Core.Services.OperationUserService
 
             var useroperationbalans = _context.Balanses.FirstOrDefault(u => u.UserId== OperationbalansDto.UserId);
 
-            useroperationbalans.BalansMoney += OperationbalansDto.Price;
+            if (useroperationbalans == null)
+            {
+                _context.Balanses.Add(new Balans
+                {
+                    BalansMoney = 0,
+                    UserId = OperationbalansDto.UserId,
+                    CreateDate = DateTime.Now,
+                    DatePutMoney = DateTime.Now,
+                    Operation = _context.Operations.FirstOrDefault(x => x.Id == 2)
+                });
+                _context.SaveChanges();
+            }
+
+             useroperationbalans = _context.Balanses.FirstOrDefault(u => u.UserId== OperationbalansDto.UserId);
+            if(useroperationbalans.BalansMoney == null)
+            {
+                useroperationbalans.BalansMoney = OperationbalansDto.Price;
+            }
+            else
+            {
+                useroperationbalans.BalansMoney += OperationbalansDto.Price;
+                
+            }
             OperationbalansDto.NameCustomer="Пополнено";
 
             _context.Add(_mapper.Map<OperationUser>(OperationbalansDto));

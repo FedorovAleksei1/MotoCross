@@ -78,7 +78,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
         public ActionResult Delete(int id)
         {
             _orderService.Delete(id);
-            return RedirectToAction("Admin/Home/Index");
+            return RedirectToAction("Index");
         }
 
 

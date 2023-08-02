@@ -37,7 +37,7 @@
 
 <div class="modal" id="infoPersonTeam" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width:50%;">
             <div class="modal-body" id="infoPersonTeamBody"></div>
         </div>
     </div>
@@ -117,10 +117,10 @@
                             <tr class="tr_orders">
 
                                 <td>@order.Data.ToString("dd.MM.yyyy") </td>
-                                <td>@order.Name</td>
+                                <td>@(order?.Name ?? "")</td>
                                 <td>@order.Price?.ToString("C")</td>
                                 <td>
-                                    
+
                                     @if (order.ComentAdmin != null)
                                     {
                                         <button onclick="test1(@order.Id)" style="border: none;"><img style="height: 30px;" src="/img//pictures/comment.png" /></button>
@@ -167,6 +167,7 @@
 
 
         var url = "@Url.Action("ResetTranzaction", "User")" + "?orderId=" + orderid;
+
         console.log(url);
         $.ajax({
             url: url,
@@ -190,6 +191,11 @@
                         alert("Ошибка подверждения заказа!");
                         break;
                     }
+                    case parseInt('@((int)JsonResponseStatuses.NotPrice)'): {
+                        alert(response.message);
+                        break;
+                    }
+
                 }
 
 
@@ -236,36 +242,36 @@
 
 
 
-    //function test(id) {
-    //    var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + id;
+        //function test(id) {
+        //    var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + id;
 
-    //    $.get(url, function (response) {
-    //        $('#ComentAdmininfo').html(response);
-    //    });
+        //    $.get(url, function (response) {
+        //        $('#ComentAdmininfo').html(response);
+        //    });
 
-    //    $('#ComentAdmin').modal('show');
-    //}
-                //$(document).ready(function () {
-                //    $('#person').on('click', function (event) {
-                //        event.preventDefault();
-                //        var personId = $(this).data('person-id');
-                //        console.log(personId);
-                //        var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + personId;
-                //        console.log(url);
-                //        $.get(url, function (response) {
-                //            $('#infoPersonTeamBody').html(response);
-                //        });
+        //    $('#ComentAdmin').modal('show');
+        //}
+                    //$(document).ready(function () {
+                    //    $('#person').on('click', function (event) {
+                    //        event.preventDefault();
+                    //        var personId = $(this).data('person-id');
+                    //        console.log(personId);
+                    //        var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + personId;
+                    //        console.log(url);
+                    //        $.get(url, function (response) {
+                    //            $('#infoPersonTeamBody').html(response);
+                    //        });
 
-                //        $('#infoPersonTeam').modal('show');
-                //    });
+                    //        $('#infoPersonTeam').modal('show');
+                    //    });
 
 
-                //    $('#fullCalendar').click(function () {
-                //        var month = document.querySelector('#month-picker').getAttribute('data-month');
-                //        var url = '@Html.Raw(Url.Action("Index", "Event"))?month=' + month;
-                //        window.location.href = url;
-                //    });
-                //});
+                    //    $('#fullCalendar').click(function () {
+                    //        var month = document.querySelector('#month-picker').getAttribute('data-month');
+                    //        var url = '@Html.Raw(Url.Action("Index", "Event"))?month=' + month;
+                    //        window.location.href = url;
+                    //    });
+                    //});
 
 
 

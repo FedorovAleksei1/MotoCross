@@ -205,34 +205,60 @@ namespace MotoCross.Controllers
         }
 
         [HttpPost]
-        public IActionResult ResetTranzaction(int orderId, string UserId)
+        public IActionResult ResetTranzaction(int orderId)
         {
             var response = new JsonResponse();
             var order = _orderService.GetById(orderId);
-            var balans = _userService.GetUserByName(UserId);
+            var balans = _userService.GetUserByName(order.UserId);
             //var orderDto = _mapper.Map<OrderDto>(order);
-
-            if (order == null)
+            UserViewModel model = new();
+            var userBalans = _balansService.GetBalansByUserId(order.UserId);
+           
+            if (userBalans == null)
             {
-                response.status = (int)JsonResponseStatuses.NotFound;
-                response.message = "Объект не найден";
+                //model.Balans = new();
+                _balansService.CreateBalans(new BalansDto()
+                {
+                    UserId = order.UserId,
+                    OperationId = 2
+                });
+
+                userBalans = _balansService.GetBalansByUserId(order.UserId);
+            }
+
+            if (userBalans?.BalansMoney < order?.Price || userBalans?.BalansMoney == null)
+            {
+                response.status = (int)JsonResponseStatuses.NotPrice;
+                response.message = "Суммы недостаточно, пополните баланс";
             }
             else
             {
-                _operationUserService.ListOperationsUser(UserId);
-                _orderService.Confirmation(order);
-                response.status = (int)JsonResponseStatuses.Ok;
-                response.message = "Заказ подвержден";
-            }
-            var operation = new OperationUserDto()
-            {
-                OrderId = orderId,
-                //Order = orderDto,
-                UserId = order.UserId,
-                Price = (decimal)order.Price,
-                DataOperation = DateTime.Now
+                if (order == null)
+                {
+                    response.status = (int)JsonResponseStatuses.NotFound;
+                    response.message = "Объект не найден";
+                }
+                else
+                {
+                    _operationUserService.ListOperationsUser(order.UserId);
+                    _orderService.Confirmation(order);
+                    response.status = (int)JsonResponseStatuses.Ok;
+                    response.message = "Заказ подвержден";
+                }
+                var operation = new OperationUserDto()
+                {
+                    OrderId = orderId,
+                    //Order = orderDto,
+                    UserId = order.UserId,
+                    Price = (decimal)order.Price,
+                    DataOperation = DateTime.Now
 
-            };
+                };
+                _operationUserService.ResetBalans(operation);
+            }
+
+
+            
             //var balansuser = new BalansDto()
             //{
             //	DatePutMoney = DateTime.Now,
@@ -241,7 +267,7 @@ namespace MotoCross.Controllers
             //         }
 
 
-            _operationUserService.ResetBalans(operation);
+            
             return Json(response);
         }
 
@@ -256,7 +282,6 @@ namespace MotoCross.Controllers
         [HttpGet]
         public async Task<PartialViewResult> CardPushMoney()
         {
-           
 
             var model = new CardNameOnPutMoneyViewModel();
             var user = await _userService.GetUserByName(User.Identity.Name);
@@ -275,7 +300,7 @@ namespace MotoCross.Controllers
 
             model.BankCards = cardList;
             model.CardNameOnputMoneyDto = new CardNameOnputMoneyDto();
-            model.CardNameOnputMoneyDto.User =  user;
+            model.CardNameOnputMoneyDto.UserId =  user.Id;
 
 
             //var model = new AdminCardPutMoneyViewModel();
@@ -283,15 +308,20 @@ namespace MotoCross.Controllers
             //model.CardPutMoneyDto = card;
             return PartialView(model);
         }
+
         [HttpPost]
-        public async Task<IActionResult> CardPushMoney(CardNameOnPutMoneyViewModel model)
+        public IActionResult CardPushMoney(CardNameOnPutMoneyViewModel model)
         {
+            //if (model.CardNameOnputMoneyDto.CardId == 0)
+            //    return RedirectToAction(nameof(Edit));
 
-            _cardNamePutMoneyService.Create(model.CardNameOnputMoneyDto);
-            //await _userService.Edit(model.User);
+            if (model.CardNameOnputMoneyDto.CardId != 0)
+            {
+                _cardNamePutMoneyService.Create(model.CardNameOnputMoneyDto);
+                //await _userService.Edit(model.User);
+            }
+
             return RedirectToAction(nameof(Edit));
-
-
         }
 
         public PartialViewResult AdminComentInCustomer(int id)

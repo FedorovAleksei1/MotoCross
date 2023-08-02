@@ -14,6 +14,7 @@ namespace Questionary.Web.Areas.Admin.ViewModels.AdminViewModel
 
        // public Dictionary<User, > MyProperty { get; set; }
         public UserDto User { get; set; }
+        
 
         //public UserDto User { get; set; }
     }

@@ -70,7 +70,7 @@
 
 <div class="modal" id="infoPersonTeam" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width:50%;">
             <div class="modal-body" id="infoPersonTeamBody"></div>
         </div>
     </div>
@@ -123,7 +123,15 @@
 
         <div class="right_div_personal_area">
             <p>Баланс:</p>
-            <p>@Model.Balans.BalansMoney ₽</p>
+            @if (Model.Balans.BalansMoney == null)
+            {
+                <p> 0₽</p>
+            }
+            else
+            {
+                <p>@Model.Balans.BalansMoney ₽</p>
+            }
+            
 
             <input class="button_on_personal_area_balans" type="submit" value="Пополнить по реквизитам" />
 

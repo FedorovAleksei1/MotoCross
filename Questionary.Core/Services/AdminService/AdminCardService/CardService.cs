@@ -22,7 +22,7 @@ namespace Questionary.Core.Services.AdminService.AdminCardService
         }
         public IEnumerable<CardDto> GetAllCardAdmin()
         {
-            var cards = _context.Cards.Include(x => x.CardNameOnputMoney).ToList();
+            var cards = _context.Cards.ToList();
             var cardsDto = _mapper.Map<IEnumerable<CardDto>>(cards);
             return cardsDto;
         }

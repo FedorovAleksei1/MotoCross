@@ -13,6 +13,7 @@ namespace Domain.Dto
         public string Name { get; set; }
         public string ComentAdmin { get; set; }
         public int? СustomerServiceId { get; set; }
+        public CustomerServiceDto CustomerService { get; set; }
         public int? MotoId { get; set; }
         public string? UserId { get; set; }
     }

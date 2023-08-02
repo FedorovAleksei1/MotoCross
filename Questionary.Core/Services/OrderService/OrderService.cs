@@ -29,7 +29,7 @@ namespace MotoCross.Services.OrderService
             if (string.IsNullOrEmpty(userName))
                 throw new Exception("Пользователь не найден");
 
-            
+
             var order = _context.Orders.Include(o => o.СustomerService)
                 .Where(t => t.User.UserName == userName && !t.IsDeleted).OrderByDescending(d => d.Id).ToList();
 
@@ -61,8 +61,7 @@ namespace MotoCross.Services.OrderService
             var order = _context.Orders.Include(o => o.СustomerService)
                 .Where(t => t.User.UserName == userName && !t.IsDeleted).OrderByDescending(d => d.Id).ToList();
 
-
-            return  _mapper.Map<List<OrderDto>>(order);
+            return _mapper.Map<List<OrderDto>>(order);
 
         }
 
@@ -70,7 +69,7 @@ namespace MotoCross.Services.OrderService
         public PaginationDto<OrderDto> GetAllOrder(int page, int take)
         {
             var order = _context.Orders.Include(o => o.СustomerService)
-                .Where(t=> !t.IsDeleted).OrderByDescending(d => d.Id).ToList();
+                .Where(t => !t.IsDeleted).OrderByDescending(d => d.Id).ToList();
 
             var totalCount = order.Count();
             var cardTeams = order
@@ -113,13 +112,24 @@ namespace MotoCross.Services.OrderService
 
         public void Create(OrderDto orderDto)
         {
-            if(orderDto == null )
+            if (orderDto == null)
                 return;
 
-            var order = _mapper.Map<Order>(orderDto);
-            _context.Orders.Add(order);
-            _context.SaveChanges();
 
+            if (orderDto != null)
+            {
+                var order = new Order();
+                order.Id = orderDto.Id;
+                order.Data = orderDto.Data;
+                order.IsConfirmed = orderDto.IsConfirmed;
+                order.СustomerService = _mapper.Map<СustomerService>(orderDto.CustomerService);
+                order.Price = (decimal)orderDto.Price;
+                order.MotoId = orderDto.MotoId;
+                order.UserId = orderDto.UserId;
+                order.ComentAdmin = orderDto.ComentAdmin;
+                _context.Orders.Add(order);
+                _context.SaveChanges();
+            }
         }
 
         public OrderDto GetById(int id)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,6 @@ namespace Domain.Models
         public string CardNumber { get; set; }
         //public int CardUserId {get; set; }
         
-        public CardNameOnputMoney CardNameOnputMoney { get; set; }
+        public  List<CardNameOnputMoney> CardNameOnputMoneys { get; set; }
     }
 }

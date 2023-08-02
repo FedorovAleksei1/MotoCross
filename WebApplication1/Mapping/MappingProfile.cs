@@ -23,6 +23,11 @@ namespace MotoCross.Mapping
 
             CreateMap<Order, OrderDto>()
                 .ForMember(x => x.Name, opt => opt.MapFrom(r => r.СustomerService.Name)).ReverseMap();
+
+    //        CreateMap<OrderDto, Order>()
+    //.ForMember(dest => dest.СustomerService, opt => opt.Ignore()) // Игнорируем маппинг для CustomerService
+    //.ForMember(dest => dest.Id, opt => opt.Ignore());
+
             CreateMap<Photo, PhotoDto>().ReverseMap();
             CreateMap<FormedTeam, FormedTeamDto>().ReverseMap();
             CreateMap<Balans, BalansDto>().ReverseMap();
