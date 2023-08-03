@@ -5,11 +5,11 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moto.Web", "Moto.Web\Moto.Web.csproj", "{C4B7FA78-8642-41BD-925F-AD455D954920}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{9BA8559C-A280-409E-90E4-8017DD8401DC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moto.Core", "Moto.Core\Moto.Core.csproj", "{43386F96-B9B9-42D2-929B-C543047E8CC9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moto.Infrastructure", "Moto.Infrastructure\Moto.Infrastructure.csproj", "{D7FB48CA-4901-4028-829E-49912F907B0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moto.Domain", "Moto.Domain\Moto.Domain.csproj", "{F7873F1B-A2A8-49B8-876A-030C7CADF36B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{C4B7FA78-8642-41BD-925F-AD455D954920}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4B7FA78-8642-41BD-925F-AD455D954920}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4B7FA78-8642-41BD-925F-AD455D954920}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9BA8559C-A280-409E-90E4-8017DD8401DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BA8559C-A280-409E-90E4-8017DD8401DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BA8559C-A280-409E-90E4-8017DD8401DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BA8559C-A280-409E-90E4-8017DD8401DC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{43386F96-B9B9-42D2-929B-C543047E8CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{43386F96-B9B9-42D2-929B-C543047E8CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43386F96-B9B9-42D2-929B-C543047E8CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{D7FB48CA-4901-4028-829E-49912F907B0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7FB48CA-4901-4028-829E-49912F907B0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7FB48CA-4901-4028-829E-49912F907B0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7873F1B-A2A8-49B8-876A-030C7CADF36B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7873F1B-A2A8-49B8-876A-030C7CADF36B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7873F1B-A2A8-49B8-876A-030C7CADF36B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7873F1B-A2A8-49B8-876A-030C7CADF36B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

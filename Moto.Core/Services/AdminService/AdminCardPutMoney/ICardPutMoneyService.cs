@@ -1,4 +1,4 @@
-﻿using Domain.Dto;
+﻿using Moto.Domain.Dto;
 
 namespace Moto.Core.Services.AdminService.AdminCardPutMoney
 {

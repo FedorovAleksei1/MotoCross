@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Moto.Domain.Dto
+{
+    public class UserDto
+    {
+        public string Id { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string MotoName { get; set; }
+        public InfoUserDto InfoDto { get; set; }
+        public List<MotoDto> MotosDto { get; set; }
+        public List<OrderDto> OrdersDto { get; set; } = new();
+        public IEnumerable<CardUserDto> CardUsers { get; set; }
+        public IEnumerable<OperationUserDto> OperationsUser { get; set; }
+    }
+}

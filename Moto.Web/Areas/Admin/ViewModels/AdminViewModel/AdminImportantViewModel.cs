@@ -1,5 +1,5 @@
-﻿using Domain.Dto;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Moto.Domain.Dto;
 using System.Collections.Generic;
 
 namespace Moto.Web.Areas.Admin.ViewModel.AdminViewModel

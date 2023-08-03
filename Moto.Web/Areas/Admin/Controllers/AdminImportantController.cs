@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Moto.Core.Services.AdminService.AdminEventService;
 using Moto.Core.Services.AdminService.AdminImportantService;
 using Moto.Web.Areas.Admin.ViewModel.AdminViewModel;
-using Moto.Web.Areas.Admin.ViewModels.AdminViewModel;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Moto.Web.Areas.Admin.Controllers
 {
@@ -80,7 +76,7 @@ namespace Moto.Web.Areas.Admin.Controllers
         [Authorize]
         [HttpPost]
         public IActionResult Edit(AdminImportantViewModel model)
-        {
+         {
             _adminImportantService.EditImportan(model.Important);
 
             return RedirectToAction("Index");

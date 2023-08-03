@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using Domain.Dto;
-using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+using Moto.Domain.Dto;
+using Moto.Domain.Models;
 using MotoCross.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Moto.Core.Services.AdminService.AdminImportantService
 {
@@ -24,7 +21,7 @@ namespace Moto.Core.Services.AdminService.AdminImportantService
 
         public IEnumerable<ImportantDto> ListImportansDto()
         {
-            var importans = _context.Importants.ToList();
+            var importans = _context.Importants.OrderByDescending(im=> im.Id).ToList();
             var importansDto = _mapper.Map<List<ImportantDto>>(importans);
             return importansDto;
         }

@@ -1,4 +1,4 @@
-﻿using Domain.Dto;
+﻿using Moto.Domain.Dto;
 using System.Collections.Generic;
 
 namespace Moto.Web.Areas.Admin.ViewModels.AdminViewModel

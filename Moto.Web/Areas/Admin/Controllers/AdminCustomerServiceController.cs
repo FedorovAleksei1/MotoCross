@@ -1,4 +1,4 @@
-﻿using Domain.Dto;
+﻿using Moto.Domain.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Moto.Core.Services.AdminService.AdminCastomerService;

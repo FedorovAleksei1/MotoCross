@@ -1,14 +1,9 @@
-﻿using Domain.Dto;
-using Domain.Models;
-using Domain.Models.ViewModel;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MotoCross.Json;
-using MotoCross.Services.CustomerServiceService;
 using Moto.Core.Services.AdminService.AdminCastomerService;
 using Moto.Web.Areas.Admin.ViewModels.AdminViewModel;
-using System.Net.Http;
-using System.Threading.Tasks;
+using MotoCross.Json;
+using MotoCross.Services.CustomerServiceService;
 
 namespace Moto.Web.Controllers
 {

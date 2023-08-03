@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Domain.Dto;
 using Microsoft.EntityFrameworkCore;
 using Moto.Core.Services.ImportantService;
+using Moto.Domain.Dto;
 using MotoCross.Data;
 using System;
 using System.Collections.Generic;

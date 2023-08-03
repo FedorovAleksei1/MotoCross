@@ -1,6 +1,6 @@
-﻿using Domain.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Moto.Domain.Models;
 
 namespace MotoCross.Data
 {

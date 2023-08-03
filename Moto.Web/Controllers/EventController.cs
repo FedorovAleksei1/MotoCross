@@ -1,4 +1,4 @@
-﻿using Domain.Models;
+﻿using Moto.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Moto.Core.Services.EventService;

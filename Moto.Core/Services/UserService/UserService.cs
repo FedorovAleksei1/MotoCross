@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
-using Domain.Dto;
-using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Moto.Domain.Dto;
+using Moto.Domain.Models;
 using MotoCross.Data;
-using MotoCross.Models;
 using MotoCross.Services.InfoUserService;
 using MotoCross.Services.MotoService;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Threading.Tasks;
 
 namespace MotoCross.Services.UserService

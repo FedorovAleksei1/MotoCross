@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Domain.Dto;
-using Domain.Models;
+using Moto.Domain.Dto;
+using Moto.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using MotoCross.Data;
 using System.Collections.Generic;

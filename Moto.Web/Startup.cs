@@ -1,5 +1,5 @@
 using AutoMapper;
-using Domain.Models;
+using Moto.Domain.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

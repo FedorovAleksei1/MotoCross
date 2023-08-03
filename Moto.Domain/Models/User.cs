@@ -1,0 +1,27 @@
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Moto.Domain.Models
+{
+    public class User : IdentityUser
+    {
+        //Модель для личного кабинета
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+
+        public InfoUser Info { get; set; }
+        public Balans Balans { get; set; }
+        //Связь С таблицей Moto так как для заполнения ЛК необходимо внести названия мотоциклов
+        public List<EntityMoto> Motos { get; set; }
+        public List<Order> Orders { get; set; }
+        public List<CardUser> CardUsers { get; set; }
+        public IEnumerable<OperationUser> OperationsUser { get; set; }
+    }
+}

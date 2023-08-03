@@ -1,16 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MotoCross.Models;
-using MotoCross.Services.InfoUserService;
 using Moto.Core.Services.AdminService.AdminCardTeamUser;
 using Moto.Core.Services.AdminService.AdminFormedTeam;
 using Moto.Web.Areas.Admin.ViewModel;
-using System.Diagnostics;
-using System.Linq;
+using MotoCross.Services.InfoUserService;
 
 namespace MotoCross.Controllers
 {
-	public class HomeController : Controller
+    public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
 		private readonly IUserInfoService _userInfoService;

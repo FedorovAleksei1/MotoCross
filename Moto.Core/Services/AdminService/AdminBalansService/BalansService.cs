@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using Domain.Dto;
-using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+using Moto.Domain.Dto;
+using Moto.Domain.Models;
 using MotoCross.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Moto.Core.Services.AdminService.AdminBalansService
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Domain.Dto;
-using Domain.Models;
+using Moto.Domain.Dto;
+using Moto.Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -31,7 +31,7 @@ namespace Moto.Core.Services.AdminService.AdminCardTeamUser
             var cardTeams = cardTeamsQuery
                 .Skip((page - 1) * take)
 				.Take(take)
-                .OrderBy(x => x.PhotoId.HasValue)
+                .OrderByDescending(x => x.PhotoId.HasValue)
                 .ThenBy(d => d.Id)
                 .ToList();
 

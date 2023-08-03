@@ -1,12 +1,11 @@
-﻿using Domain.Models;
-using Domain.Models.ViewModel;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Moto.Domain.Models;
+using Moto.Domain.Models.ViewModel;
+using Moto.Web.Areas.Admin.ViewModels.AdminViewModel;
 using MotoCross.Services.OrderService;
 using MotoCross.Services.UserService;
-using Moto.Web.Areas.Admin.ViewModels.AdminViewModel;
-using System.Threading.Tasks;
 
 namespace Moto.Web.Areas.Admin.Controllers
 {

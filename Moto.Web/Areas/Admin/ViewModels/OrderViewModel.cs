@@ -1,7 +1,7 @@
-﻿using Domain.Dto;
+﻿using Moto.Domain.Dto;
 using System.Collections.Generic;
 
-namespace Domain.Models.ViewModel
+namespace Moto.Domain.Models.ViewModel
 {
     public class OrderViewModel
     {

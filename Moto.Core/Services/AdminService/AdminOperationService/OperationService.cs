@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain.Dto;
+using Moto.Domain.Dto;
 using MotoCross.Data;
 using System;
 using System.Collections.Generic;
