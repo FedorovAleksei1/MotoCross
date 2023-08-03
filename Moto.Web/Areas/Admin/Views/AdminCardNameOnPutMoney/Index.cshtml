@@ -1,0 +1,49 @@
+﻿@using Moto.Web.Areas.Admin.ViewModels.AdminViewModel;
+@model CardNameOnPutMoneyViewModel
+
+
+@{
+    ViewData["Title"] = "Список Переводов";
+}
+
+
+
+<div class="container my-5">
+    @Html.HiddenFor(x => x.User.Id)
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Сумма</th>
+                <th> Тип перевода </th>
+                <th>Номер карты</th>
+                <th>Имя</th>
+                <th>Почта</th>
+
+                
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CardsNameOnPutMoney)
+            {
+                <tr>
+                    @*<td>@item.Card.CardType</td>*@
+                    
+                    <td>@item.Price.ToString("C")</td>
+                    @if(item.Name == null)
+                    {
+                        <td>Пополнено</td>
+                    }
+                    
+                    <td>@item.Card.CardNumber </td>
+                    <td>@item.User.FirstName</td>
+                    <td>@item.User.Email</td>
+                    <td> </td>
+              
+                </tr>
+            }
+        </tbody>
+    </table>
+
+   
+</div>

@@ -1,0 +1,54 @@
+﻿@using Moto.Web.Areas.Admin.ViewModel.AdminViewModel
+@model AdminCardTeamUserViewModel
+@{
+    string fio = $"{Model.CardPerson.LastName} {Model.CardPerson.FirstName}";
+}
+<div class="popup person-popup" id="person-popup1">
+    <div class="person-popup-left">
+        <h2>@fio</h2>
+
+        <div class="stats-block">
+            <p>
+                <b>Дата рождения</b> - @Model.CardPerson.Year.ToString("dd.MM.yyyy")
+            </p>
+
+            <p>
+                <b>Город</b> - @Model.CardPerson.City
+            </p>
+
+            <p>
+                <b>Мотоцикл</b> -@Model.CardPerson.Moto
+            </p>
+
+            <p>
+                <b>Какие победы были? В скольких гонках участвовал?</b>  - @Model.CardPerson.Experience<br><br>
+
+            </p>
+
+            <p>
+                <b>Факты о себе</b> - @Model.CardPerson.Facts<br><br>
+            </p>
+
+            <p>
+                <b>Дополнительные хобби</b> - @Model.CardPerson.Hobby<br><br>
+            </p>
+
+        </div>
+    </div>
+
+    <div class="person-popup-right">
+        <div class="number">
+            <b>Стартовый номер - </b><span class="grand-red">@Model.CardPerson.StartNumber</span>
+        </div>
+
+        <p>
+            <span class="grand-red">@Model.CardPerson.YearAnarch</span><br>
+            стаж в мотокроссе
+        </p>
+
+        <p>
+            <span class="grand-red">@Model.CardPerson.Stag</span><br>
+            пришел в анархию
+        </p>
+    </div>
+</div>

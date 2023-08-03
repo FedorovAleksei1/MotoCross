@@ -1,0 +1,152 @@
+﻿@using Domain.Models;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+
+<style>
+
+    .dropdown {
+        float: left;
+        overflow: hidden;
+    }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    .navClass{
+        gap: 5rem;
+        justify-content: flex-start;
+    }
+
+    .navClass1 {
+        width: max-content;
+
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aнкета</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Moto.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 navClass">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Главная</a>
+                        </li>                      
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger">Мероприятия</button>
+                                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="visually-hidden">Переключатель выпадающего списка</span>
+                                </button>
+                                <ul class="dropdown-menu navClass1">
+                                    <li><a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminEvent" asp-action="Index" type="button">Мероприятия</a></li>
+                                    <li><a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminImportant" asp-action="Index" type="button">Важности</a></li>
+                                  
+                                    <li><hr class="dropdown-divider"></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger">Пользователи</button>
+                                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @*<span class="visually-hidden">Переключатель выпадающего списка</span>*@
+                                </button>
+                                <ul class="dropdown-menu navClass1">
+                                    <li><a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminUser" asp-action="Index" type="button">Дополнительная информация пользователей</a></li>
+                                    <li> <a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminCardTeamUser" asp-action="Index" type="button">Карточки команды мотокросс</a></li>
+
+                                    <li> <a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminFormedTeam" asp-action="Index" type="button">Добавление блока создания мотокроса</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger">Магазин</button>
+                                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="visually-hidden">Переключатель выпадающего списка</span>
+                                </button>
+                                <ul class="dropdown-menu navClass1">
+                                    <li><a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminCustomerService" asp-action="Index" type="button">Добавление услуг</a></li>  
+                                    <li><a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminCard" asp-action="Index" type="button">Добавление Карты</a></li>
+                                    <li><a class="nav-link text-dark" class="btn users-btn" asp-controller="AdminCardNameOnPutMoney" asp-action="Index" type="button">Переводы</a></li>
+                                </ul>
+                            </div>
+                            
+                        </li>
+                        <li class="nav-item">
+                           @* <form class="form-inline " asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                <button type="submit" class="nav-link btn btn-link text-dark">Выход</button>
+                               
+                            </form>*@
+                            <a class="nav-link text-dark" href="~/Home/Index">Выход</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="main">
+        <section class="content-section">
+            <div class="inner-section">
+                @RenderBody()
+            </div>
+        </section>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/datepicker.min.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", false)
+</body>
+</html>

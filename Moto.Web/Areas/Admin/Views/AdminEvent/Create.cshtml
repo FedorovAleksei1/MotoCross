@@ -1,0 +1,68 @@
+﻿@using Moto.Web.Areas.Admin.ViewModel.AdminViewModel
+@model AdminEventViewModel;
+
+@{
+    ViewData["Title"] = "Добавление Мероприятия";
+}
+<style>
+    .teaxtarea_comment {
+        border: none;
+        height: 300px;
+        resize: vertical;
+        width: 300px;
+    }
+</style>
+
+<div class="container">
+<h2>Добавление Мероприятия</h2>
+<form method="post" enctype="multipart/form-data">
+
+    <div>
+        <label>
+            Название мероприятия
+            @Html.TextBoxFor(x => Model.Event.Name, new { @class = "form-control"})
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Начало мероприятия
+           @* @Html.TextBoxFor(x => Model.Event.DateStart, new { @class = "form-control datepicker"})*@
+            <input type="date" asp-for="Event.DateStart" class="form-control"  id="startDateEvent"/>
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Конец мероприятия
+                <input type="date" asp-for="Event.DateAnd" class="form-control" id="endDateEvent" />
+        </label>
+    </div>
+
+    <div>
+        <label>
+            
+            @Html.DropDownListFor(x => Model.Event.ImportantId, Model.ImportantsList,  new { @class = "form-control"} )
+               
+        </label>
+    </div>
+
+        <div>
+            <label>
+                Информация по мероприятию
+                @Html.TextAreaFor(x => Model.Event.InfoEvent, new { @class = "teaxtarea_comment"})
+            </label>
+        </div>
+
+        
+    <div>
+        <label>
+            <input type="file" asp-for="UploadPhoto" class="form-control" />
+        </label>
+    </div>
+
+    <input type="submit" value="Сохранить" />
+
+</form>
+
+</div>

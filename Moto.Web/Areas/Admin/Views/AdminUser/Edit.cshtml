@@ -1,0 +1,48 @@
+﻿@model Moto.Web.Areas.Admin.ViewModels.EditUserViewModel
+@{
+    ViewBag.Title = "Редактирование пользователя";
+}
+<div class="container">
+<div class="form">
+    <form asp-action="Edit" asp-controller="AdminUser">
+            @Html.HiddenFor(x => x.Balans.Id)
+            @Html.HiddenFor(x => x.Balans.UserId)
+            @Html.HiddenFor(x => x.Balans.DatePutMoney)
+            @Html.HiddenFor(x => x.Balans.OperationId)
+        <div asp-validation-summary="ModelOnly" class="text-danger error-messages"></div>
+
+        <div class="form-item">
+            <input type="hidden" asp-for="Id" />
+        </div>
+        <div class="form-item">
+            <label asp-for="Email">Email</label>
+            <input type="text" asp-for="Email" />
+        </div>
+        <div class="form-item">
+                <label asp-for="Phone">Номер телефона</label>
+            <input type="text" asp-for="Phone" />
+        </div>
+        <div class="form-item">
+            <label asp-for="NewPassword">Новый пароль</label>
+            <input type="text" asp-for="NewPassword" />
+        </div>
+            <div class="form-item">
+                <label asp-for="Balans">Баланс Юзера </label>
+                <input type="text" asp-for="Balans.BalansMoney" />
+            </div>
+            <div class="form-item">
+                <label asp-for="NewPrice">Пополнение баланса юзера </label>
+                <input type="text" asp-for="NewPrice" />
+                <button asp-action="AddTranzaction" asp-controller="AdminUser">Пополнить</button>
+            </div>
+
+
+        <div class="form-item form-item-submit bottom-form-buttons">
+            <a class="button red-button" asp-action="Index">Вернуться назад</a>
+            <input type="submit" value="Сохранить" class="button" />
+        </div>
+        
+    </form>
+
+</div>
+</div>

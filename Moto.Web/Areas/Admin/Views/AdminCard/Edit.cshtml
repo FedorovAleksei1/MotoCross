@@ -1,0 +1,32 @@
+﻿@using Moto.Web.Areas.Admin.ViewModels.AdminViewModel;
+
+@model AdminCardViewModel
+@{
+    ViewData["Title"] = "Редактирование Карты";
+}
+
+<div class="container">
+    <h2>Редактировние Карты</h2>
+    <form method="post" enctype="multipart/form-data">
+      
+        @Html.HiddenFor(x => x.Card.Id)
+        <div>
+            <label>
+                Тип карты
+                @Html.TextBoxFor(x => Model.Card.CardType, new { @class = "form-control"})
+            </label>
+        </div>
+        <div>
+            <label>
+                Тип карты
+                @Html.TextBoxFor(x => Model.Card.CardNumber, new { @class = "form-control"})
+            </label>
+        </div>
+
+        
+
+        <input type="submit" value="Редактировать" />
+
+    </form>
+
+</div>

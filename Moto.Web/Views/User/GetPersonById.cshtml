@@ -1,0 +1,58 @@
+﻿@using Moto.Web.Areas.Admin.ViewModel;
+@model UserViewModel;
+@{
+    string fio = $"{Model.User.LastName} {Model.User.FirstName} {Model.User.MiddleName}";
+    string motoList = string.Join(",", Model.User.MotosDto.Select(x => x.Name));
+}
+<div class="popup person-popup" id="person-popup1">
+    @*<div class="person-popup-content">*@
+    <div class="person-popup-left">
+        <h2>@fio</h2>
+
+        <div class="stats-block">
+            <p>
+                <b>Дата рождения</b> - @Model.User.InfoDto.Year.ToString("dd.MM.yyyy") 
+            </p>
+
+            <p>
+                <b>Город</b> - Москва
+            </p>
+
+            <p>
+                <b>Мотоцикл</b> - @motoList.Trim()
+            </p>
+
+            <p>
+                <b>Какие победы были? В скольких гонках участвовал?</b>  - @Model.User.InfoDto.Experience<br><br>
+
+            </p>
+
+            <p>
+                <b>Факты о себе</b> - @Model.User.InfoDto.Facts<br><br>
+            </p>
+
+            <p>
+                <b>Дополнительные хобби</b> - @Model.User.InfoDto.Hobby<br><br>
+            </p>
+
+        </div>
+    </div>
+
+    <div class="person-popup-right">
+        <div class="number">
+            <b>Стартовый номер - </b><span class="grand-red">@Model.User.InfoDto.StartNumber</span>
+        </div>
+
+        <p>
+            <span class="grand-red">@Model.User.InfoDto.YearAnarch</span><br>
+            стаж в мотокроссе
+        </p>
+
+        <p>
+            <span class="grand-red">в 2020</span><br>
+            пришел в анархию
+        </p>
+    </div>
+</div>
+@*</div>*@
+

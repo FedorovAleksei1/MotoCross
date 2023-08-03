@@ -1,0 +1,25 @@
+﻿@using Moto.Web.Areas.Admin.ViewModel.AdminViewModel
+@model AdminImportantViewModel;
+
+@{
+    ViewData["Title"] = "Добавление Важности";
+}
+<h2>Добавление важности</h2>
+<form method="post">
+    <div>
+        <label>
+            Название
+            @Html.TextBoxFor(x => Model.Important.Name, new { @class = "form-control"})
+        </label>
+    </div>
+    @*<div>
+        <label>
+            Цвет
+            @Html.TextBoxFor(x => Model.Important.Color, new { @class = "form-control"})
+        </label>
+    </div>*@
+    <input type="color" asp-for="@Model.Important.Color" />
+
+    <input type="submit" value="Сохранить" />
+
+</form>

@@ -1,0 +1,273 @@
+﻿@using Moto.Web.Areas.Admin.ViewModel;
+@using Microsoft.AspNetCore.Identity
+@if (!User.Identity.IsAuthenticated)
+{
+
+}
+
+@model UserViewModel;
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+<style>
+
+</style>
+
+
+<style>
+    .scrole-table {
+        width: 100%;
+        overflow: auto;
+        height: 410px;
+    }
+</style>
+
+<div class="modal" id="infoPersonTeam" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="max-width:50%;">
+            <div class="modal-body" id="infoPersonTeamBody"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="personal_area_h1">Личный кабинет</h1>
+    <p class="personal_area_p1">Добро пожаловать в личный кабинет, тут вы сможете посмотреть всю информацию о заказе, пополнить текущий баланс.</p>
+    <div class="personal_area_button">
+        <p class="qwe p-0">Информация о пользователе</p>
+        <div class="personal_area_p_wiht_button">
+            <p class="qwe p-0">Баланс</p>
+            <input class="button_balanc" id="money-block" type="submit" value="Пополнить" />
+        </div>
+    </div>
+
+    <div class="qaz">
+        <div class="ul_form d-flex flex-column">
+            <div class="name_user">
+                @Model.User.FirstName
+                @Model.User.MiddleName
+            </div>
+            @*<div>
+            <a >
+            <span>
+            <img />
+            </span>
+            tretrewywr
+            </a>
+            </div>*@
+            <ul class="p-0">
+
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" src="/img//pictures/Vectoradmin.png"><a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="Edit" type="button">Профиль</a>
+                </li>
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" style="height:17px" src="/img//pictures/Yslyga.png"> <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="Index" type="button">Услуги</a> @*<a class=" text-dark" style="display: block;padding: 0.5rem 0.5rem;color: black;text-decoration: none;transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;" class="btn users-btn" asp-controller="CustomerService" asp-action="Index" type="button">Услуги</a>*@
+
+                </li>
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" src="/img//pictures/Vector (2).png"> <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="UserOrders" type="button">Заказы</a>
+                </li>
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" src="/img//pictures/Vector (3).png">  <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="GetBalansByUserId" asp-route-id="@Model.User.Id" type="button">Баланс</a>
+                </li>
+                <li class="nav-item li_near_the_photo">
+
+
+
+                </li>
+            </ul>
+            <div class="div_on_lale_out mt-auto mb-5 ">
+                @if ((bool)User.Identity?.IsAuthenticated)
+                {
+                    @*<a href="~/Identity/Account/Logout"><span>Выход</span></a>*@
+                    <img class="img_photo_personal_area" src="/img//pictures/Vector (4).png"> <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Account/Login", new { area = "Identity" })" class="nav-link text-dark" class="btn users-btn" type="button">Выйти</a>
+                }
+
+            </div>
+        </div>
+
+        <div class="right_div_personal_area">
+            <form class="form_input_personal_area d-flex gap-5" method="post">
+
+                <div class="form_name_personal_area w-100 d-flex flex-column gap-4">
+
+                    @Html.HiddenFor(x => x.User.Id)
+                    <div class="form_lable_with_input">
+                        <label class="w-100">
+                            Имя
+                            @Html.TextBoxFor(x => Model.User.FirstName, new { @class = "form-control"})
+                        </label>
+                    </div>
+
+                    <div class="form_lable_with_input">
+                        <label class="w-100">
+                            Отчество
+                            @Html.TextBoxFor(x => Model.User.MiddleName,new { @class = "form-control"})
+                        </label>
+                    </div>
+
+                    <div class="form_lable_with_input">
+                        <label class="w-100">
+                            Фамилия
+                            @Html.TextBoxFor(x => Model.User.LastName, new { @class = "form-control"})
+                        </label>
+                    </div>
+                    <div class="input_on_personal_area">
+                        <input class="button_on_personal_area" type="submit" value="Сохранить Изменения" />
+                    </div>
+                </div>
+                <div class="form_name_personal_area_right w-100 d-flex flex-column gap-4">
+                    <div class="form_lable_with_input">
+                        <label class="w-100">
+                            Email
+                            @Html.TextBoxFor(x => Model.User.Email, new { @class = "form-control"})
+                        </label>
+                    </div>
+
+                    <div class=" form_lable_with_input">
+                        <label class="w-100">
+                            Телефон
+                            @Html.TextBoxFor(x => Model.User.Phone,  new { @class = "form-control"} )
+                        </label>
+                    </div>
+
+
+                    @if (Model.User.MotosDto != null && Model.User.MotosDto.Any())
+                    {
+                        <div class="form_lable_with_input ">
+                            <label class="w-100 lable_in_moto">
+                                Мотоциклы
+                                @for (int i = 0; i < Model.User.MotosDto.Count(); i++)
+                                {
+                                    <div style="position: relative; margin-bottom: 0.2rem;">
+                                        <button style="width: 10%; background: #fff; border-radius: 10px; position: absolute;top: 50%;right: 0;transform: translate(-50%, -50%);" asp-action="DeleteMoto" asp-controller="User" asp-route-id="@Model.User.MotosDto[i].Id">
+
+
+                                            -
+                                        </button>
+                                        <input class="input_wiht_moto" type="text" name="User.MotosDto[@i].Name" value="@Model.User.MotosDto[i].Name" />
+
+                                        <input type="hidden" name="User.MotosDto[@i].Id" value="@Model.User.MotosDto[i].Id" />
+                                    </div>
+                                }
+
+                            </label>
+                        </div>
+                    }
+                    <div>
+                        <lable>Добавить Мотоцикл</lable>
+                        <button style="width: 10%;background: #fff;border-radius: 10px; " type="button" id="addMotoBtn">
+                            +
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script><!-- Модальное окно -->
+
+<script>
+    
+
+    document.getElementById('addMotoBtn').addEventListener('click', function () {
+        var motosContainer = document.querySelector('.lable_in_moto');
+        var sumindex = $('.input_wiht_moto').length;
+        var inputCount = sumindex;
+
+        var newInput = document.createElement('input');
+        newInput.classList.add('input_wiht_moto');
+        newInput.type = 'text';
+        newInput.name = 'User.MotosDto[' + inputCount + '].Name';
+
+        var newHiddenInput = document.createElement('input');
+        newHiddenInput.type = 'hidden';
+        newHiddenInput.name = 'User.MotosDto[' + inputCount + '].Id';
+
+        
+
+
+        motosContainer.appendChild(newInput);
+   
+        //motosContainer.appendChild(newButton);
+        motosContainer.appendChild(newHiddenInput);
+    });
+
+
+    //document.getElementById('addMotoBtn').addEventListener('click', function () {
+    //    var motosContainer = document.querySelector('.lable_in_moto');
+    //    var inputCount = (motosContainer.querySelectorAll('input').length - 1);
+
+    //    var newInput = document.createElement('input');
+    //    newInput.classList.add('input_wiht_moto');
+    //    newInput.type = 'text';
+    //    newInput.name = 'User.MotosDto[' + inputCount + '].Name';
+
+    //    var newHiddenInput = document.createElement('input');
+    //    newHiddenInput.type = 'hidden';
+    //    newHiddenInput.name = 'User.MotosDto[' + inputCount + '].Id';
+
+    //    motosContainer.appendChild(newInput);
+
+    //    // Define newButton or remove this line if not needed
+    //    var newButton = document.createElement('button');
+    //    newButton.textContent = 'Click Me';
+    //    // Additional settings for the new button can be added here
+
+    //    motosContainer.appendChild(newButton);
+    //    motosContainer.appendChild(newHiddenInput);
+    //});
+</script>
+
+<script>
+
+
+
+    $(document).ready(function () {
+        $('#money-block').on('click', function (event) {
+            event.preventDefault();
+
+
+            var url = '@Html.Raw(Url.Action("CardPushMoney", "User"))';
+            console.log(url);
+            $.get(url, function (response) {
+                $('#infoPersonTeamBody').html(response);
+            });
+
+            $('#infoPersonTeam').modal('show');
+        });
+    });
+
+            //$(document).ready(function () {
+            //    $('#person').on('click', function (event) {
+            //        event.preventDefault();
+            //        var personId = $(this).data('person-id');
+            //        console.log(personId);
+            //        var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + personId;
+            //        console.log(url);
+            //        $.get(url, function (response) {
+            //            $('#infoPersonTeamBody').html(response);
+            //        });
+
+            //        $('#infoPersonTeam').modal('show');
+            //    });
+
+
+            //    $('#fullCalendar').click(function () {
+            //        var month = document.querySelector('#month-picker').getAttribute('data-month');
+            //        var url = '@Html.Raw(Url.Action("Index", "Event"))?month=' + month;
+            //        window.location.href = url;
+            //    });
+            //});
+
+
+
+
+
+
+</script>

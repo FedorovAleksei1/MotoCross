@@ -1,0 +1,44 @@
+﻿@using Moto.Web.Areas.Admin.ViewModels.AdminViewModel;
+
+
+@model AdminCardViewModel
+
+
+
+
+
+
+@{
+    ViewData["Title"] = "Наименование карты";
+}
+
+
+<div class="container my-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Цифры карты</th>
+                <th>Цифры карты</th>
+                
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cards)
+            {
+                <tr>
+                    <td>@item.CardType</td>
+                    <td>@item.CardNumber</td>
+
+                    <td><a type="button" class="btn btn-primary" href="~/Admin/AdminCard/Edit/@item.Id">Редактировать</a></td>
+                    <td><a type="button" class="btn btn-danger" href="~/Admin/AdminCard/Delete?id=@item.Id">Удалить</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <a type="button" class="btn btn-primary" href='/Admin/AdminCard/Create'>Добавить</a>
+    </div>
+</div>

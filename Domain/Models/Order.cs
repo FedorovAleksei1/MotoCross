@@ -17,7 +17,7 @@ namespace Domain.Models
         public string? UserId { get; set; }
         public User User { get; set; }
         public int? MotoId { get; set; }
-        public Moto Moto { get; set; }
+        public EntityMoto Moto { get; set; }
         public int? СustomerServiceId { get; set; }
         public СustomerService СustomerService { get; set; }
     }

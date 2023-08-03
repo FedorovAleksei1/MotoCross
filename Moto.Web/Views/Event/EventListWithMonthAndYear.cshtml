@@ -1,0 +1,121 @@
+﻿@using Moto.Web.Areas.Admin.ViewModel;
+@model EventViewModel;
+@{
+    Layout = null;
+}
+
+
+<style>
+    .test-21{
+        margin-top: auto;
+        margin-bottom: 1.1em;
+        text-align: center;  
+    }
+    
+
+</style>
+
+@if (Model.Item != null && Model.Item.Elements.Any())
+{
+    foreach (var item in Model.Item.Elements)
+    {
+        <div class="calendar-list-item">
+            <input type="hidden" value="@item.DateStart" id="start-date-@item.Id" data-itemid="@item.Id" />
+            <input type="hidden" value="@item.DateAnd" id="end-date-@item.Id" data-itemid="@item.Id" />
+            <div class="img" style="background: @item.Important.Color;">
+                <div class="title">
+                    @item.DateRange <br />
+                    @Model.MonthName
+                </div>
+                <p class="day-of-week"></p>
+
+                <div class="icon">
+                    <img src="@item.BasePhoto64" alt="">
+                </div>
+                <a class="ref" asp-controller="Event" asp-action="InfoEvent" asp-route-id="@item.Id" type="button"></a>
+            </div>
+            <div style="margin: auto 0 auto 2rem">@item.Name</div>
+        </div>
+    }
+}
+
+
+@*<div class="test-21">
+    <div class="pagination2">
+        <span id="currentPage"></span> / <span id="totalPages"></span>
+    </div>
+    <button type="button" class="btn btn-dark" id="prevPage">Назад</button>
+    <button type="button" class="btn btn-dark" id="nextPage">Вперед</button>
+</div>*@
+
+
+@*<script>
+    $(document).ready(function () {
+        var itemsPerPage = 7; // Количество элементов на одной странице
+        var currentPage = 1; // Текущая страница
+        var totalItems = @Model.Item.Elements.Count(); // Общее количество элементов
+        var totalPages = Math.ceil(totalItems / itemsPerPage); // Общее число страниц
+
+        // Функция для отображения элементов текущей страницы
+        function showPage(page) {
+            var startIndex = (page - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
+            $("#eventList .calendar-list-item").hide().slice(startIndex, endIndex).show();
+        }
+
+        // Инициализация страницы
+        showPage(currentPage);
+        $("#currentPage").text(currentPage);
+        $("#totalPages").text(totalPages);
+
+        // Обработчик нажатия кнопки "Назад"
+        $("#prevPage").click(function () {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+                $("#currentPage").text(currentPage);
+            }
+        });
+
+        // Обработчик нажатия кнопки "Вперед"
+        $("#nextPage").click(function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+                $("#currentPage").text(currentPage);
+            }
+        });
+    });
+</script>*@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/moment.min.js"></script>
+<script src="~/js/moment-locales.min.js"></script>
+<script>
+    $(document).ready(function () {
+        moment.locale('ru'); // Устанавливаем русскую локализацию
+
+        // Обновляем день недели для каждого элемента цикла
+        $(".calendar-list-item").each(function () {
+            var itemId = $(this).find("[data-itemid]").data("itemid");
+            var startDate = moment($(this).find("#start-date-" + itemId).val(), 'DD.MM.YYYY H:mm:ss', true);
+            var endDate = moment($(this).find("#end-date-" + itemId).val(), 'DD.MM.YYYY H:mm:ss', true);
+            var hiddenInput = $(this).find(".day-of-week");
+
+            var startDayOfWeek = '';
+            var endDayOfWeek = '';
+
+            if (startDate.isValid()) {
+                startDayOfWeek = startDate.format('ddd');
+                hiddenInput.text(startDayOfWeek);
+            }
+
+            if (endDate.isValid()) {
+                endDayOfWeek = endDate.format('ddd');
+                if (startDate.isValid()) {
+                    endDayOfWeek = startDayOfWeek + '-' + endDayOfWeek;
+                }
+                hiddenInput.text(endDayOfWeek);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,187 @@
+﻿@using MotoCross.Json;
+@using Domain.Models.ViewModel;
+@using Moto.Web.Areas.Admin.ViewModels.AdminViewModel;
+@model AdminOrderViewModel;
+
+ <style >
+     .a_ysluga{
+        
+        height: 30px;
+        text-decoration: none;
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+        background: rebeccapurple;
+        border: 10px;
+     }
+
+    a:hover {
+        color: white;
+    }
+ </style>
+
+
+
+<div class="modal" id="ComentAdmin" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body" style="display:flex; justify-content:center;" id="ComentAdmininfo"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+ <div class="container">
+    <a class="a_ysluga" asp-controller="AdminUser" asp-action="NewCustomerByUserOrders" asp-route-id="@Model.User.Id" type="button">Добавление услгуи для пользователя</a>
+<table class="table " style="position: relative; border-collapse: collapse;">
+    <thead class="thead_orders" style="position: sticky; top: 0; background: beige; border: 0;">
+
+        <tr class="tr_orders fixed" style="box-shadow: 0px 1px 0px 0px #040404; top: 0;">
+            <th style="border: 0;">Дата </th>
+            <th style="border: 0;">Наименование</th>
+            <th style="border: 0;">Цена</th>
+            <th style="border: 0;">Коментарий</th>
+            <th style="border: 0;">Статус</th>
+
+        </tr>
+    </thead>
+    <tbody class="scroll">
+        @foreach (var order in Model.Orders.Elements)
+        {
+            <tr class="tr_orders">
+
+                <td>@order.Data.ToString("dd.MM.yyyy") </td>
+                <td>@order.Name</td>
+                <td>@order.Price?.ToString("C")</td>
+                <td>
+                        @if (order.ComentAdmin != null)
+                        {
+                            <button onclick="test2(@order.Id)" style="border: none;"><img style="height: 30px;" src="/img//pictures/comment.png" /></button>
+                        }
+                </td>
+                <td>
+                    @if (!order.AdminOrderConfirmed)
+                    {
+                        <button class="button_on_personal_area" onclick="myFunction1(@order.Id)">Подвердить</button>
+                    }
+                    else
+                    {
+                        <button class="button_on_personal_area" onclick="myFunction1(@order.Id)" disabled>Подвердить</button>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    <div class="button_pagination " style="display: flex; justify-content: space-around;">
+
+        <button type="button" class="btn btn-dark" id="prevPage">Назад</button>
+        <button type="button" class="btn btn-dark" id="nextPage">Вперед</button>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+<script>
+    function myFunction1(orderid)
+    {
+
+        if (orderid === null) {
+            alert('id заказа null');
+            console.log(1);
+            return;
+        }
+
+        console.log('zhopa');
+        var url = "@Url.Action("AdminConfirmedOrders", "AdminUser")" + "?orderId=" + orderid;
+        console.log(url);
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: "post",
+            async: true,
+            success: function (response) {
+                console.log(response);
+                switch (response.status) {
+                    case parseInt('@((int)JsonResponseStatuses.Ok)'): {
+                        alert('Заказ подвержден');
+                        location.reload();
+                        break;
+                    }
+
+                    case parseInt('@((int)JsonResponseStatuses.NotFound)'): {
+                        alert(response.message);
+                        break;
+                    }
+                    case parseInt('@((int)JsonResponseStatuses.Error)'): {
+                        alert("Ошибка подверждения заказа!");
+                        break;
+                    }
+                }
+
+
+            }
+        });
+    }
+
+
+
+    function ReloadTable(page, take) {
+        console.log('start');
+        document.location.href = '@Html.Raw(Url.Action("AllOrdersByUser", "AdminUser"))' + '?id=@Model.User.Id' + '&page=' + page + '&take=' + take;
+
+        //$.get(url, function (response) {
+        //    $('#scroll').html(response);
+        //});
+
+        console.log('end');
+    }
+
+
+    var currentPage = 1;
+    var currentTake = 10;
+
+    $("#prevPage").click(function () {
+        var totalCount = @Model.Orders.TotalCount;
+        var currentPage = @Model.Orders.Page;
+
+        console.log(1)
+
+        if ((currentPage - 1) > 0) {
+            currentPage -= 1;
+            ReloadTable(currentPage, currentTake);
+        }
+    });
+
+    // Обработчик нажатия кнопки "Вперед"
+    $("#nextPage").click(function () {
+        var totalCount = @Model.Orders.TotalCount;
+        var currentPage = @Model.Orders.Page;
+
+        console.log(2)
+
+        console.log('next')
+        if ((currentPage) * currentTake < totalCount) {
+            currentPage += 1;
+            ReloadTable(currentPage, currentTake);
+        }
+    });
+
+
+
+
+
+    function test2(id) {
+        var url = '@Html.Raw(Url.Action("AdminComentInCustomer", "AdminUser"))?id=' + id;
+        console.log(url);
+        $.get(url, function (response) {
+            $('#ComentAdmininfo').html(response);
+        });
+
+        $('#ComentAdmin').modal('show');
+    };
+
+</script>

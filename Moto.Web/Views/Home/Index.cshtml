@@ -1,0 +1,445 @@
+﻿@using Moto.Web.Areas.Admin.ViewModel;
+@model MainViewModel;
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<style>
+    .modal-dialog {
+        max-width: 60vw;
+    }
+
+    .modal-content {
+        border-radius: 20px;
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+
+    .modal-dialog-centered {
+        justify-content: space-around;
+    }
+
+    .buttonnext {
+        position: absolute;
+        z-index: 99;
+        right: 0;
+        /*left: 0;*/
+        top: 50%;
+        transform: translate(100%, -50%);
+    }
+
+    .buttonprev {
+        position: absolute;
+        z-index: 99;
+        /* right: 0;*/
+        left: 0;
+        top: 50%;
+        transform: translate(-100%, -50%);
+    }
+
+    .blocperson {
+        position: relative;
+    }
+</style>
+
+<div class="modal" id="infoPersonTeam" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body" id="infoPersonTeamBody"></div>
+        </div>
+    </div>
+</div>
+
+<div class="main">
+
+    <section class="top-banner-section">
+        <div class="inner-section">
+
+            <img class="top-banner-slogan" src="img/top-bg-slogan.png" alt="">
+
+            <div class="top-banner-calendar">
+                <div class="top-banner-calendar-content">
+                    <div class="top-banner-calendar-item"></div>
+                    <input type="hidden" id="datepicker_value" value="01.06.2023">
+                </div>
+
+                @*<a asp-area="" asp-controller="Event" asp-action="Index" class="button black-button">
+                Полный календарь
+                </a>*@
+                <a class="button black-button" id="fullCalendar">
+                    Полный календарь
+                </a>
+                <body class="light">
+                    <div class="calendar">
+                        <!-- Calendar Header -->
+                        <div class="calendar-header">
+                            <span class="month-picker" id="month-picker">
+                                February
+                            </span>
+                            <div class="year-picker">
+                                <span class="year-change mt-3" id="prev-year">
+                                    <pre> < </pre>
+                                </span>
+                                <span id="year">2023</span>
+                                <span class="year-change mt-3" id="next-year">
+                                    <pre> > </pre>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Calendar Body -->
+                        <div class="calendar-body">
+                            <div class="calendar-week-day">
+
+                                <div>ПН</div>
+                                <div>Вт</div>
+                                <div>Ср</div>
+                                <div>ЧТ</div>
+                                <div>ПТ</div>
+                                <div>СБ</div>
+                                <div>ВС</div>
+                            </div>
+                            <div class="calendar-day">
+                                @*<div>
+                                1
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                </div>
+                                <div>2</div>
+                                <div>3</div>
+                                <div>4</div>
+                                <div>5</div>
+                                <div>6</div>
+                                <div>7</div>
+                                <div>1</div>
+                                <div>2</div>
+                                <div>3</div>
+                                <div>4</div>
+                                <div>5</div>
+                                <div>6</div>
+                                <div>7</div>*@
+                            </div>
+                        </div>
+                        <!-- Calendar Footer -->
+                        <div class="calendar-footer">
+                            <div class="toggle">
+                                <span>Dark Mode</span>
+                                <div class="dark-mode-switch">
+                                    <div class="dark-mode-switch-ident"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="month-list"></div>
+                    </div>
+                </body>
+            </div>
+
+            <div class="top-banner-title">
+                команда
+                <span>по <i>мото</i>кроссу</span>
+            </div>
+
+            <div class="advantages-block" id="formed-block">
+                @*<div class="advantages-item">
+                <div class="title">в 2018 году </div>
+
+                <div class="text">
+                сформирована команда <br />
+                Anarchy Racing для участия <br />
+                в гоночных процессах
+                </div>
+                </div>
+
+                <div class="advantages-item">
+                <div class="title">в 2023 году </div>
+
+                <div class="text">
+                самостоятельно провели <br />
+                2 этапа МХ-Спидвея <br />
+                на Большом Крылатском пруду
+                </div>
+                </div>
+
+                <div class="advantages-item">
+                <div class="title">более 15</div>
+
+                <div class="text">
+                спортсменов в  <br />
+                составе команды
+                </div>
+                </div>*@
+            </div>
+
+        </div>
+    </section>
+
+    <section class="team-section" id="team-section">
+        <div class="inner-section">
+            <div class="section-title">Команда</div>
+
+            <div class="two-images">
+                <div class="img">
+                    <img src="/img//pictures/team1.jpg" alt="">
+                </div>
+
+                <div class="img">
+                    <img src="/img/pictures/team2.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="text-and-image">
+                <div class="text">
+                    <p>
+                        Команда стремительно развивает себя в мотоциклетных видах спорта: в мотокросс и кросс-кантри, в классическом эндуро, хард-эндуро и эндуро-кросс, скийоринг, сноубайк и спидвей.
+                    </p>
+
+                    <p>
+                        Штаб квартира команды находится на стадионе технических видов спорта на ул. Крыласткая г. Москвы.
+                    </p>
+                </div>
+
+                <div class="img">
+                    <img src="/img/pictures/team3.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="persons-section" id="persons-section">
+        <div class="inner-section">
+
+            <div class="text-columns">
+                <div class="text">
+                    <p>
+                        За первые два года команда успела выступить на многочисленных соревнованиях в Москве и Московской области, Калужской области, Тульской области, Тверской области, в г. Иваново, Краснодарском и Ставропольском крае и других регионах России.
+
+                    </p>
+
+                    <p>
+                        Также наши спортсмены принимали участие и в международных гонках в Голландии, Бельгии, Румынии и Турции.
+                    </p>
+                </div>
+
+                <div class="text">
+                    <p>
+                        Ежедневно наши тренировки проходят на домашней трассе - стадионе технических видов спорта в Крылатском г. Москвы.
+                    </p>
+
+                    <p>
+                        В зимнее время года тренировки проводятся на Большом Крылатском пруду у Велотрека в Крылатском районе Москвы.
+                    </p>
+                </div>
+            </div>
+            @*<div class="pagination2">
+            <span id="currentPage"></span> / <span id="totalPages"></span>
+            </div>*@
+            <div class="blocperson">
+                @*<div class="">*@
+                <button type="button" class="btn btn-dark buttonprev" id="prevPage"><img src="/img//pictures/Vector40.png" alt=""></button>
+                @*</div>*@
+                <div class="persons-block persons-slider" id="person-block">
+                    @* <div class="calendar-list" id="person-block">*@
+                    @* @if (Model.ItemCards.Elements != null && Model.ItemCards.Elements.Any())
+                    {
+                    foreach (var person in Model.ItemCards.Elements)
+                    {
+                    <div class="persons-item">
+                    <div class="img">
+
+                    <img src="@person.BasePhoto64" alt="">
+                    <a class="ref" onclick="test('@person.Id')" style="cursor:pointer;"></a>
+                    </div>
+
+                    <div class="title">@($"{person.LastName} {person.FirstName}")</div>
+
+                    <a class="fancy more" onclick="test('@person.Id')" style="cursor:pointer;">Подробнее</a>
+                    </div>
+                    }
+                    }*@
+                    @*</div>*@
+                </div>
+                @*<div class="">*@
+                <button type="button" class="btn btn-dark buttonnext" id="nextPage"><img src="/img//pictures/Vector41.png" alt=""></button>
+                @*</div>*@
+            </div>
+
+        </div>
+
+
+    </section>
+
+    <section class="services-section" id="services-section">
+        <div class="inner-section">
+            <div class="section-title">Услуги</div>
+
+            <div class="services-block">
+                <div class="services-item">
+                    <div class="title">Стоянка мототехники</div>
+
+                    <div class="text">
+                        Место под мотоцикл + сумка, раздевалка, душ, хранение гсм
+                    </div>
+
+                    <a href="#" class="ref"></a>
+                </div>
+
+                <div class="services-item">
+                    <div class="title">Сервис</div>
+
+                    <div class="text">
+                        Полный спектр технического обслуживания мототехники
+                    </div>
+
+                    <a href="#" class="ref"></a>
+                </div>
+
+                <div class="services-item">
+                    <div class="title">Доставка мототехники</div>
+
+                    <div class="text">
+                    </div>
+
+                    <a href="#" class="ref"></a>
+                </div>
+
+                <div class="services-item">
+                    <div class="title">Тренировки</div>
+
+                    <div class="text">
+                        Тренировки на 
+                        домашней трассе (РРГ, Ледовая трасса)
+                        Выездные тренировки с 
+                        командой и 
+                        без
+                        Сборы
+                        Выезд на 
+                        соревнования.
+                    </div>
+
+                    <a href="#" class="ref"></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="main-store-section" id="main-store-section">
+        <div class="inner-section">
+
+            <div class="title-img">
+                <img src="/img/title-img.png" alt="">
+            </div>
+
+            <div class="main-store-block">
+                <div class="main-store-item">
+                    <img src="/img/pictures/main-store1.jpg" alt="">
+
+                    <div class="title">Футболки</div>
+                </div>
+
+                <div class="main-store-item">
+                    <img src="/img/pictures/main-store2.jpg" alt="">
+
+                    <div class="title">Кепки</div>
+                </div>
+
+                <div class="main-store-item">
+                    <img src="/img/pictures/main-store3.jpg" alt="">
+
+                    <div class="title">Толстовки</div>
+                </div>
+            </div>
+
+            <a class="button to-store-button" href="#">В магазин</a>
+
+        </div>
+    </section>
+
+    
+
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/api_yandex_map.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#person').on('click', function (event) {
+            event.preventDefault();
+            var personId = $(this).data('person-id');
+            console.log(personId);
+            var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + personId;
+            console.log(url);
+            $.get(url, function (response) {
+                $('#infoPersonTeamBody').html(response);
+            });
+
+            $('#infoPersonTeam').modal('show');
+        });
+
+
+        $('#fullCalendar').click(function () {
+            var month = document.querySelector('#month-picker').getAttribute('data-month');
+            var url = '@Html.Raw(Url.Action("Index", "Event"))?month=' + month;
+            window.location.href = url;
+        });
+    });
+
+    function test(id) {
+        var url = '@Html.Raw(Url.Action("GetById", "CardTeam"))?id=' + id;
+
+        $.get(url, function (response) {
+            $('#infoPersonTeamBody').html(response);
+        });
+
+        $('#infoPersonTeam').modal('show');
+    }
+</script>
+<script>
+    $(function () {
+        var url = '@Html.Raw(Url.Action("CardPersonPartial", "Home"))';
+
+        $.get(url, function (response) {
+            $('#person-block').html(response);
+        });
+    });
+
+</script>
+
+<script>
+    $(function () {
+        var url = '@Html.Raw(Url.Action("FormedTeamCard", "Home"))';
+
+        $.get(url, function (response) {
+            $('#formed-block').html(response);
+        });
+    });
+
+
+    //ymaps.ready(function () {
+    //    const map = new ymaps.Map('map', {
+    //        center: [55.762984, 37.4330016],
+    //        zoom: 13,
+    //        controls: []
+    //    });
+
+    //    const placemark = new ymaps.Placemark([55.762984, 37.4330016], {}, {
+    //        iconColor: '#ff0000'
+    //    });
+
+    //    map.geoObjects.add(placemark);
+
+    //    map.behaviors.disable('scrollZoom');
+
+    //    map.controls.add('zoomControl', {
+    //        position: { right: 10, top: 10 }
+    //    });
+
+    //    map.controls.add('typeSelector', {
+    //        position: { right: 10, bottom: 10 }
+    //    });
+
+    //    $('#map').show();
+    //});
+
+</script>

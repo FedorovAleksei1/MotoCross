@@ -1,0 +1,37 @@
+﻿
+@using Moto.Web.Areas.Admin.ViewModels.AdminViewModel;
+@model AdminCustomerServiceViewModel;
+
+@{
+    ViewData["Title"] = "Добавление Услуги";
+}
+
+<div class="container">
+    <h2>Добавление Услуги</h2>
+    <form method="post" enctype="multipart/form-data">
+
+        <div>
+            <label>
+                Название услуги
+                @Html.TextBoxFor(x => Model.Customer.Name, new { @class = "form-control"})
+                @Html.ValidationMessageFor(model => model.Customer.Name, "", new { @class = "text-danger" })
+            </label>
+        </div>
+        <div>
+            <label>
+                Цена улсуги
+                @Html.TextBoxFor(x => Model.Customer.Price, new { @class = "form-control"})
+                @Html.ValidationMessageFor(model => model.Customer.Price, "", new { @class = "text-danger" })
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="file" asp-for="UploadPhoto" class="form-control" />
+            </label>
+        </div>
+
+        <input type="submit" value="Сохранить" />
+
+    </form>
+
+</div>

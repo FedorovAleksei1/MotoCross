@@ -1,0 +1,102 @@
+﻿@using Moto.Web.Areas.Admin.ViewModel.AdminViewModel
+@model AdminCardTeamUserViewModel;
+
+<style>
+    .textArea {
+        height: 300px;
+        width: 480px;
+    }
+</style>
+
+@{
+    ViewData["Title"] = "Добавление  окна тимы";
+}
+<div class="container ">
+    <h2>Добавление  окна тимы</h2>
+    <form method="post" enctype="multipart/form-data">
+        @Html.HiddenFor(x => x.CardPerson.Id)
+        @Html.HiddenFor(x => x.CardPerson.BasePhoto64)
+        @Html.HiddenFor(x => x.CardPerson.PhotoId)
+        <div>
+            <label>
+                Фамилия
+                @Html.TextBoxFor(x => Model.CardPerson.LastName, new { @class = "form-control"})
+            </label>
+        </div>
+        <div>
+            <label>
+                Имя
+                @Html.TextBoxFor(x => Model.CardPerson.FirstName, new { @class = "form-control"})
+            </label>
+        </div>
+        <div>
+            <label>
+                Город
+                @Html.TextBoxFor(x => Model.CardPerson.City, new { @class = "form-control"})
+            </label>
+        </div>
+        <div>
+            <label>
+                Год
+
+                <input type="date" asp-for="@Model.CardPerson.Year" class="form-control" />
+
+            </label>
+        </div>
+        <div >
+            <label>
+                Факты
+                @Html.TextAreaFor(x => Model.CardPerson.Facts, new { @class = "form-control textArea", placeholder="Введите текст", data_readonly="" })
+
+            </label>
+        </div>
+        <div>
+            <label>
+                Стартовый номер
+                @Html.TextBoxFor(x => Model.CardPerson.StartNumber, new { @class = "form-control"})
+            </label>
+        </div>
+        <div>
+            <label>
+                Победы
+                @Html.TextBoxFor(x => Model.CardPerson.Experience, new { @class = "form-control"})
+            </label>
+        </div>
+        <div>
+            <label>
+                Лет в анрагии
+                @Html.TextBoxFor(x => Model.CardPerson.YearAnarch, new { @class = "form-control"})
+            </label>
+        </div>
+        <div>
+            <label>
+                Хобби
+                @Html.TextBoxFor(x => Model.CardPerson.Hobby, new { @class = "form-control"})
+            </label>
+        </div>
+        <div>
+            <label>
+                Мотоциклы
+                @Html.TextBoxFor(x => Model.CardPerson.Moto, new { @class = "form-control"})
+            </label>
+        </div>
+        <div>
+            <label>
+                Стаж в мотокросе
+                @Html.TextBoxFor(x => Model.CardPerson.Stag, new { @class = "form-control"})
+            </label>
+        </div>
+        <br />
+        <div>
+            <label>
+                <img class="img_admin_photo" src="@Model.CardPerson.BasePhoto64" alt="">
+                <input type="file" asp-for="UploadPhoto" class="form-control" />
+            </label>
+        </div>
+        <br />
+
+        <input type="submit" class="btn btn-primary" value="Сохранить" />
+
+    </form>
+</div>
+

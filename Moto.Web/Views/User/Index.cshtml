@@ -1,0 +1,193 @@
+﻿@using MotoCross.Json;
+@using Moto.Web.Areas.Admin.ViewModels.AdminViewModel;
+@model AdminCustomerServiceViewModel;
+@{
+    ViewData["Title"] = "Список Услуг";
+}
+
+<style>
+    .scrole-table_ysliga {
+        width: 100%;
+        overflow: auto;
+        height: 472px;
+    }
+
+    div::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    div::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 8px;
+        margin-top: 18px;
+    }
+
+    /* Handle */
+    div::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 8px;
+    }
+
+</style>
+
+<div class="modal" id="infoPersonTeam" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="max-width:50%;">
+            <div class="modal-body" id="infoPersonTeamBody"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <h1 class="personal_area_h1">Личный кабинет</h1>
+    <p class="personal_area_p1">Добро пожаловать в личный кабинет, тут вы сможете посмотреть всю информацию о заказе, пополнить текущий баланс.</p>
+    <div class="personal_area_button">
+        <p class="qwe p-0">Мои заказы</p>
+        <div class="personal_area_p_wiht_button">
+            <p class="qwe p-0">Баланс</p>
+            <input class="button_balanc" id="money-block" type="submit" value="Пополнить" />
+        </div>
+    </div>
+
+    <div class="qaz">
+        <div class="ul_form d-flex flex-column">
+            <div class="name_user">
+                @Model.User.LastName
+                @Model.User.MiddleName
+            </div>
+            <ul class="p-0">
+
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" src="/img//pictures/Vectoradmin.png"><a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="Edit" type="button">Профиль</a>
+                </li>
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" style="height:17px" src="/img//pictures/Yslyga.png"> <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="Index" type="button">Заказать Услугу</a> @*<a class=" text-dark" style="display: block;padding: 0.5rem 0.5rem;color: black;text-decoration: none;transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;" class="btn users-btn" asp-controller="CustomerService" asp-action="Index" type="button">Услуги</a>*@
+
+                </li>
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" src="/img//pictures/Vector (2).png"> <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="UserOrders" type="button">Заказы</a>
+                </li>
+                <li class="nav-item li_near_the_photo">
+                    <img class="img_photo_personal_area" src="/img//pictures/Vector (3).png">  <a class="nav-link text-dark" class="btn users-btn" asp-controller="User" asp-action="GetBalansByUserId" asp-route-id="@Model.User.Id" type="button">Баланс</a>
+                </li>
+                <li class="nav-item li_near_the_photo">
+
+
+
+                </li>
+            </ul>
+            <div class="div_on_lale_out mt-auto mb-5 ">
+                <img class="img_photo_personal_area" src="/img//pictures/Vector (4).png"> <a class="nav-link text-dark" class="btn users-btn" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" type="button">Выйти</a>
+            </div>
+        </div>
+
+        <div class="right_div_personal_area2">
+
+            <div class="container ">
+                <h1 class="personal_area_h2">Услуги</h1>
+                <div class="eee">
+                    <div class="scrole-table_ysliga " style="display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+
+    margin-right: 0px;
+    margin-left: 0px;">
+
+                        @foreach (var item in Model.Customers)
+                        {
+                            <div class="card" style="width: 18rem; margin: 0 auto;">
+
+                                @if (item?.Photo != null)
+                                {
+                                    <img src="@item.BasePhoto64" class="card-img-top" style="height: 100%;" alt="">
+                                }
+                                else
+                                {
+                                    <img src="/img/pictures/white-image.png" class="card-img-top" style="height: 100%;" alt="">
+                                }
+
+                                <div class="card-body" style="text-align: center;">
+                                    <h5 class="card-title">@item.Name</h5>
+                                    <p class="card-text">@item.Price.ToString("C")</p>
+                                </div>
+
+                                <div class="card-body">
+
+                                    <button class="button_on_personal_area" onclick="myFunction(@item.Id)">Добавить в заказ</button>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+<script>
+    function myFunction(id) {
+        if (id === null) {
+            alert('id заказа null');
+            return;
+        }
+        var url = "@Url.Action("Addorder", "User")" + "?customerId=" + id;
+        console.log(url);
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: "post",
+            async: false,
+            success: function (response) {
+                console.log(response);
+                switch (response.status) {
+                    case parseInt('@((int)JsonResponseStatuses.Ok)'): {
+                        alert(response.message);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 500);
+                        break;
+                    }
+
+                    case parseInt('@((int)JsonResponseStatuses.NotFound)'): {
+                        alert(response.message);
+                        break;
+                    }
+                    case parseInt('@((int)JsonResponseStatuses.Error)'): {
+                        alert("Ошибка подверждения заказа!");
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+
+    $(document).ready(function () {
+        $('#money-block').on('click', function (event) {
+            event.preventDefault();
+
+            var url = '@Html.Raw(Url.Action("CardPushMoney", "User"))';
+            console.log(url);
+            $.get(url, function (response) {
+                $('#infoPersonTeamBody').html(response);
+            });
+
+            $('#infoPersonTeam').modal('show');
+        });
+    });
+</script>
