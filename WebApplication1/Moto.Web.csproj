@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Questionary.Core\Questionary.Core.csproj" />
+    <ProjectReference Include="..\Questionary.Core\Moto.Core.csproj" />
   </ItemGroup>
 
 </Project>

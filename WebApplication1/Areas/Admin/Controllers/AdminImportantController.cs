@@ -88,7 +88,7 @@ namespace Questionary.Web.Areas.Admin.Controllers
 
         [Area("Admin")]
         [Authorize]
-        [HttpPost]
+       
         public IActionResult Delete(int id)
         {
             _adminImportantService.DeleteImportan(id);
